@@ -1,0 +1,10 @@
+.settings-list {
+    color : #fff;
+    font-size: large;
+    margin-top: 30px;
+    margin-left: 50px;
+}
+
+.settings-list > ul {
+    list-style-type: none;
+}

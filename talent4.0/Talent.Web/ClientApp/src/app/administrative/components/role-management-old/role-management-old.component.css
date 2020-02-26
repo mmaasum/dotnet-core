@@ -1,0 +1,54 @@
+.role-auths-div {
+  border: 1px solid black;
+  padding: 5px;
+  background-color: #fff;
+}
+
+.table>thead>tr>th {
+  text-align: center;
+  background-color: #425b75;
+}
+
+.table>thead>tr>th,
+.table>tbody>tr>th {
+  padding: 5px;
+}
+
+.fixed_header {
+  /* width: 400px; */
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.fixed_header tbody {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  height: 370px;
+}
+
+.fixed_header thead tr {
+  display: block;
+}
+
+.fixed_header thead {
+  background: black;
+  color: #fff;
+}
+
+.fixed_header th,
+.fixed_header td {
+  /* padding: 5px; */
+  text-align: left;
+  width: 200px;
+}
+
+.dropdown-menu li {
+  background-color: #15477a;
+  color: #fff;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #33597e;
+  color: #fff;
+}

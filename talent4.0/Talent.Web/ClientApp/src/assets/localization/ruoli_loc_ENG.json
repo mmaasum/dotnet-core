@@ -1,0 +1,34 @@
+{
+	"ruoli" : {
+        "usrmsg_err" : {
+			"L01351_roleExist" : "Role already exists!"
+		},
+		"usrmsg_warn" : {
+			"L04351_keywordExist" : ""
+		},
+		"usrmsg_info" : {
+			"L07351_state" : "State",
+			"L07352_enabled" : "Enabled",
+			"L07353_disabled" : "Disabled",
+			"L07354_enabledPermissions" : "Enabled permissions",
+			"L07355_searchInAll" : "Search in all fields",
+			"L07356_myRole" : "My role",
+			"L07357_enabledRoles" : "Enabled Roles",
+			"L07358_system" : "System",
+			"L07359_newRole" : "New role",
+			"L07360_noOfPermissions" : "# permissions",
+			"L07361_noOfActiveUsers" : "# active users",
+			"L07362_code" : "Code",
+			"L07363_name" : "Name",
+			"L07364_language" : "Language",
+			"L07365_resetToUserBtn" : "Reset to role permission fro all active users",
+			"L07366_description" : "Description",
+			"L07367_fullDescription" : "Full role description",
+			"L07368_noOfPermissionTitle" : "{{count}} permissions enabled",
+			"L07369_noOfUserTitle" : "{{count}} active user(s) with role"
+		},
+		"sysmsg_err" : {
+			"L11351_errmsg" : "Sys msg"
+		}
+    }
+}

@@ -1,0 +1,135 @@
+
+<!-- New object add or edit form modal begin -->
+<div bsModal #newObjectAddModal="bs-modal" 
+            class="modal fade" 
+            [config]="{backdrop: 'static'}" 
+            tabindex="-1" 
+            role="dialog" 
+            aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          <!-- {{ isNewRowAdding ? "Add new" : "Edit" }} -->
+        </h4>
+        <button type="button" class="close pull-right" (click)="onCloseClicked()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- begin object add/edit form -->
+      <form (ngSubmit)="onNewObjectAddFormSubmit(newObjectAddForm)" #newObjectAddForm="ngForm">
+        <!-- Modal body begin -->
+        <div class="modal-body">
+          <!-- Validation message section begin -->
+          <div class="alert alert-danger" *ngIf="newObjectAddForm.submitted && !newObjectAddForm.valid">
+              <ul>
+                <li *ngIf="clifinAzId.invalid">{{clientFinalAddEditLable.provide_ragione_sociale}}</li>
+                <li *ngIf="clifinLuogoLavoro.invalid">{{clientFinalAddEditLable.provide_luogo_lavoro}}</li>
+              </ul>
+            </div>
+            <!-- Validation message section end -->
+          <!-- Row begin -->
+          <div class="row form-group">
+            <!-- Ragione sociale input begin -->
+            <div class="col-md-3">
+              <label for="clifinAzId">{{clientFinalAddEditLable.clifin_az_id}}</label>
+              <select class="form-control" 
+                      name="clifinAzId" 
+                      id="clifinAzId"
+                      required
+                      [(ngModel)]="newObject.clifinAzId"
+                      #clifinAzId="ngModel">
+                <option value>{{clientFinalAddEditLable.clifin_az_id_selection}}</option>
+                <option *ngFor="let item of allAziende" [value]="item.azId">
+                  {{item.azRagSociale}}
+                </option>
+              </select>
+            </div>
+            <!-- Ragione sociale input begin -->
+            <!-- Luogo lavoro  begin -->
+            <div class="col-md-2">
+              <label for="clifinLuogoLavoro">{{clientFinalAddEditLable.clifin_luogo_lavoro}}</label>
+              <input type="text" 
+                    class="form-control" 
+                    name="clifinLuogoLavoro" 
+                    id="clifinLuogoLavoro"
+                     placeholder={{clientFinalAddEditLable.clifin_luogo_lavoro}}                     
+                     maxlength="300"
+                     required
+                     [(ngModel)]="newObject.clifinLuogoLavoro"
+                     #clifinLuogoLavoro="ngModel">
+            </div>
+            <!-- Luogo lavoro  begin -->
+            <!-- Indirizzo input begin -->
+            <div class="col-md-2">
+              <label for="clifinIndirizzo">{{clientFinalAddEditLable.clifin_indirizzo}}</label>
+              <input type="text" 
+                    class="form-control" 
+                    name="clifinIndirizzo" 
+                    id="clifinIndirizzo"
+                     placeholder="Indirizzo"
+                     maxlength="300"
+                     [(ngModel)]="newObject.clifinIndirizzo"
+                     #clifinIndirizzo="ngModel">
+            </div>
+            <!-- Indirizzo input end -->
+            <!-- Nome input begin -->
+            <div class="col-md-3">
+              <label for="clifinNomeClienteFinale">{{clientFinalAddEditLable.clifin_indirizzo}}</label>
+              <input type="text" 
+                      class="form-control" 
+                      name="clifinNomeClienteFinale" 
+                      id="clifinNomeClienteFinale"
+                     placeholder=clientFinalAddEditLable.clifin_nome_cliente_finale
+                     maxlength="50"
+                     [(ngModel)]="newObject.clifinNomeClienteFinale"
+                     #clifinNomeClienteFinale="ngModel">
+            </div>
+            <!-- Nome input end -->
+            <!-- Mezzi publicci begin -->
+            <div class="col-md-2">
+              <label for="clifinRaggMezziPubblici">{{clientFinalAddEditLable.clifin_ragg_mezzi_pubblici}}</label>
+              <select class="form-control" 
+                      name="clifinRaggMezziPubblici" 
+                      id="clifinRaggMezziPubblici"
+                      [(ngModel)]="newObject.clifinRaggMezziPubblici"
+                      #clifinRaggMezziPubblici="ngModel">
+                <option value="S">Yes</option>
+                <option value="N">No</option>
+              </select>
+            </div>
+            <!-- Mezzi publicci end -->
+          </div>
+          <!-- Row end -->
+        </div>
+        <!-- Modal body end -->
+        <!-- Modal footer begin -->
+        <div class="modal-footer modal_footer_talent bg-dark">
+          <!-- Form submit button -->
+          <button type="submit" class="btn btn-success">
+            <i class="fa fa-check"></i> {{multiLanguageCommonLable.saveText}}
+          </button>
+          <!-- Modal close button -->
+          <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="onCloseClicked()">
+            <i class="fa fa-times"></i> {{multiLanguageCommonLable.closeText}}
+          </button>
+        </div>
+        <!-- Modal footer end -->
+      </form>
+      <!-- End object add/edit form -->
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- End modal -->
+
+
+<!-- On close click confirmation dialog begin -->
+<app-confirmation-dialog
+        [showDialog] = "showCloseConfirmDialog"
+        (confirmationSelectEvent)="onDialogConfirm($event)">
+</app-confirmation-dialog>
+<!-- On close click confirmation dialog end -->

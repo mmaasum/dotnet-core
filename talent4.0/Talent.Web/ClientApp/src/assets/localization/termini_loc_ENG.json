@@ -1,0 +1,55 @@
+{
+    "termini" : {
+        "usrmsg_err" : {
+			"L01151_errmsg" : "Error message"
+		},
+		"usrmsg_warn" : {
+			"L04151_keywordExist" : "There is a keyword named '{{term}}' already exists!!",
+			"L04152_sameSynonym" : "Synonym {{syn1}} and synonym {{syn2}} are same <br />",
+			"L04153_provideKeyword" : "Please provide a keyword first",
+			"L04154_noKeywordFound" : "No keyword found"
+		},
+		"usrmsg_info" : {
+			"L07151_newKeyword" : "New Keyword",
+			"L07152_state" : "State",
+			"L07153_language" : "Language",
+			"L07154_category" : "Category",
+			"L07155_keywordsToReview" : "Keywords to review",
+			"L07156_lastChecked" : "Last analysis",
+			"L07157_startAnalysis" : "Start New Analysis",
+			"L07158_allStats" : "All Stats",
+			"L07159_searchInAll" : "Search in all fields",
+			"L07160_keyword": "Keyword",
+			"L07161_description": "Description",
+			"L07162_openSite": "Open Wikipedia",
+			"L07163_otherInfo": "Other info/stats",
+			"L07164_linkToDef": "Link to definition",
+			"L07165_setSite": "Set as Wikipedia",
+			"L07166_note": "Notes",
+			"L07167_synonym": "Synonym",
+			"L07168_openUsefulSite": "Open useful synonym websites",
+			"L07169_insUser": "Ins user",
+			"L07170_date": "Date",
+			"L07171_openSiteOnNext": "Open wiki and synonyms website on next keywords",
+			"L07172_saveAndExit": "Save and exit",
+			"L07173_duplicate": "Duplicate",
+			"L07174_exit": "Exit",
+			"L07175_setRejectGo": "Set reject & go next",
+			"L07176_setReviewGo": "Set reviewed & go next",
+			"L07177_alreadyExist": "already exist",
+			"L07178_matchedSynonym": "Matched synonym",
+			"L07179_existTitle": "Keyword exists",
+			"L07180_totalOccurance": "# of total occurrences",
+			"L07181_oneOccurance": "# of CV with at least 1 occurrence",
+			"L07182_noOfWords": "# words",
+			"L07183_totalWords": "Total words",
+			"L07184_last6Analysis": "Last 6 Analysis Execution",
+			"L07185_allStatModalTitle": "Statistics for keyword management",
+			"L07186_allStatModalHeader": "Shows useful statistics for keyword management",
+			"L07187_addEditModalHeader": "Keyword create/edit"
+		},
+		"sysmsg_err" : {
+			"L11151_errmsg" : "Sys msg"
+		}
+    }
+}

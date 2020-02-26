@@ -1,0 +1,203 @@
+<!-- Global filter bar begin -->
+<div class="ricerca-sfondo container-fluid" >
+  <div class="row filter-bar-wrapper">
+    <!-- External filter section begin -->
+    <div class="col-md-9 external-filter">
+      <div class="row">
+        <div class="col-md-3">
+            <h5 class="talenth4">{{sediAzendiLable.azsede_az_id}}</h5>
+            <input type="text" class="form-control"
+                    name="filter_ute_id"
+                    placeholder={{sediAzendiLable.azsede_az_id}}
+                    id="filter_ute_id"
+                    (keyup.enter)="onApplyFilter()"
+                    [(ngModel)]="allFilters[0].option1"
+            >
+        </div>
+        <div class="col-md-3">
+            <h5 class="talenth4">{{sediAzendiLable.azsede_descr}}</h5>
+            <input type="text" 
+                    class="form-control"
+                    name="filter_ute_id"
+                    placeholder={{sediAzendiLable.azsede_descr}}
+                    id="filter_ute_id"
+                    (keyup.enter)="onApplyFilter()"
+                    [(ngModel)]="allFilters[1].option1"
+            >
+        </div>
+        <div class="col-md-3">
+            <h5 class="talenth4">{{sediAzendiLable.azsede_citta}} </h5>
+          <input type="text" 
+                    class="form-control"
+                    name="filter_ute_nome"
+                    placeholder={{sediAzendiLable.azsede_citta}}
+                    id="filter_ute_nome"
+                    (keyup.enter)="onApplyFilter()"
+                    [(ngModel)]="allFilters[2].option1"
+            >
+        </div>
+        
+        <div class="col-md-2 filter-button-wrapper">
+          <div class="btn-group">
+            <button type="button"
+                    class="btn btn-primary uppercase"
+                    (click)="onApplyFilter()">
+                    {{multiLanguageCommonLable.applyFilterText}}
+            </button>
+            <button type="button"
+                    class="btn btn-primary uppercase d-none d-sm-inline-block btn
+                  btn-primary shadow-sm talentbtn"
+                    (click)="filterClear()">
+              <img class="talent-icons" src="../../../../assets/immagini/restore.png" alt="">
+              {{multiLanguageCommonLable.clearFilterText}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- External filter section end -->
+    <!-- Global filter section begin -->
+    <div class="col-md-3 global-filter-wrapper">
+      <app-filter-management 
+                  [gridName]="columnName"
+                  [isFilterSaveable]="isFilterSaveable"
+                  [isFilterCleared]="isFilterCleared"
+                  [appliedFilterInGrid]="appliedFilterInGrid"
+                  [appliedSortingInGrid]="appliedSortingInGrid"
+                  (quickFilterTextChangeEvent)="quickFilterTextChange($event)"
+                  (filterChangeEvent)="filterChange($event)"
+                  (setFilterSortingTextEvent)="onChangeFilterText($event)">
+      </app-filter-management>
+    </div>
+    <!-- Global filter section end -->
+  </div>
+</div>
+<!-- Global filter bar end -->
+
+<div class="box box-primary">
+  <div class="box-body">
+    <!-- Grid topbar(Caption, pagw size, row count, add/edit button) begin -->
+    <div class="row">
+      <!-- Page name begin -->
+      <div class="box-header col-md-3">
+        <h3 class="box-title"><i class="fa fa-cubes"></i> {{sediAzendiLable.caption}} </h3>
+      </div>
+      <!-- Page name begin -->
+      <!-- Page size selection begin -->
+      <div class="col-md-3">
+        <div class="test-header">
+          <div class="col-md-12">
+            <div class="col-md-7 text-white text-lg">
+                {{multiLanguageCommonLable.pageSizeText}} :
+            </div>
+            <div class="col-md-1">
+              <select (change)="onPageSizeChanged()" id="page-size">
+                <option value="20" selected="">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="500">500</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Page size selection end -->
+      <!-- Row count label begin -->
+      <div class="col-md-3">
+        <div class="form-group col-md-4 text-lg">
+            <span class="label" style="background-color:#9fa0a4;font-size:100%;">
+                {{multiLanguageCommonLable.totalRowCount}} = <span class="badge">
+                  {{ totalDbRecords }}</span></span>
+        </div>
+      </div>
+      <!-- Row count label end -->
+      <!-- Add/Edit button begin -->
+      <div class="col-md-3">
+        <form (ngSubmit)="onSubmit()" #azioniForm="ngForm" class="form-inline usercreate">
+          <a (click)="onAddNew()"
+              class="d-none d-sm-inline-block btn btn-primary shadow-sm talentbtn"
+              style="margin-left: 0px;"
+              title="ADD Something"
+              data-content="Content decided by Isabella">
+            <i class="fa fa-plus"></i>&nbsp; {{multiLanguageCommonLable.addMainText}}
+          </a>
+          <div class="wrapbutton" *ngIf="selectedObject.azsedeAzId">
+            <button type="button"                      
+                    id="edit"
+                    (click)="onEditClick()"
+                    class="d-none d-sm-inline-block btn  btn-info shadow-sm talentbtn">
+              <i class="fa fa-check"></i>&nbsp; {{multiLanguageCommonLable.editText}}
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- Add/Edit button begin -->
+    </div>
+    <!-- Grid topbar(Caption, pagw size, row count, add/edit button) begin -->
+    
+
+    <div class="row" style="height: 480px;">
+      <!-- Ag-Grid section begin -->
+      <div id="idGrid" class="grid-wrapper" 
+                    [class.col-md-8]="selectedObject.azsedeId" 
+                    [class.col-md-12]="!selectedObject.azsedeId">
+        <ag-grid-angular style="width: 100%; height: 94%;"
+                          class="ag-theme-balham"
+                          [rowData]="rowData | async"
+                          [columnDefs]="columnDefs"
+                          [defaultColDef]="defaultColDef"
+                          [frameworkComponents]="frameworkComponents"
+                          [loadingOverlayComponent]="loadingOverlayComponent"
+                          [loadingOverlayComponentParams]="loadingOverlayComponentParams"
+                          [paginationPageSize]="paginationPageSize"
+                          (gridReady)="onGridReady($event)"
+                          (cellKeyDown)="onCellKeyDown($event)"
+                          (rowClicked)="onRowClicked($event)">
+        </ag-grid-angular>
+        <!-- Pagination begin -->
+        <div class="row">
+          <app-grid-pagination [total-items]="totalDbRecords"
+                                [page-size]="pageSize"
+                                (page-changed)="onPaginationPageChanged($event)">
+          </app-grid-pagination>
+        </div>
+        <!-- Pagination end -->
+      </div>
+      <!-- Ag-Grid section end -->
+      <!-- Detail section begin -->
+      <div class="col-md-4 right-detail-pane" *ngIf="selectedObject.azsedeId">
+            <div class="row">
+                <div class="col-sm-12">
+                    <dl class="dl-horizontal">
+                        <dt>{{sediAzendiLable.azsede_az_id}}</dt>
+                        <dd>{{ selectedObject.azRagSociale}} </dd>
+            
+                        <dt>{{ sediAzendiLable.azsede_descr }}</dt>
+                        <dd>{{ selectedObject.azsedeDescr }} </dd>             
+            
+                        <dt>{{ sediAzendiLable.azsede_indic }}</dt>
+                        <dd>{{ selectedObject.azsedeIndic}} </dd>
+            
+                        <dt>{{ sediAzendiLable.azsede_indic_colloquio }}</dt>
+                        <dd>{{ selectedObject.azsedeIndicColloquio}} </dd>
+            
+                        
+                      </dl>
+                </div>
+            </div>
+            
+          
+        </div>
+        <!-- Detail section end -->
+    </div>
+  </div>
+</div>
+  
+<app-sedi-aziende-add-edit
+      [azId]="currentAzId"
+      [azsedeId] = "currentSedeAzId"
+      [isNewRowAdding]="isNewRowAdding"
+      [showModal]="showAddEditModal"
+      (modalCloseEvent)="onAddEditComplete($event)">
+</app-sedi-aziende-add-edit>
+  

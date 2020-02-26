@@ -1,0 +1,29 @@
+.top-padding-centered {
+    padding-top : 15px; 
+    text-align  : center;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+    font-weight: 400;
+    color: white;
+    background-color: red;
+    display: inline-block;
+    cursor: pointer;
+    padding : .375rem .75rem;
+    border-radius: .35rem;
+    margin-right : .2rem;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: #df0000;
+}

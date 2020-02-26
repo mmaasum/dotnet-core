@@ -1,0 +1,391 @@
+<style>
+	@media screen and (min-width: 1500px) {
+		.customFix {
+			max-width: 880px;
+		}
+	}
+
+
+	.rela {
+		z-index: 1;
+		position: relative;
+	}
+
+	.abso {
+		background-color: #00CC99;
+		z-index: 2;
+		position: absolute;
+		top: 4px;
+		right: 19px;
+		cursor: pointer;
+		color: white;
+		height: 24px;
+		width: auto;
+		line-height: 100%;
+		vertical-align: middle;
+
+	}
+
+
+	input {
+		background-color: lightgray;
+	}
+
+	.filter-input {
+		border: 1px solid green;
+		border-radius: 0px;
+	}
+
+	input:focus {
+		border-color: #68DE68;
+		background-color: #E8F3DA;
+	}
+
+	.custombutton {
+		border-radius: 0px;
+		width: 100%;
+		background-color: #00CC99;
+		color: #fff;
+		text-transform: uppercase;
+		font-weight: 500;
+	}
+
+	.buttonhover:hover {
+		background-color: #00a896;
+	}
+
+	.btn-print-spacing {
+		margin-right: 5px;
+		width: 73px;
+	}
+
+	.green {
+		color: white;
+		background-color: green;
+	}
+
+	.red {
+		color: white;
+		background-color: #990000;
+	}
+
+	.btn-filter-custom {
+		width: 55px;
+		background-color: #E8F3DA;
+		color: #1e7e34;
+	}
+
+
+	/* CUSTOMIZING INPUT BOX BEGIN */
+	.custom-input {
+		color: #000000;
+		border-color: none;
+		background-color: #f2f2f2;
+		transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	}
+
+	.custom-input[type=text]:focus {
+		outline: 0;
+		border: 0.1rem solid #00a896;
+		box-shadow: none;
+		background-color: #02c39a;
+	}
+
+	.custom-input.ng-touched.ng-invalid {
+		border: 0.1rem solid #f76c5e;
+		background-color: #ff8080;
+	}
+
+	/* CUSTOMIZING INPUT BOX END */
+
+	@media print {
+		.doNotPrint {
+			display: none !important;
+		}
+	}
+</style>
+
+
+<div class="container-fluid ">
+	<div class="container-fluid pt-3">
+		<div class="row">
+			<div class="col-md-3">
+
+			</div>
+			<div class="col-md-6 text-center record-summery">
+				{{totalGridRecords}} {{ 'common.usrmsg_info.L7024_dataOf' | translate:[translate] | async}} {{ totalDbRecords }}
+			</div>
+			<div class="col-md-3 pull-right">
+				<div class="pull-right">
+					<label class="radio-inline">
+						<input type="radio" name="actionRadio" value="xls" (click)="onExcelClick()">
+						<span>
+							XLS
+						</span>
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="actionRadio" value="pdf" (click)="onPdfClick()">
+						<span>
+							PDF
+						</span>
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="actionRadio" value="print" (click)="onPrintClick()">
+						<span>
+							PRINT
+						</span>
+					</label>
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<hr style="margin-top: 2px; margin-bottom: 2px;">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8 col-md-8">
+				<div class="row customFix">
+					<div class="col-lg-3 col-md-3 pr-1">
+						<label class="filter-label">
+							{{ 'azioni.usrmsg_info.L7101_users' | translate:[translate] | async}}
+						</label>
+						<select name="filter_log_ute_id_1" 
+								id="filter_log_ute_id_1"
+								class="form-control form-control-sm custom-input"
+								(change)="onUserListChange()" 
+								[(ngModel)]="allFilters[0].option1">
+							<option value="">
+								{{ 'common.usrmsg_info.L7023_all' | translate:[translate] | async}}
+							</option>
+							<option *ngFor="let item of allUsers" [value]="item.uteId">
+								{{item.uteId}}
+							</option>
+						</select>
+					</div>
+					<div class="col-lg-3 col-md-3 px-1">
+						<div class="row">
+							<div class="col-lg-6 col-md-6 pr-2">
+								<label class="filter-label">
+									{{ 'azioni.usrmsg_info.L7102_dateFrom' | translate:[translate] | async}}
+								</label>
+								<input type="text" name="filter_log_timestamp_1"
+										id="filter_log_timestamp_1"
+										class="form-control form-control-sm custom-input"
+									  	autocomplete="off"
+										placeholder="{{ 'azioni.usrmsg_info.L7102_dateFrom' | translate:[translate] | async}}"
+										(keyup.enter)="onApplyFilter()" 
+										[(ngModel)]="fromDate" 
+										bsDatepicker
+										[bsConfig]="bsDateConfig">
+							</div>
+							<div class="col-lg-6 col-md-6 pl-0">
+								<label class="filter-label">
+									{{ 'azioni.usrmsg_info.L7103_dateTo' | translate:[translate] | async}}
+								</label>
+								<input type="text" 
+										name="filter_log_timestamp_2" 
+										id="filter_log_timestamp_2" 
+										class="form-control form-control-sm custom-input"
+									  	autocomplete="off"
+										placeholder="{{ 'azioni.usrmsg_info.L7103_dateTo' | translate:[translate] | async}}"
+										(keyup.enter)="onApplyFilter()" 
+										[(ngModel)]="toDate" 
+										bsDatepicker
+										[bsConfig]="bsDateConfig">
+							</div>
+						</div>
+					</div>
+
+					<div class=" col-lg-2 col-md-2 px-1">
+						<label class="filter-label">
+							{{ 'azioni.usrmsg_info.L7104_action' | translate:[translate] | async}}
+						</label>
+						<select name="filter_azione_tipo" 
+								id="filter_azione_tipo"
+								class="form-control form-control-sm custom-input" 
+								(change)="onActionTypeChange()"
+								[(ngModel)]="allFilters[2].option1">
+							<option value="">
+								--{{ 'common.usrmsg_info.L7023_all' | translate:[translate] | async}}--
+							</option>
+							<option *ngFor="let item of allAzioniTypes" [value]="item.key">
+								{{item.value}}
+							</option>
+						</select>
+					</div>
+					<div class="col-lg-4 col-md-5 px-1" style="max-width: 150px;">
+						<label class="filter-label">
+							{{ 'azioni.usrmsg_info.L7109_searchFields' | translate:[translate] | async}}
+						</label>
+						<input type="text" 
+								id="filter_descr" 
+								name="filter_descr"
+								class="form-control form-control-sm custom-input"
+								placeholder="{{ 'azioni.usrmsg_info.L7109_searchFields' | translate:[translate] | async}}"
+								[(ngModel)]="allFilters[3].option1"
+								(keyup.enter)="onApplyFilter()">
+					</div>
+					<div class=" col-lg-1 col-md-1 px-1">
+						<label class="filter-label">
+							{{ 'common.usrmsg_info.L7007_maxRows' | translate:[translate] | async}}
+						</label>
+						<select name="filter_max_rows" 
+								id="filter_max_rows"
+								class="form-control form-control-sm custom-input" 
+								(change)="onPageSizeChanged()"
+								[(ngModel)]="pageSize">
+							<option *ngFor="let item of pageSizeOptions" [value]="item">
+								{{item}}
+							</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12" style="padding-right: unset;">
+						<hr style="margin-top: 7px; margin-bottom: 7px;">
+					</div>
+				</div>
+
+				<div class="row mt-2">
+					<label class="radio-inline ml-3">
+						<input type="radio" name="optradio" value="me" (change)="onStaticOptionChange()"
+							[(ngModel)]="staticOptionChoser">
+						<span>
+							{{ 'azioni.usrmsg_info.L7105_meButton' | translate:[translate] | async}}
+						</span>
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="optradio" value="system" (change)="onStaticOptionChange()"
+							[(ngModel)]="staticOptionChoser">
+						<span>
+							System
+						</span>
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="optradio" value="yesterday" (change)="onStaticOptionChange()"
+							[(ngModel)]="staticOptionChoser">
+						<span>
+							{{ 'azioni.usrmsg_info.L7106_yesterdayButton' | translate:[translate] | async}}
+						</span>
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="optradio" value="today" (change)="onStaticOptionChange()"
+							[(ngModel)]="staticOptionChoser">
+						<span>
+							{{ 'azioni.usrmsg_info.L7107_todayButton' | translate:[translate] | async}}
+						</span>
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="optradio" value="lastWeek" (change)="onStaticOptionChange()"
+							[(ngModel)]="staticOptionChoser">
+						<span>
+							{{ 'azioni.usrmsg_info.L7108_lastWeekButton' | translate:[translate] | async}}
+						</span>
+					</label>
+					<button type="button" class="btn btn-success btn-sm buttonhover ml-2"
+							style="background-color: #00CC99;margin-right: 7px; color:white;vertical-align: top; margin-bottom : .5rem;"
+							(click)="onApplyFilter()">
+						{{ 'common.usrmsg_info.L7006_applyFilter' | translate:[translate] | async}}
+					</button>
+				</div>
+			</div>
+
+			<div class="col-md-4" style="padding-top: 22px;padding-left: unset;">
+
+				<app-filter-management 
+					[gridName]="columnName" 
+					[isFilterSaveable]="isFilterSaveable"
+					[appliedFilterIdInGrid]="appliedFilterIdInGrid"
+					[showBindedButtons]=true
+					[filterSortingModel]="filterSortingModel"
+					
+					(filterChangeEvent)="filterChange($event)" 
+					(testFilterApplyEvent)="onTestFilterApply($event)"
+					(allFiltersClearEvent)="filterClear($event)">
+				</app-filter-management>
+
+			</div>
+		</div>
+
+
+
+		<div class="row my-2" style="/*height: 480px;*/height: 67vh;">
+			<!-- Ag-Grid section begin -->
+			<div id="idGrid" class="grid-wrapper col-md-8 rela">
+				<button type="button" class="btn btn-sm buttonhover btncustom abso" 
+						aria-haspopup="true"
+						(click)="openGridSettings()" 
+						aria-expanded="false">
+					<i class="fa fa-cog" aria-hidden="true"></i>
+				</button>
+				<ag-grid-angular 
+						style="width: 100%; height: 94%;" 
+						class="ag-theme-balham my-grid"
+						[rowData]="rowData | async" 
+						[defaultColDef]="defaultColDef" 
+						[gridOptions]="gridOptions"
+						[rowSelection]="rowSelection" 
+						[frameworkComponents]="frameworkComponents"
+						[loadingOverlayComponent]="loadingOverlayComponent"
+						[loadingOverlayComponentParams]="loadingOverlayComponentParams"
+						[paginationPageSize]="paginationPageSize" 
+						
+						(gridReady)="onGridReady($event)"
+						(rowClicked)='onRowClicked($event)'>
+				</ag-grid-angular>
+
+				<!-- Pagination begin -->
+				<div class="row">
+					<!-- <app-grid-pagination [total-items]="totalDbRecords"
+                                    [page-size]="pageSize"
+                                    (page-changed)="onPaginationPageChanged($event)">
+                </app-grid-pagination> -->
+				</div>
+				<!-- Pagination end -->
+			</div>
+			<!-- Ag-Grid section end -->
+
+			<div class="col-md-4">
+				<div style="height: 33vh;">
+
+					<ag-grid-angular 
+						style="width: 100%; height: 94%;" 
+						class="ag-theme-balham my-grid"
+						[rowData]="group1" 
+						[columnDefs]="colDefActionType" 
+						[defaultColDef]="defaultColDefActionType">
+					</ag-grid-angular>
+					
+				</div>
+
+				<div style="height: 33vh;">
+
+					<ag-grid-angular 
+						style="width: 100%; height: 94%;" 
+						class="ag-theme-balham my-grid"
+						[rowData]="group2" 
+						[columnDefs]="colDefActionCategory" 
+						[defaultColDef]="defaultColDefActionType">
+					</ag-grid-angular>
+					
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>
+
+<app-grid-management 
+	[show]="showCloseGridSettingsDialog" 
+	[grid]="columnName" 
+	[settings]="gridSettings"
+	
+	(onSettingsEmit)="onGridSettingsApplied($event)"
+	(onClose)="onGridSettingsClosed($event)">
+</app-grid-management>

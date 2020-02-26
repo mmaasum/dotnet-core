@@ -1,0 +1,21 @@
+.btn-danger {
+  background-color: red;
+  color: white;
+  border-radius: 0.2rem;
+}
+
+
+.form-control.ng-invalid.cus-error {
+  border: 0.1rem solid #f76c5e;
+  background-color: #ff8080;
+}
+
+span.error {
+  font-style: italic;
+  color: red;
+}
+
+input[type="text"]:disabled {
+  background-color: #595959;
+  color: white;
+}

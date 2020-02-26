@@ -1,0 +1,30 @@
+<!-- <input type="text" class="form-control"
+    placeholder="Search"
+    (keyup)="searchTerm$.next($event.target.value)">
+
+<ul *ngIf="results.length > 0" 
+    class="list-group"
+    style="background-color: #f8f6f6;display: block;position: fixed; z-index : 1000;width:200px;">
+  <li class="list-group-item" *ngFor="let result of results | slice:0:9">
+    <a href="{{ result.tableName }}" target="_blank">
+      {{ result.retrievedDataName }}
+    </a>
+  </li>
+</ul> -->
+
+<div id="global-search" style="display: block;">
+  <svg class="cui4-icon cui4-icon--black">
+    <use xlink:href="#icon-ac-search" href="#icon-ac-search"></use>
+  </svg>
+  <input type="text" name="needle" 
+        placeholder="Cerca" 
+        results="0" 
+        autocomplete="off"
+        autosave="pipedrive-global-search" 
+        (keyup)="searchTerm$.next($event.target.value)">
+  <div id="search-spinner">
+    <div class="cui4-spinner cui4-spinner--s">
+        <div class="cui4-spinner__trail"></div>
+    </div>
+  </div>
+</div>

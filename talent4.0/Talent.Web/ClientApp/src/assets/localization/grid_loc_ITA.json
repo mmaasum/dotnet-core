@@ -1,0 +1,50 @@
+{
+    "grid" : {
+        "usrmsg_err" : {
+            "L1551_errSaving" : "Errore durante il salvataggio delle impostazioni della griglia",
+            "L1552_errResetting" : "Errore durante il ripristino delle impostazioni della griglia"
+        },
+        "usrmsg_warn" : {
+            "L4551_reachedTop" : "Limite superiore raggiunto",
+            "L4552_reachedBottom" : "Limite inferiore raggiunto",
+			"L4553_minGreaterMax" : "La dimensione minima è maggiore della dimensione massima per la colonna {{col}}"
+        },
+        "usrmsg_info" : {
+			"L7551_title" : "Impostazioni della griglia",
+            "L7552_font" : "Font",
+            "L7553_fontSize" : "Dimensione",
+            "L7554_showRowNo" : "Mostra il numero di riga",
+            "L7555_evenRowColor" : "Colore righe pari",
+            "L7556_oddRowColor" : "Colore righe dispari",
+            "L7557_fieldsHidden" : "Campi nascosti",
+            "L7558_bsPlaceholder" : "Trascina qui",
+            "L7559_fieldsVisible" : "Campi visibili",
+            "L7560_add" : "Aggiungi",
+            "L7561_remove" : "Rimuovi",
+            "L7562_moveUp" : "Sposta in alto",
+            "L7563_moveDown" : "Sposta in basso",
+            "L7564_fieldProp" : "Proprietà campo",
+            "L7565_name" : "Nome",
+            "L7566_description" : "Descrizione",
+            "L7567_orderInGrid" : "Ordine in griglia",
+            "L7568_align" : "Allineamento",
+            "L7569_minSize" : "Dimensione minima",
+            "L7570_maxSize" : "Dimensione massima",
+            "L7571_autoSize" : "Dimensione automatica",
+            "L7572_discardFieldChange" : "Annulla modifiche campo",
+            "L7573_discardGridChange" : "Annulla modifiche griglia",
+            "L7574_resetSystem" : "Ripristina valori di sistema",
+            "L7575_saveAndApply" : "Salva impostazioni default e applica",
+            "L7576_apply" : "Applica le impostazioni"
+		},
+        "sysmsg_err" : {
+            "L11551_errormsg" : "L11551_errormsg.ITA"
+        },
+        "sysmsg_warn" : {
+            "L14551_warningmsg" : "L14551_warningmsg.ITA"
+        },
+        "sysmsg_info" : {
+            "L17551_infomsg" : "L17551_infomsg.ITA"
+        }
+    }    
+}

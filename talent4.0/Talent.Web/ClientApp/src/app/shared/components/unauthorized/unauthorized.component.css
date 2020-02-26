@@ -1,0 +1,33 @@
+.not-found-wrapper {
+    background-color: #e4e4e4;
+    height: 100vh;
+}
+.fa-exclamation-triangle {
+    color : red;
+    font-size: 4rem;
+}
+.error-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+.error-actions {
+    margin-top:15px;
+    margin-bottom:15px;
+}
+.error-actions .btn {
+    margin-right:10px; 
+    border-radius : 0.1rem;
+}
+
+.return-btn {
+    background-color: #00d0ff;
+}
+.return-btn:hover {
+    background-color: #00aeff;
+}
+.contact-btn {
+    background-color: #eac6c6;
+}
+.contact-btn:hover {
+    background-color: #ffc6a6;
+}

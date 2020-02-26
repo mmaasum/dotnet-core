@@ -1,0 +1,24 @@
+{
+    "aziende" : {
+        "usrmsg_err" : {
+			"L1401_accessDenied" : "Impossibile accedere alla pagina {{par_01}}, l'utente non è autorizzato"
+		},
+		"usrmsg_warn" : {
+			"L4401_provideCity" : "Fornire città",
+			"L4402_provideluogoLavoro" : "Fornire il posto di lavoro al cliente!",
+			"L4403_existSiglaMSg" : "Le iniziali dell'azienda esistono già!"
+		},
+		"usrmsg_info" : {
+			"L7401_companyName" : "Nome",
+			"L7402_description" : "Descrizione",
+			"L7403_city" : "Città",
+			"L7404_compantType" : "Tipo di azienda",
+			"L7405_defaultEmail" : "Indirizzo email predefinito",
+			"L7406_defaultPhone" : "Numero di telefono predefinito",
+			"L7407_zipCode" : "ZIP code"
+		},
+		"sysmsg_err" : {
+			"L11401_errmsg" : "Questo è un messaggio di errore di sistema comune"
+		}
+    }
+}

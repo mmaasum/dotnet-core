@@ -1,0 +1,349 @@
+<style>
+	@media screen and (min-width: 1500px) {
+		.customFix {
+			max-width: 880px;
+		}
+	}
+</style>
+
+
+<div class="container-fluid ">
+	<div class="container-fluid pt-3">
+		<div class="row">
+			<div class="col-md-3">
+
+			</div>
+			<div class="col-md-6 text-center record-summery">
+				{{totalGridRecords}} {{ 'common.usrmsg_info.L7024_dataOf' | translate:[translate] | async}} {{ totalDbRecords }}
+			</div>
+			<div class="col-md-3 pull-right">
+				<div class="pull-right">
+					<label class="radio-inline">
+						<input type="radio" name="actionRadio" value="xls" (click)="onExcelClick()"
+							[(ngModel)]="selectedAction">
+						<span>
+							XLS
+						</span>
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="actionRadio" value="pdf" (click)="onPdfClick()"
+							[(ngModel)]="selectedAction">
+						<span>
+							PDF
+						</span>
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="actionRadio" value="print" (click)="onPrintClick()"
+							[(ngModel)]="selectedAction">
+						<span>
+							PRINT
+						</span>
+					</label>
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<hr style="margin-top: 2px; margin-bottom: 2px;">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8 col-md-8">
+				<div class="row customFix">
+					<div class="col-lg-3 col-md-3 pr-1">
+						<label class="filter-label">
+							{{ 'operazioni.usrmsg_info.L7051_users' | translate:[translate] | async}}
+						</label>
+						<select name="filter_log_ute_id_1" 
+								id="filter_log_ute_id_1"
+								class="form-control form-control-sm custom-input"
+								(change)="onApplyFilter()" 
+								[(ngModel)]="allFilters[0].option1">
+							<option value="">
+								{{ 'common.usrmsg_info.L7023_all' | translate:[translate] | async}}
+							</option>
+							<option *ngFor="let item of allUsers" [value]="item.uteId">
+								{{item.uteId}}
+							</option>
+						</select>
+					</div>
+					<div class="col-lg-3 col-md-3 px-1">
+						<div class="row">
+							<div class="col-lg-6 col-md-6 pr-2">
+								<label class="filter-label">
+									{{ 'operazioni.usrmsg_info.L7052_dateFrom' | translate:[translate] | async}}
+								</label>
+								<input type="text" name="filter_log_timestamp_1"
+										id="filter_log_timestamp_1"
+										class="form-control form-control-sm custom-input"
+									  	autocomplete="off"
+										placeholder="{{ 'operazioni.usrmsg_info.L7052_dateFrom' | translate:[translate] | async}}"
+										(keyup.enter)="onApplyFilter()" 
+										[(ngModel)]="fromDate" 
+										bsDatepicker
+										[bsConfig]="bsDateConfig">
+							</div>
+							<div class="col-lg-6 col-md-6 pl-0">
+								<label class="filter-label">
+									{{ 'operazioni.usrmsg_info.L7053_dateTo' | translate:[translate] | async}}
+								</label>
+								<input type="text" 
+										name="filter_log_timestamp_2" 
+										id="filter_log_timestamp_2" 
+										class="form-control form-control-sm custom-input"
+									  	autocomplete="off"
+										placeholder="{{ 'operazioni.usrmsg_info.L7053_dateTo' | translate:[translate] | async}}"
+										(keyup.enter)="onApplyFilter()" 
+										[(ngModel)]="toDate" 
+										bsDatepicker
+										[bsConfig]="bsDateConfig">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-5 px-1">
+						<label class="filter-label">
+							{{ 'operazioni.usrmsg_info.L7054_descriptionOrDetail' | translate:[translate] | async}}
+						</label>
+						<input type="text" id="filter_descr" 
+								name="filter_descr" 
+								class="form-control form-control-sm custom-input" 
+								placeholder="{{ 'operazioni.usrmsg_info.L7054_descriptionOrDetail' | translate:[translate] | async}}"
+								[(ngModel)]="allFilters[2].option1" 
+								(keyup.enter)="onApplyFilter()">
+					</div>
+					<div class=" col-lg-1 col-md-1 px-1">
+						<label class="filter-label">
+							{{ 'common.usrmsg_info.L7007_maxRows' | translate:[translate] | async}}
+						</label>
+						<select name="filter_max_rows" id="filter_max_rows"
+								class="form-control form-control-sm custom-input" 
+								(change)="onPageSizeChanged()"
+								[(ngModel)]="pageSize">
+							<option *ngFor="let item of pageSizeOptions" [value]="item">
+								{{item}}
+							</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12" style="padding-right: unset;">
+						<hr style="margin-top: 7px; margin-bottom: 7px;">
+					</div>
+				</div>
+
+				<div class="row mt-2">
+					<label class="radio-inline ml-3">
+						<input type="radio" name="optradio" value="me" (change)="onStaticOptionChange()"
+							[(ngModel)]="staticOptionChoser">
+						<span>
+							{{ 'operazioni.usrmsg_info.L7055_meButton' | translate:[translate] | async}}
+						</span>
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="optradio" value="yesterday" (change)="onStaticOptionChange()"
+							[(ngModel)]="staticOptionChoser">
+						<span>
+							{{ 'operazioni.usrmsg_info.L7056_yesterdayButton' | translate:[translate] | async}}
+						</span>
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="optradio" value="today" (change)="onStaticOptionChange()"
+							[(ngModel)]="staticOptionChoser">
+						<span>
+							{{ 'operazioni.usrmsg_info.L7057_todayButton' | translate:[translate] | async}}
+						</span>
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="optradio" value="lastWeek" (change)="onStaticOptionChange()"
+							[(ngModel)]="staticOptionChoser">
+						<span>
+							{{ 'operazioni.usrmsg_info.L7058_lastWeekButton' | translate:[translate] | async}}
+						</span>
+					</label>
+					<button type="button" class="btn btn-success btn-sm buttonhover ml-2"
+							style="background-color: #00CC99;margin-right: 7px; color:white;vertical-align: top; margin-bottom : .5rem;"
+							(click)="onApplyFilter()">
+						{{ 'common.usrmsg_info.L7006_applyFilter' | translate:[translate] | async}}
+					</button>
+				</div>
+			</div>
+
+			<div class="col-md-4" style="padding-top: 22px;padding-left: unset;">
+
+				<app-filter-management 
+					[gridName]="'visualizza_lista_operazioni'" 
+					[isFilterSaveable]="isFilterSaveable"
+					[appliedFilterIdInGrid]="appliedFilterIdInGrid"
+					[showBindedButtons]=true
+					[filterSortingModel]="filterSortingModel"
+					
+					(filterChangeEvent)="filterChange($event)" 
+					(testFilterApplyEvent)="onTestFilterApply($event)"
+					(allFiltersClearEvent)="filterClear($event)">
+				</app-filter-management>
+
+			</div>
+		</div>
+
+
+
+		<div class="row my-2" style="/*height: 480px;*/height: 67vh;">
+			<!-- Ag-Grid section begin -->
+			<div id="idGrid" class="grid-wrapper col-md-12 rela">
+				<button type="button" class="btn btn-sm buttonhover btncustom abso" 
+						aria-haspopup="true"
+						(click)="openGridSettings()" 
+						aria-expanded="false">
+					<i class="fa fa-cog" aria-hidden="true"></i>
+				</button>
+				<ag-grid-angular 
+					style="width: 100%; height: 94%;" 
+					class="ag-theme-balham my-grid"
+					[rowData]="rowData | async" 
+					[defaultColDef]="defaultColDef" 
+					[gridOptions]="gridOptions"
+					[rowSelection]="rowSelection" 
+					[frameworkComponents]="frameworkComponents"
+					[loadingOverlayComponent]="loadingOverlayComponent"
+					[loadingOverlayComponentParams]="loadingOverlayComponentParams"
+					[paginationPageSize]="paginationPageSize" 
+					
+					(gridReady)="onGridReady($event)"
+					(rowClicked)='onRowClicked($event)'>
+				</ag-grid-angular>
+
+				<!-- Pagination begin -->
+				<div class="row">
+					<!-- <app-grid-pagination [total-items]="totalDbRecords"
+                                    [page-size]="pageSize"
+                                    (page-changed)="onPaginationPageChanged($event)">
+                </app-grid-pagination> -->
+				</div>
+				<!-- Pagination end -->
+			</div>
+			<!-- Ag-Grid section end -->
+
+		</div>
+
+
+		<div id="prin" style="border: 1px solid; margin: 13px 20px; display:none;">
+			<div class="row" style="height: 111px;">
+				<div class="col-md-3">
+					<img src="../../../../assets/img/Logos/small.png" style="padding:20px,0px,0px,20px; width: 100%;">
+				</div>
+				<div class="col-md-9" style="text-align: right;">
+					<h1>Log Operazioni</h1>
+					<span class="footerversiontext">
+						<b>Talent<span>©</span> - Version 1.0.0 </b>
+						<br> The Industry 4.0 Smart ATS
+					</span>
+				</div>
+			</div>
+			<div class="row" style="border: 1px solid; background-color: cadetblue;">
+				<div class="col-md-3"> <b>Sl No </b> </div>
+				<div class="col-md-3"> <b>Log Id </b> </div>
+				<div class="col-md-3"> <b>Log Description </b> </div>
+				<div class="col-md-3"> <b>Log Details </b> </div>
+			</div>
+
+			<hr style="background-color: black;margin: 0-0px;">
+			<div class="row" *ngFor="let data of printData; let i = index;let odd=odd;"
+				[style.background-color]="odd?'':last?'purple':odd?'blue':'lightblue'">
+				<div class="col-md-3"> {{i +1}} </div>
+				<div class="col-md-3"> {{data.logId}} </div>
+				<div class="col-md-3"> {{data.logDescr}} </div>
+				<div class="col-md-3"> {{data.logDettaglio}} </div>
+			</div>
+
+			<div class="row" style="padding-top: 50px;">
+				<div class="col-md-3">
+					<p> {{today | date}}</p>
+				</div>
+				<div align="right" class="col-md-9">
+					<p class="footerparagraph">
+						<span> Powered By </span>
+						<a href="https://www.itpartneritalia.com" target="_blank">
+							<img src="../../../../assets/img/clients/logo-itpita.png" style="height: 33px;"></a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Start Global error message modal -->
+<div class="modal fade" bsModal 
+		#globalErrorModal="bs-modal" 
+		tabindex="-1" 
+		role="dialog"
+		aria-labelledby="dialog-nested-name2">
+	<div class="modal-dialog">
+		<div class="modal-content modal_talent">
+			<!-- Begin  modal header -->
+			<div class="modal-header ricerca-sfondo">
+				<button type="button" class="close pull-right" aria-label="Close" (click)="globalErrorModal.hide()">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<!-- End modal header -->
+			<!-- Begin modal body -->
+			<div class="modal-body">
+				<!-- Filter reorder begin -->
+				<div class="row">
+					<div class="col-xs-12 col-12 col-md-12 col-lg-12">
+
+					</div>
+				</div>
+				<!-- Filter reorder end -->
+			</div>
+			<!-- End modal body -->
+			<!-- start modal footer -->
+			<div class="modal-footer"></div>
+			<!-- End modal footer -->
+		</div>
+		<!-- End modal content -->
+	</div>
+	<!-- End modal dialog -->
+</div>
+<!-- End Global error message modal-->
+
+<!-- Print Confirmation dialog begin -->
+<app-confirmation-dialog 
+	[showDialog]="showPrintConfirmationDialog"
+	(confirmationSelectEvent)="onPrintDialogConfirm($event)">
+</app-confirmation-dialog>
+<!-- Print Confirmation dialog end -->
+
+<!-- PDF Confirmation dialog begin -->
+<app-confirmation-dialog 
+	[showDialog]="showPdfConfirmationDialog" 
+	[confirmationMessage]="confirmationMessage"
+	(confirmationSelectEvent)="onPdfDialogConfirm($event)">
+</app-confirmation-dialog>
+<!-- PDF Confirmation dialog end -->
+
+<!-- EXCEL Confirmation dialog begin -->
+<app-confirmation-dialog 
+	[showDialog]="showExcelConfirmationDialog" 
+	[confirmationMessage]="confirmationMessage"
+	(confirmationSelectEvent)="onExcelDialogConfirm($event)">
+</app-confirmation-dialog>
+<!-- EXCEL Confirmation dialog end -->
+
+<app-confirmation-dialog 
+	[showErrorDialog]="showCloseErrorDialog"
+	(confirmationSelectEvent)="onErrorDialogConfirm($event)">
+</app-confirmation-dialog>
+
+
+<app-grid-management 
+	[show]="showCloseGridSettingsDialog" 
+	[grid]="columnName" 
+	[settings]="gridSettings"
+	(onSettingsEmit)="onGridSettingsApplied($event)"
+	(onClose)="onGridSettingsClosed($event)">
+</app-grid-management>

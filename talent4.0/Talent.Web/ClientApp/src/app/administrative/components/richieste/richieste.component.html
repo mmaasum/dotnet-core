@@ -1,0 +1,1020 @@
+<!-- Global filter bar begin -->
+<div class="ricerca-sfondo container-fluid" style="height: 60px;">
+  <div class="row filter-bar-wrapper">
+    <!-- External filter section begin -->
+    <div class="col-md-9 external-filter">
+      <div class="row">
+        <div class="col-md-2">
+            <h5 class="talenth4">{{richiesteMultiLanguageLable.rich_citta}}</h5>
+            <input type="text" class="form-control"
+                    name="filter_ute_id"
+                    placeholder={{richiesteMultiLanguageLable.rich_citta}}
+                    id="filter_ute_id"
+                    [(ngModel)]="allFilters[0].option1"
+            >
+        </div>
+        <div class="col-md-2">
+            <h5 class="talenth4">{{richiesteMultiLanguageLable.rich_comp_principale}}</h5>
+          <input type="text" class="form-control"
+                    name="filter_ute_nome"
+                    placeholder={{richiesteMultiLanguageLable.rich_comp_principale}}
+                    id="filter_ute_nome"
+                    [(ngModel)]="allFilters[1].option1"
+            >
+        </div>
+        <div class="col-md-2">
+            <h5 class="talenth4">{{richiesteMultiLanguageLable.rich_az_id}} </h5>
+          <input type="text" class="form-control"
+                    name="filter_ute_ruolo"
+                    placeholder={{richiesteMultiLanguageLable.rich_az_id}}
+                    id="filter_ute_ruolo"
+                    [(ngModel)]="allFilters[2].option1"
+            >
+        </div>
+        <div class="col-md-2">
+          <h5 class="talenth4">{{richiesteMultiLanguageLable.rich_data}}</h5>
+          <input type="date" class="form-control"
+                  name="filter_azione_ins_timestamp_2"
+                  id="filter_azione_ins_timestamp_2"
+                  pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+                  [(ngModel)]="allFilters[3].option1"
+            >
+        </div>
+        <div class="col-md-2 filter-button-wrapper">
+          <div class="btn-group">
+            <button type="button"
+                    class="btn btn-primary uppercase"
+                    (click)="onApplyFilter()">
+              Apply
+            </button>
+            <button type="button"
+                    class="btn btn-primary uppercase d-none d-sm-inline-block btn
+                  btn-primary shadow-sm talentbtn"
+                    (click)="filterClear()">
+              <img class="talent-icons" src="../../../../assets/immagini/restore.png" alt="">
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- External filter section end -->
+    <!-- Global filter section begin -->
+    <div class="col-md-3 global-filter-wrapper">
+      <app-filter-management 
+              [gridName]="columnName" 
+              [isFilterSaveable]="isFilterSaveable"
+              [isFilterCleared]="isFilterCleared"
+              [appliedFilterInGrid]="appliedFilterInGrid"
+              [appliedSortingInGrid]="appliedSortingInGrid"
+              (quickFilterTextChangeEvent)="quickFilterTextChange($event)"
+              (filterChangeEvent)="filterChange($event)"
+              (setFilterSortingTextEvent)="onChangeFilterText($event)">
+      </app-filter-management>
+    </div>
+    <!-- Global filter section end -->
+  </div>
+</div>
+<!-- Global filter bar end -->
+
+<div class="box box-primary">
+  <div class="box-body">
+    <!-- Grid topbar(Caption, pagw size, row count, add/edit button) begin -->
+    <div class="row">
+      <!-- Page name begin -->
+      <div class="box-header col-md-3">
+        <h3 class="box-title"><i class="fa fa-cubes"></i> {{richiesteMultiLanguageLable.caption}} </h3>
+      </div>
+      <!-- Page name begin -->
+      <!-- Page size selection begin -->
+      <div class="col-md-3">
+        <div class="test-header">
+          <div class="col-md-12">
+            <div class="col-md-7 text-white text-lg">
+              {{richiesteMultiLanguageCommonLable.pageSizeText}} :
+            </div>
+            <div class="col-md-1">
+              <select (change)="onPageSizeChanged()" id="page-size">
+                <option value="20" selected="">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="500">500</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Page size selection end -->
+      <!-- Row count label begin -->
+      <div class="col-md-3">
+        <div class="form-group col-md-4 text-lg">
+          <span class="label" style="background-color:#9fa0a4;font-size:100%;">
+            {{richiesteMultiLanguageCommonLable.totalRowCount}} = 
+            <span class="badge">
+              {{ totalDbRecords }}
+            </span></span>
+        </div>
+      </div>
+      <!-- Row count label end -->
+      <!-- Add/Edit button begin -->
+      <div class="col-md-3">
+          <div class="btn-group">
+              <button type="button" class="btn btn-primary">MANAGE JOB OFFER</button>
+              <button type="button" 
+                      class="btn btn-primary dropdown-toggle" 
+                      data-toggle="dropdown">
+                
+              </button>
+              <ul class="dropdown-menu" style="margin-top: -6px;">
+                <li style="background-color: #153B6C;">
+                  <a style="cursor: pointer; background-color: #153B6C;color: white;" (click)="onNewRichieste()">NEW</a></li>
+                  <div class="dropdown-divider" style="margin:0px; border-top: 1px solid #1431a5;"></div>
+                <li style="background-color: #153B6C;">
+                  <a style="cursor: pointer; background-color: #153B6C;color: white;" 
+                  (click)="onEditRichieste(selectedObject)">EDIT</a></li>
+                  <div class="dropdown-divider" style="margin:0px; border-top: 1px solid #1431a5;"></div>
+                <!-- <li style="background-color: #153B6C;">
+                  <a style="background-color: #153B6C;color: white;" (click)="onGoToPage2()">CLOSE</a></li> -->
+                  <div class="dropdown-divider" style="margin:0px; border-top: 1px solid #1431a5;"></div>
+                <li style="background-color: #153B6C;">
+                  <a style="cursor: pointer; background-color: #153B6C;color: white;" 
+                  (click)="onCloneRichieste(selectedObject)">CLONE</a></li>
+              </ul>
+            </div>
+            
+      </div>
+      <!-- Add/Edit button begin -->
+    </div>
+    <!-- Grid topbar(Caption, pagw size, row count, add/edit button) begin -->
+
+    <div class="row" style="height: 480px;">
+        <!-- Ag-Grid section begin -->
+        <div id="idGrid" class="col-md-12 grid-wrapper">
+        <ag-grid-angular style="width: 100%; height: 94%;"
+                         class="ag-theme-balham"
+                         [rowData]="rowData | async"
+                         [columnDefs]="columnDefs"
+                         [defaultColDef]="defaultColDef"
+                         [frameworkComponents]="frameworkComponents"
+                         [loadingOverlayComponent]="loadingOverlayComponent"
+                         [loadingOverlayComponentParams]="loadingOverlayComponentParams"
+                         [paginationPageSize]="paginationPageSize"
+                         (gridReady)="onGridReady($event)"
+                         (cellKeyDown)="onCellKeyDown($event)"
+                         (rowClicked)='onRowClicked($event)'>
+        </ag-grid-angular>
+
+        <!-- Pagination begin -->
+        <div class="row">
+          <app-grid-pagination [total-items]="totalDbRecords"
+                                [page-size]="pageSize"
+                                (page-changed)="onPaginationPageChanged($event)">
+          </app-grid-pagination>
+        </div>
+        <!-- Pagination end -->
+      </div>
+      <!-- Ag-Grid section end -->
+      <!-- Detail section begin -->
+      <div class="col-md-4 right-detail-pane" *ngIf="selectedObject.richId">
+        <div class="row">
+
+          <div class="btn-group align-items-center">
+            <button type="button" 
+                    class="btn btn-primary"
+                    *ngIf="buttonDisabled"
+                    (click)="openJobOfferModal()">
+                    Soft Skill
+            </button>
+            <button type="button"
+                    *ngIf="buttonDisabled"
+                    style="width:110px;"
+                    id="matching"
+                    (click)="goToPage('matchingrecord')"
+                    class="btn btn-info uppercase">
+              <i class="fa fa-remove"></i>matching
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-1" *ngIf="richProtetteVisibility" >
+                  <img src="../../../../assets/img/icons/richiesta_protetta.png" alt="" class="img-responsive">
+                </div>
+                <div class="col-md-1" *ngIf="richContinueaVisibility">
+                    <img src="../../../../assets/img/icons/richiestra_continuea2.png" alt="" class="img-responsive">
+                </div>
+            </div>
+            <dl class="dl-horizontal" *ngIf="selectedObject.richAzId">
+
+              <dt>Recruiter</dt>
+              <dd>
+                <ng-select [items]="allRecruiters"
+                          bindLabel="uteNome"
+                          bindValue="uteId"
+                          placeholder="--Add a recruiter--"
+                          (change)="onRecruiterListChange()"
+                          [(ngModel)]="newObject.richAssegnatoUteId">
+                </ng-select>
+              </dd>
+              
+              <dt>{{richiesteMultiLanguageLable.rich_id}}</dt>
+              <dd>{{ selectedObject.richId}} </dd>
+
+
+              <dt>{{richiesteMultiLanguageLable.rich_data}}</dt>
+              <dd>{{ formatDateTimeString(selectedObject.richData) }} </dd>
+
+              <dt>{{richiesteMultiLanguageLable.rich_comp_principale}}</dt>
+              <dd>{{ selectedObject.richCompPrincipale}} </dd>
+
+              <dt>{{richiesteMultiLanguageLable.rich_num_posizioni}}</dt>
+              <dd>{{ selectedObject.richNumPosizioni}} </dd>
+
+              <dt>{{richiesteMultiLanguageLable.rich_durata}}</dt>
+              <dd>{{ selectedObject.richDurataNum}} {{selectedObject.richDurataDescrizione}} </dd>
+
+              <dt>{{richiesteMultiLanguageLable.rich_tipo}}</dt>
+              <dd>{{ selectedObject.richTipo}} </dd>
+
+              <dt>{{richiesteMultiLanguageLable.rich_tariffa}}</dt>
+              <dd>{{ selectedObject.richTariffa}} </dd>
+
+              <dt>{{richiesteMultiLanguageLable.rich_az_id}}</dt>
+              <dd>{{ selectedObject.azRagSociale}} </dd>
+
+              <dt>{{richiesteMultiLanguageLable.rich_citta}}</dt>
+              <dd>{{ selectedObject.richCitta}} </dd>
+
+              <dt>{{richiesteMultiLanguageLable.rich_filiale_codice}}</dt>
+              <dd>{{ selectedObject.richFilialeCodice}} </dd>
+
+              <dt>{{richiesteMultiLanguageLable.rich_stato}}</dt>
+              <dd>{{ selectedObject.richStato}} </dd>
+
+              <dt>Risorse selezionate</dt>
+              <dd>
+                  <table class="table table-responsive table-bordered table-hover">
+                      <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>Status</th>
+                            <th>
+                              <button type="button" 
+                                      *ngIf="buttonDisabled" 
+                                      id="matching" 
+                                      (click)="assignCandidate()"
+                                      class="btn btn-info uppercase">
+                                <i class="fa fa-remove"></i>Assign
+                              </button>
+                            </th>
+                        </tr>
+    
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of relatedRisorse">
+                            <td>{{ item.risNome }} </td>
+                            <td>{{ item.risCognome }}</td>
+                            <td>
+                              <select class="form-control" 
+                                      id="richStatus" 
+                                      name="richStatus"
+                                      (change)="onStatusChange(selectedObject.richId,item.risId, $event.target)">
+                                <option *ngFor="let status of candidateStatus" 
+                                        value={{status.statusValue}}>{{status.status}}</option>
+                              </select>
+                            </td>
+                            <td>
+                              <button type="button" 
+                                      *ngIf="buttonDisabled"
+                                      id="invia" 
+                                      (click)="invitaCV(item.risId)"
+                                      class="btn btn-success">
+                                <i class="fa fa-remove"></i> Invia CV
+                              </button>
+                            </td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+              </dd>
+
+              <dt>{{richiesteMultiLanguageLable.rich_descrizione}}</dt>
+              <dd>
+                <textarea class="form-control" cols="30" rows="8">{{ selectedObject.richDescrizione}}</textarea>
+              </dd>
+
+            </dl>
+          </div>
+        </div>
+      </div>
+      <!-- Detail section end -->
+    </div>
+  </div>
+</div>
+
+<!-- New object add or edit form modal begin -->
+<div class="modal fade" bsModal #newRichiesteAddModal="bs-modal" 
+        tabindex="-1" 
+        [config]="{backdrop: 'static'}" 
+        role="dialog" 
+        aria-labelledby="dialog-nested-name2">
+
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">{{richiesteMultiLanguageLable.caption}}</h4>
+        <button type="button" class="close pull-right" 
+                (click)="onCloseAddEditModal()" 
+                aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- begin object add/edit form -->
+      
+      <form [formGroup]="registerForm" 
+                        (ngSubmit)="saveRichieste()" 
+                        #newObjectAddForm="ngForm" 
+                        #newObjectAddForm2="ngForm">
+        <!-- Modal body begin -->
+        <div class="modal-body">
+          <!-- Validation message section begin -->
+          <!-- <div class="alert alert-danger" 
+                *ngIf="newObjectAddForm.submitted && !newObjectAddForm.valid">
+            <ul>
+              <li *ngIf="newObjectAddForm.invalid">Please fill up required data</li>
+            </ul>
+          </div> -->
+
+          <!-- Validation message section end -->
+          <!-- Row begin -->
+          <div class="row form-group">
+            <!-- Richieste input begin -->
+            <div class="col-md-3">
+              <label for="richieste">{{richiesteMultiLanguageLable.rich_comp_principale}} 
+                  </label>
+              <select #termine2 class="form-control" 
+                     id="rich_comp_principale" 
+                     name="rich_comp_principale"
+                     formControlName="richCompPrincipale">
+               <option *ngFor="let competen of allCompetenza" 
+                        value={{competen.competenza}}>{{competen.competenza}}</option>
+             </select>
+            </div>
+            <!-- Richieste input end -->
+            <!-- Tipo richieste select list begin -->
+            <div class="col-md-3">
+              <label for="terTipoTermine">{{richiesteMultiLanguageLable.rich_num_posizioni}}</label>
+              <input type="number"
+                     class="form-control" 
+                     name="rich_num_posizioni" 
+                     id="rich_num_posizioni"
+                     formControlName="richNumPosizioni"
+                     placeholder={{richiesteMultiLanguageLable.rich_num_posizioni}}
+                     maxlength="200">
+            </div>
+            <!-- Tipo richieste select list end -->
+            <!-- Sinonimo 1 input begin -->
+            <div class="col-md-3">
+                <label for="terSinonimo1">{{richiesteMultiLanguageLable.rich_durata}}</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <input type="number" 
+                        style="width: 120px;"
+                        class="form-control" 
+                        name="rich_durata" 
+                        id="rich_durata"
+                        formControlName="richDurata"
+                        placeholder={{richiesteMultiLanguageLable.rich_durata}}
+                        maxlength="200">
+                    </div>
+                    <select #settimaneElem class="custom-select" 
+                            style="background-color: #153b6c; color: white; height: 26px"
+                            id="settimane"
+                            formControlName="settimane"
+                            (change)="onsettimaneChange(settimaneElem.value)">
+                      <option value="Settimane">Settimane</option>
+                      <option value="Mesi">Mesi</option>
+                      <option value="Anni">Anni</option>
+                    </select>
+                  </div>
+            </div>
+            <!-- Sinonimo 1 input end -->
+            <!-- Sinonimo 2 input begin -->
+            <div class="col-md-3">
+              <label for="rich_priorita">{{richiesteMultiLanguageLable.rich_priorita}}</label>
+              <select class="custom-select"
+                      id="rich_priorita"
+                      formControlName="richPriorita">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            <!-- Sinonimo 2 input end -->
+          </div>
+          <!-- Row end -->
+          <!-- row begin -->
+          <div class="row form-group">
+            <!-- Richieste input begin -->
+              <div class="col-md-3">
+                <label for="rich_az_id">{{richiesteMultiLanguageLable.rich_az_id}} 
+                    </label>
+                  <select #selectAzId class="form-control" 
+                          id="richAzId" 
+                          name="rich_az_id"
+                          formControlName="richAzId"
+                          (change)="onAziendeChange()">
+                    <option *ngFor="let aziend of aziende" 
+                             value={{aziend.azId}}>{{aziend.azRagSociale}}</option>
+                  </select>
+              </div>
+              <!-- Richieste input end -->
+              <!-- cliente finale  input begin -->
+              <div class="col-md-3">
+                <label for="rich_finale">
+                       {{richiesteMultiLanguageLable.rich_finale}}</label>
+                <select #selectElem class="form-control" 
+                        name="rich_finale" 
+                        id="rich_finale"
+                        formControlName="rich_finale"
+                        (change)="onFinalClientChange(selectElem.value, selectAzId.value)">
+                  <option value="S">Yes</option>
+                  <option value="N">No</option>
+                </select>
+              </div>
+              <div class="col-md-3" *ngIf="showFinalClient">
+                  <label for="rich_cliente_finale">{{richiesteMultiLanguageLable.rich_cliente_finale}} 
+                      </label>
+                    <select class="form-control" 
+                            id="rich_cliente_finale" 
+                            name="rich_cliente_finale"
+                            formControlName="rich_cliente_finale">
+                      <option *ngFor="let clientiFinale of aziendeClientiFinale" 
+                               value={{clientiFinale.clifinId}}>{{clientiFinale.clifinNomeClienteFinale}}</option>
+                    </select>
+              </div>
+                <!-- Richieste input end 2-->
+              <div class="col-md-3" *ngIf="!showFinalClient">
+                    <label for="rich_azsede_id">{{richiesteMultiLanguageLable.rich_azsede_id}} 
+                        </label>
+                      <select class="form-control" 
+                              id="rich_azsede_id" 
+                              name="rich_azsede_id"
+                              formControlName="rich_azsede_id">
+                        <option *ngFor="let sedeAziende of allSedeAziende" 
+                                 value={{sedeAziende.azsedeAzId}}>{{sedeAziende.azsedeDescr}}</option>
+                      </select>
+              </div>
+                  <!-- Richieste input end 2 -->
+              <!-- cliente finale input end -->
+              <!-- Tipo richieste select list begin -->
+              <div class="col-md-3">
+                <label for="rich_cont_id">{{richiesteMultiLanguageLable.rich_cont_id}}</label>
+                <select class="form-control" 
+                        id="rich_cont_id" 
+                        name="rich_cont_id"
+                        formControlName="richContId">
+                  <option *ngFor="let conta of contatti" 
+                          value={{conta.contId}}>{{conta.contNome}} {{conta.contCognome}}</option>
+                </select>
+              </div>
+              <!-- Tipo richieste select list end -->
+
+          </div>
+          <!-- Row end -->
+          <!-- Row begin -->
+          <div class="row form-group">
+            <!-- Sinonimo 1 input begin -->
+            <div class="col-md-3">
+              <label for="rich_citta">{{richiesteMultiLanguageLable.rich_citta}}</label>
+              
+                <select class="form-control" 
+                        id="rich_citta" 
+                        name="rich_citta"
+                        formControlName="richCitta">
+                  <option *ngFor="let citta of cittas" 
+                          value={{citta.citta1}}>{{citta.citta1}}</option>
+                </select>
+            </div>
+            <!-- Sinonimo 1 input end -->
+            <!-- Sinonimo 2 input begin -->
+            <div class="col-md-3">
+              <label for="rich_ricerca_continua">
+                {{richiesteMultiLanguageLable.rich_ricerca_continua}}
+              </label>
+              <select class="form-control" 
+                      name="rich_ricerca_continua" 
+                      id="rich_ricerca_continua"
+                      formControlName="richRicercaContinua">
+                <option value="S">Yes</option>
+                <option value="N">No</option>
+              </select>
+            </div>
+            <!-- Sinonimo 2 input end -->
+            <!-- Richieste input begin -->
+            <div class="col-md-3">
+              <label for="rich_categorie_protette">
+                {{richiesteMultiLanguageLable.rich_categorie_protette}}
+                  
+              </label>
+              <select class="form-control" 
+                      name="rich_categorie_protette" 
+                      id="rich_categorie_protette"
+                      formControlName="richCategorieProtette">
+                <option value="S">Yes</option>
+                <option value="N">No</option>
+              </select>
+            </div>
+            <!-- Richieste input end -->
+            <!-- Tipo richieste select list begin -->
+            <div class="col-md-3">
+              <label for="rich_tipo">{{richiesteMultiLanguageLable.rich_tipo}}</label>
+              <select class="form-control" 
+                      name="rich_tipo" 
+                      id="rich_tipo"
+                      formControlName="richTipo">
+                <option value="recruiting">Recruiting</option>
+                <option value="outsourcing">Outsourcing</option>
+                <option value="mista">Mista</option>
+                <option value="altro">Altro</option>
+              </select>
+            </div>
+            <!-- Tipo richieste select list end -->
+            
+            
+          </div>
+          <div class="row form-group">
+            <!-- Sinonimo 1 input begin -->
+            <div class="col-md-12">
+              <label for="rich_descrizione">
+                {{richiesteMultiLanguageLable.rich_descrizione}}
+              </label>
+              <textarea 
+                      class="form-control" 
+                      name="rich_descrizione" 
+                      id="rich_descrizione"
+                      formControlName="richDescrizione" 
+                      placeholder={{richiesteMultiLanguageLable.rich_descrizione}}
+                      cols="40" rows="10"></textarea>
+              <!-- <input type="text"
+                      class="form-control" 
+                      name="rich_descrizione" 
+                      id="rich_descrizione"
+                      formControlName="richDescrizione" 
+                      placeholder={{richiesteMultiLanguageLable.rich_descrizione}} 
+                      maxlength="200"> -->
+            </div>
+          <!-- Sinonimo 1 input end -->
+        </div>
+          <!-- <div class="row form-group">
+            <div class="col-md-3">
+                {{registerForm.value | json}}
+            </div>
+          </div> -->
+        </div>
+          <!-- Modal body end -->
+          <!-- Modal footer start -->
+          <div class="modal-footer modal_footer_talent bg-dark">
+            <button type="submit" class="btn btn-success">
+              <i class="fa fa-check"></i> Save
+            </button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="onCloseAddEditModal()">
+              <i class="fa fa-times"></i> Close
+            </button>
+          </div>
+        <!-- Modal footer end -->
+      </form>
+      <!-- Add/Edit form end  -->
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- End modal -->
+
+<!-- New object add or edit form modal begin -->
+<div bsModal #newObjectAddModal="bs-modal"
+     class="modal fade"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-sm ">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left"></h4>
+        <button type="button" class="close pull-right"
+                (click)="newObjectAddModal.hide()"
+                aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- begin object add/edit form -->
+      <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <h2 class="text-center">
+                No matching found
+              </h2>
+            </div>
+          </div>
+          <div class="row" style="height:70px;">
+            <div class="col text-center">
+              <button type="button"
+                      id="btnstoreprocedure"
+                      (click)="executeStoreProcedure()"
+                      class="btn btn-info">
+                Launch Store Procedure
+              </button>
+            </div>
+            <div class="row">
+              <div class="col text-center">
+                <button type="button"
+                        id="btnmachinelearning"
+                        (click)="executeMachineLearning()"
+                        class="btn btn-info">
+                  Launch Machine Learning
+                </button>
+              </div>
+            </div>
+          </div>
+         
+          <div class="row">
+            <div class="col">
+              <span class="label">No matching found</span>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer modal_footer_talent bg-dark">
+        <button type="button"
+                class="btn btn-secondary"
+                (click)="newObjectAddModal.hide()">Close</button>
+      </div>
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+
+<!-- New object add or edit form modal begin -->
+<div bsModal #editModal="bs-modal"
+     class="modal fade"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-sm ">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Edit Richieste</h4>
+        <button type="button" class="close pull-right"
+                (click)="editModal.hide()"
+                aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- begin object add/edit form -->
+      <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <h2 class="text-center">
+                Please select a richieste to edit.
+              </h2>
+            </div>
+          </div>
+
+      </div>
+      <div class="modal-footer modal_footer_talent bg-dark">
+        <button type="button"
+                class="btn btn-secondary"
+                (click)="editModal.hide()">Close</button>
+      </div>
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+
+<!-- New object add or edit form modal begin -->
+<div bsModal #cloneModal="bs-modal"
+     class="modal fade"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-sm ">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Clone Richieste</h4>
+        <button type="button" class="close pull-right"
+                (click)="cloneModal.hide()"
+                aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- begin object add/edit form -->
+      <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <h2 class="text-center">
+                {{cloneMessage}}
+              </h2>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer modal_footer_talent bg-dark">
+        <button type="button" *ngIf="cloneButtonHide"
+          class="btn btn-secondary pull-left"
+          (click)="cloneRichieste()">Clone</button>
+
+        <button type="button"
+                class="btn btn-secondary"
+                (click)="cloneModal.hide()">Close</button>
+      </div>
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+
+<!-- assign candidates popup start -->
+<div bsModal #assigncandidateModal="bs-modal" 
+    class="modal fade" 
+    tabindex="-1" 
+    role="dialog"
+    aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Assign Candidate</h4>
+        <button type="button" 
+                class="close pull-right" 
+                (click)="onCloseAssigncandidateModal()" 
+                aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- begin search form -->
+
+      <div class="modal-body">
+        <!-- Validation message section begin -->
+        <!-- <div class="alert alert-danger" 
+              *ngIf="newObjectAddForm.submitted && !newObjectAddForm.valid">
+          <ul>
+            <li *ngIf="newObjectAddForm.invalid">Please fill up required data</li>
+          </ul>
+        </div> -->
+
+        <!-- Validation message section end -->
+        <!-- Row begin -->
+        <div class="row form-group">
+          <!-- Nome input begin -->
+          <div class="col-md-3">
+            <label for="nome">Nome/Cognome/Email</label>
+            <input #nome type="text" 
+                    class="form-control" 
+                    name="nome" 
+                    id="nome" 
+                    placeholder="Nome" 
+                    maxlength="200">
+          </div>
+          <!-- Nome input end -->
+          <!-- citta select list begin -->
+          <div class="col-md-3">
+            <label for="rich_citta">{{richiesteMultiLanguageLable.rich_citta}}</label>
+            <select #citt class="form-control" 
+                    id="rich_citta" 
+                    name="rich_citta">
+              <option value="">--Select--</option>
+              <option *ngFor="let citta of cittas" value={{citta.citta1}}>{{citta.citta1}}</option>
+            </select>
+          </div>
+          <!-- citta select list end -->
+          <!-- comp_principale input begin -->
+          <div class="col-md-3">
+            <label for="comp_principale">Competenze
+            </label>
+            <select #comp class="form-control" 
+                    id="rich_comp_principale" 
+                    name="comp_principale">
+              <option value="">--Select--</option>
+              <option *ngFor="let competen of allCompetenza" 
+                      value={{competen.competenza}}>{{competen.competenza}}
+              </option>
+            </select>
+          </div>
+          <!-- comp_principale input end -->
+        </div>
+        <!-- Row end -->
+      </div>
+      <div class="modal-footer modal_footer_talent bg-dark">
+        <button type="button" 
+                class="btn btn-secondary pull-left" 
+                (click)="searchRichieste(nome, citt, comp)">Search</button>
+        <button type="button" 
+                class="btn btn-secondary" 
+                (click)="onCloseAssigncandidateModal()">Cancel</button>
+      </div>
+
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- assign candidates popup end -->
+
+<!-- Invita CV popup start -->
+<div bsModal #invitaCVModal="bs-modal" 
+    class="modal fade" 
+    tabindex="-1" 
+    role="dialog"
+    aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Invita CV</h4>
+        <button type="button" 
+                class="close pull-right" 
+                (click)="invitaCVModal.hide()" 
+                aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- begin search form -->
+
+      <div class="modal-body">
+        <!-- Validation message section begin -->
+        <!-- <div class="alert alert-danger" 
+              *ngIf="newObjectAddForm.submitted && !newObjectAddForm.valid">
+          <ul>
+            <li *ngIf="newObjectAddForm.invalid">Please fill up required data</li>
+          </ul>
+        </div> -->
+
+        <!-- Validation message section end -->
+        <!-- Row begin -->
+        <div class="row form-group">
+          <!-- Nome input begin -->
+          <div class="col-md-3">
+            <label for="azienda">Azienda</label>
+            <input type="text" disabled 
+                    class="form-control" 
+                    name="azienda" 
+                    id="azienda" 
+                    value={{selectedObject.azRagSociale}}
+                    maxlength="200">
+          </div>
+          <!-- Nome input end -->
+          <!-- citta select list begin -->
+          <div class="col-md-3">
+            <label for="sedeInvitaCV">Sede</label>
+            <select class="form-control" 
+                    id="sedeInvitaCV" 
+                    name="sedeInvitaCV">
+              <option value="">--Select--</option>
+              <option *ngFor="let sede of sedeForEmail" value={{sede.azsedeAzId}}>{{sede.azsedeDescr}}</option>
+            </select>
+          </div>
+          <!-- citta select list end -->
+          <!-- comp_principale input begin -->
+          <div class="col-md-3">
+            <label for="contattoInvitaCV">Contatto
+            </label>
+            <select class="form-control" 
+                    [(ngModel)]="selectedContId"
+                    id="contattoInvitaCV" 
+                    name="contattoInvitaCV">
+              <option value="">--Select--</option>
+              <option *ngFor="let contatti of contattiForEmail"
+                      value={{contatti.contId}}>{{contatti.contNome}}
+              </option>
+            </select>
+          </div>
+          <!-- comp_principale input end -->
+        </div>
+        <!-- Row end -->
+      </div>
+      <div class="modal-footer modal_footer_talent bg-dark">
+        <button type="button" 
+                class="btn btn-secondary pull-left" 
+                (click)="emailRichieste()">Email</button>
+        <button type="button" 
+                class="btn btn-secondary" 
+                (click)="invitaCVModal.hide()">Annulla</button>
+      </div>
+
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- Invita CV popup end -->
+<!-- Invita CV popup start -->
+<div bsModal #emailRichiesteModal="bs-modal" 
+    class="modal fade" 
+    tabindex="-1" 
+    role="dialog"
+    aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Invita CV</h4>
+        <button type="button" 
+                class="close pull-right" 
+                (click)="emailRichiesteModal.hide()" 
+                aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- begin search form -->
+
+      <div class="modal-body">
+        <!-- Validation message section begin -->
+        <!-- <div class="alert alert-danger" 
+              *ngIf="newObjectAddForm.submitted && !newObjectAddForm.valid">
+          <ul>
+            <li *ngIf="newObjectAddForm.invalid">Please fill up required data</li>
+          </ul>
+        </div> -->
+
+        <!-- Validation message section end -->
+        <!-- Row begin -->
+        <div class="row form-group">
+          <!-- Nome input begin -->
+          <div class="col-md-12">
+              <ckeditor name="emailBody" id="emailBody" [(ngModel)]="emailBody" ></ckeditor>
+          </div>
+          <!-- Nome input end -->
+
+        </div>
+        <!-- Row end -->
+      </div>
+      <div class="modal-footer modal_footer_talent bg-dark">
+          <div class="form-group">
+              <input type="file"
+                      id="file"
+                      class="btn btn-secondary pull-left"
+                      (change)="handleFileInput($event.target.files)">
+              <button type="button" 
+                      class="btn btn-secondary pull-left" 
+                      (click)="sendEmail()">Send</button>
+              <button type="button" 
+                      class="btn btn-secondary" 
+                      (click)="emailRichiesteModal.hide()">Annulla</button>
+          </div>
+
+      </div>
+
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- Invita CV popup end -->
+
+
+<!-- Job offer child component begin -->
+<app-richieste-job-offer
+  [richId]="selectedObject.richId"
+  [showModal] = "showJobOffer"
+  (modalCloseEvent)="onJobOfferModalClose($event)"
+  >
+</app-richieste-job-offer>
+<!-- Job offer child component end -->
+
+<!-- On close click confirmation dialog begin -->
+<app-confirmation-dialog
+        [showDialog] = "showCloseConfirmDialog"
+        (confirmationSelectEvent)="onDialogConfirm($event)">
+</app-confirmation-dialog>
+<!-- On close click confirmation dialog end -->
+
+<!-- On close click confirmation dialog begin -->
+<app-richieste-job-offer
+  [richId]="selectedObject.richId"
+  [showModal] = "richiesteEditCloneModal"
+  (modalCloseEvent)="onJobOfferModalClose($event)"
+  >
+</app-richieste-job-offer>
+<!-- On close click confirmation dialog end -->
+
+<app-confirmation-dialog
+        [showDialog] = "showCloseassigncandidateDialog"
+        (confirmationSelectEvent)="onassigncandidateDialogConfirm($event)">
+</app-confirmation-dialog>

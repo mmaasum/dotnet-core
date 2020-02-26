@@ -1,0 +1,19 @@
+
+<div class="pagination-wrapper" *ngIf="totalItems > pageSize">
+    <span>
+        <button (click)="fastBackward()" class="btn" aria-label="Next" [disabled]="currentPage == 1">
+            <i class="fa fa-step-backward"></i>
+        </button>
+        <button (click)="previous()" class="btn" aria-label="Next" [disabled]="currentPage == 1">
+            <i class="fa fa-chevron-left"></i>
+        </button>
+        {{currentPage}} of {{pagesCount}}
+    
+        <button (click)="next()" class="btn" aria-label="Next" [disabled]="currentPage == pagesCount">
+            <i class="fa fa-chevron-right"></i>
+        </button>
+        <button (click)="fastForward()" class="btn" aria-label="Next" [disabled]="currentPage == pagesCount">
+            <i class="fa fa-step-forward"></i>
+        </button>
+    </span>
+</div>

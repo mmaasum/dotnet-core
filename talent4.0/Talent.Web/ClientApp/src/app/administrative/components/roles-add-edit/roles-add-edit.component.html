@@ -1,0 +1,203 @@
+<style>
+	.abso {
+		background-color: #00CC99;
+		z-index: 2;
+		position: absolute;
+		top: 4px;
+		right: 19px;
+		cursor: pointer;
+		color: white;
+		height: 24px;
+		width: auto;
+		line-height: 100%;
+		vertical-align: middle;
+
+	}
+</style>
+
+<div style="border:1px solid black; padding : 10px;">
+	<!-- begin object add/edit form -->
+	<form (ngSubmit)="onNewObjectAddFormSubmit()" #newObjectAddForm="ngForm">
+
+		<!-- Row begin -->
+		<div class="row">
+			<div class="col-md-3 pr-0">
+				<label for="ruolo">
+					{{ 'ruoli.usrmsg_info.L07362_code' | translate:[translate] | async}} <strong style="color:red">*</strong> 
+				</label>
+				<input type="text"  name="ruolo" id="ruolo" 
+						class="form-control form-control-sm" 
+						[class.cus-error]="isFormSubmitted"
+						placeholder="{{ 'ruoli.usrmsg_info.L07362_code' | translate:[translate] | async}}"
+						required 
+						[disabled]="!internalAddEditFlag" 
+						maxlength="15"
+						[(ngModel)]="selectedObject.ruolo" >
+			</div>
+			<div class="col-md-3 pr-0">
+				<label for="roleName">
+					{{ 'ruoli.usrmsg_info.L07363_name' | translate:[translate] | async}} <strong style="color:red">*</strong> 
+				</label>
+				<input type="text"  name="roleName" id="roleName" 
+						class="form-control form-control-sm" 
+						[class.cus-error]="isFormSubmitted"
+						placeholder="{{ 'ruoli.usrmsg_info.L07363_name' | translate:[translate] | async}}"
+						required 
+						maxlength="50"
+						[(ngModel)]="selectedObject.ruolodescrDescrizione" >
+			</div>
+			<div class="col-md-2 pr-0">
+				<label for="language">
+					{{ 'ruoli.usrmsg_info.L07364_language' | translate:[translate] | async}} <strong style="color:red">*</strong> 
+				</label>
+				<select name="language" id="language"
+						class="form-control form-control-sm"
+						[class.cus-error]="isFormSubmitted"
+						required
+						(change)="onLanguageChange()"
+						[(ngModel)]="selectedObject.ruolodescrLingua" >
+					<option value="">
+						--{{ 'common.usrmsg_info.L7030_select' | translate:[translate] | async}}--
+					</option>
+					<option value="ITA">ITA</option>
+					<option value="ENG">ENG</option>
+					<option value="ESP">ESP</option>
+				</select>
+			</div>
+			<div class="col-md-2 pr-0">
+				<label for="state">
+					{{ 'ruoli.usrmsg_info.L07351_state' | translate:[translate] | async}}
+				</label>
+				<select name="state" id="state"
+						class="form-control form-control-sm"
+						[class.cus-error]="isFormSubmitted"
+						required
+						[(ngModel)]="selectedObject.ruoloAbilitato" >
+					<option value="">
+						--{{ 'common.usrmsg_info.L7030_select' | translate:[translate] | async}}--
+					</option>
+					<option value="S">
+						{{ 'ruoli.usrmsg_info.L07352_enabled' | translate:[translate] | async}}
+					</option>
+					<option value="N">
+						{{ 'ruoli.usrmsg_info.L07353_disabled' | translate:[translate] | async}}
+					</option>
+				</select>
+			</div>
+			<div class="col-md-2">
+				<label for="isSystem">
+					{{ 'ruoli.usrmsg_info.L07358_system' | translate:[translate] | async}}
+				</label>
+				<select name="isSystem" id="isSystem"
+						class="form-control form-control-sm"
+						[class.cus-error]="isFormSubmitted"
+						[(ngModel)]="selectedObject.ruoloSystem" >
+					<option value="">
+						--{{ 'common.usrmsg_info.L7030_select' | translate:[translate] | async}}--
+					</option>
+					<option value="S">
+						{{ 'common.usrmsg_info.L7014_yes' | translate:[translate] | async}}
+					</option>
+					<option value="N">
+						{{ 'common.usrmsg_info.L7015_no' | translate:[translate] | async}}
+					</option>
+				</select>
+			</div>
+		</div>
+		<!-- Row end -->
+
+		<!-- Row begin -->
+		<div class="row">
+			<div class="col-md-3">
+				<label for="shortDescription">
+					{{ 'ruoli.usrmsg_info.L07366_description' | translate:[translate] | async}}
+				</label>
+			</div>
+			<div class="col-md-9" style="height: inherit;margin-top: 0.5rem;">				
+				<input type="text" name="shortDescription" id="shortDescription"
+						class="form-control form-control-sm" 
+						placeholder="{{ 'ruoli.usrmsg_info.L07366_description' | translate:[translate] | async}}"
+						maxlength="50"
+						[(ngModel)]="selectedObject.ruolodescrDescrizioneBreve" >
+			</div>
+		</div>
+		<!-- Row end -->
+
+		<!-- Row begin -->
+		<div class="row">
+			<div class="col-md-3">
+				<label for="longDescription">
+					{{ 'ruoli.usrmsg_info.L07367_fullDescription' | translate:[translate] | async}}
+				</label>
+			</div>
+			<div class="col-md-9" style="height: inherit;margin-top: 0.5rem;">				
+				<textarea name="longDescription" id="longDescription"
+						class="form-control" 
+						placeholder="{{ 'ruoli.usrmsg_info.L07367_fullDescription' | translate:[translate] | async}}"
+						rows="3"
+						maxlength="300"
+						[(ngModel)]="selectedObject.ruolodescrDescrizioneEstesa" >
+				</textarea>					
+			</div>
+		</div>
+		<!-- Row end -->
+		<div class="row">
+			<div class="col-md-12">
+				<hr style="margin-top: 3px; margin-bottom: 3px;">
+			</div>
+		</div>
+		<!-- Row begin -->
+		<div class="row mt-1">
+			<div class="col-md-7" style="height: 40vh;">
+				<button type="button" class="btn btn-sm buttonhover btncustom abso" 
+						aria-haspopup="true"
+						(click)="openPermissionModal()" 
+						aria-expanded="false">
+					<i class="fa fa-pencil" aria-hidden="true"></i>
+				</button>
+				<ag-grid-angular 
+						style="width: 100%; height: 100%;" 
+						class="ag-theme-balham my-grid"
+						[rowData]="group1" 
+						[columnDefs]="colDefPermissions" 
+						[defaultColDef]="defaultColDef"
+						(gridReady)="onPermissionGridReady($event)" >
+				</ag-grid-angular>
+			</div>
+			<div class="col-md-5" style="height: 40vh;">
+				<ag-grid-angular 
+						style="width: 100%; height: 90%;" 
+						class="ag-theme-balham my-grid"
+						[rowData]="group2" 
+						[columnDefs]="colDefUsers" 
+						[defaultColDef]="defaultColDef"
+						(gridReady)="onUserGridReady($event)" >
+				</ag-grid-angular>
+				<button type="button" class="btn btn-success btn-sm mt-1" (click)="onResetUserClicked()">
+					{{ 'ruoli.usrmsg_info.L07365_resetToUserBtn' | translate:[translate] | async}}
+				</button>
+			</div>
+		</div>
+		<!-- Row end -->	
+
+
+		<div class="row px-1 mt-3" >
+			<div class="col-md-5">				
+				<button type="button" class="btn btn-danger btn-outline-secondary btn-sm"
+						(click)="onDeleteClicked()">
+					<i class="fa fa-trash-o"></i>
+					{{ 'common.usrmsg_info.L7003_delete' | translate:[translate] | async}}
+				</button>
+			</div>
+			<div class="col-md-7 pl-0">				
+				<button type="submit" class="btn btn-sm btn-outline-secondary btn-default" 
+						style="width: 100%;">
+					<i class="fa fa-check"></i>
+					{{ 'common.usrmsg_info.L7001_save' | translate:[translate] | async}}
+				</button>
+			</div>
+		</div>
+
+	</form>
+	<!-- Add/Edit form end  -->
+</div>

@@ -1,0 +1,172 @@
+<!-- Hard skill modal begin -->
+<div class="modal fade" bsModal #hardSkillModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">{{caption}}</h4>
+        <button type="button" class="close pull-right" (click)="onModalClose()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->        
+      <!-- Modal body begin -->
+      <div class="modal-body" style="padding : 5px 30px;">
+        <!-- Possessed hard skill table begin -->
+        <div id="hardSkillsList" *ngIf="possessedHardSkills.length > 0">
+          <table class="table table-responsive table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>{{testLabel}}</th>
+                <th>{{completionDateLabel}}</th>
+                <th>{{gradeLabel}}</th>
+                <th>{{correctAnsLabel}}</th>
+                <th>{{durationLabel}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let skill of possessedHardSkills">
+                  <td> {{skill.tsrisTitoloTest}} </td>
+                  <td> {{skill.tsrisDataCompletamento}} </td>
+                  <td> {{skill.tsrisScore}} </td>
+                  <td> {{skill.tsrisRisposteCorrette}} </td>
+                  <td> {{skill.tsrisMinutiTrascorsi}} </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Possessed hard skill table begin -->
+        <!-- Hard skill selection begin -->
+        <div id="hardSkillsList" *ngIf="possessedHardSkills.length == 0">
+          <h3 class="no-found-message">{{notFoundMessage}}</h3>          
+          <!-- First/Competenze dropdown list -->
+          <div class="row" *ngIf="mandatorySkills.length > 0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>{{selectLabel}}</th>
+                  <th>{{skillLabel}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of mandatorySkills">
+                  <td>
+                    <input type="checkbox" [value]="item.tsvalTitolo" (change)="onSkillCheck($event)">
+                  </td>
+                  <td>
+                    {{item.tsvalTitolo}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Second/evaluation dropdown list -->
+          <div class="row" *ngIf="optionalSkills.length > 0">
+            <label class="control-label"> {{evaluationSelectLabel}} </label> <br />
+            <select class="form-control"  id="optionalSelectList">
+              <option value >--Select--</option>
+              <option *ngFor="let test of optionalSkills" [value]="test.tsvalTitolo"> {{test.tsvalTitolo}} </option>
+            </select>
+          </div>
+        </div>
+        <!-- Hard skill selection end -->
+      </div>
+      <!-- Modal body end -->
+      <!-- Modal footer start -->
+      <div class="modal-footer modal_footer_talent bg-dark">
+        <button type="button" class="btn btn-primary" (click)="onEmailModalOpen()" >
+            <i class="fa fa-arrow-right"></i> {{sendBtnText}}
+          </button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="onModalClose()">
+          <i class="fa fa-times"></i> {{closeBtnText}}
+        </button>
+      </div>
+      <!-- Modal footer end -->        
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- End modal -->
+
+<!-- Hard skill modal begin -->
+<div class="modal fade" bsModal 
+        #emailModal="bs-modal" 
+        [config]="{backdrop: 'static'}" 
+        tabindex="-1" 
+        role="dialog" 
+        aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Invitation</h4>
+        <button type="button" class="close pull-right" (click)="onEmailModalClose()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->     
+      <form #emailForm="ngForm" (ngSubmit)="onSendInvitation(emailForm)">
+        <!-- Modal body begin -->
+      <div class="modal-body email-modal-body">
+          <div class="row">
+            <label for="from" class="control-label col-md-2"> From</label>
+            <div class="col-md-7">
+              <select name="from" id="from" class="form-control"
+                      [(ngModel)]="email.from">
+                <option *ngFor="let mail of fromMailAddresses" [value]="mail">{{mail}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <label for="to" class="control-label col-md-2"> To</label>
+            <div class="col-md-7">
+              <input type="text" id="to" name="to"
+                    class="form-control"
+                    required
+                    [(ngModel)]="email.to">
+            </div>
+          </div>
+          <div class="row">
+            <label for="cc" class="control-label col-md-2"> CC</label>
+            <div class="col-md-7">
+              <input type="text" id="cc" name="cc"
+                    class="form-control"
+                    [(ngModel)]="email.cC">
+            </div>
+          </div>
+          <div class="row">
+            <label for="sub" class="control-label col-md-2"> Subject</label>
+            <div class="col-md-7">
+              <input type="text" id="sub" name="sub"
+                    class="form-control"
+                    required
+                    [(ngModel)]="email.sub">
+            </div>
+          </div>  
+          <div class="row">
+            <label for="body" class="control-label col-md-2"> Body</label>
+            <div class="col-md-10">
+              <ckeditor name="body" id="body" [(ngModel)]="email.body" ></ckeditor>
+            </div>
+          </div>
+        </div>
+        <!-- Modal body end -->
+        <!-- Modal footer start -->
+        <div class="modal-footer modal_footer_talent bg-dark">
+          <button type="submit" class="btn btn-primary" >
+              <i class="fa fa-arrow-right"></i> {{sendBtnText}}
+            </button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="onEmailModalClose()">
+            <i class="fa fa-times"></i> {{closeBtnText}}
+          </button>
+        </div>
+        <!-- Modal footer end -->   
+      </form>   
+           
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- End modal -->

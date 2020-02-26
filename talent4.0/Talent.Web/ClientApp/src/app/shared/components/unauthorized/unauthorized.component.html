@@ -1,0 +1,30 @@
+
+<div class="not-found-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <h1>
+                        Oops!</h1>
+                    <h2>
+                        401 {{ 'common.usrmsg_info.L7028_unauthorized' | translate:[translate] | async}}</h2>
+                    <div class="error-details">
+                        {{ 'common.usrmsg_err.L0001_accessDenied' | translate:[translate, {'page' : targetUrl}] | async}}
+                    </div>
+                    <div class="error-actions">
+                        <a [routerLink]="['/home']" routerLinkActive="router-link-active"  class="btn btn-lg return-btn">
+                            <i class="fa fa-home"></i>
+                            {{ 'common.usrmsg_info.L7027_returnHome' | translate:[translate] | async}}
+                        </a>
+                        <!-- <a class="btn btn-lg contact-btn" (click)="onHelpClick()">
+                            <span class="glyphicon glyphicon-envelope"></span> 
+                            Contact Support 
+                        </a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

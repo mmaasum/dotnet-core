@@ -1,0 +1,14 @@
+#existingShowTable>thead>tr>th {
+    text-align: center;
+    background-color: #967baf;
+    color: #ffffff;
+}
+
+
+#no-of-keyword {
+	font-weight: bold;
+	margin-right: 1.2rem;
+}
+#last-reviewed {
+	font-weight: bold;
+}

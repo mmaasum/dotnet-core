@@ -1,0 +1,27 @@
+{
+    "operazioni" : {
+        "usrmsg_err" : {
+			"L1051_errmsg" : "Error message"
+		},
+		"usrmsg_warn" : {
+			"L4051_warningmsg" : "Warn msg"
+		},
+		"usrmsg_info" : {
+			"L7051_users" : "Utente",
+			"L7052_dateFrom" : "Dalla data",
+			"L7053_dateTo" : "alla data",
+			"L7054_descriptionOrDetail" : "Testo presente in Descrizione/Dettaglio",
+			"L7055_meButton" : "Me",
+			"L7056_yesterdayButton" : "Ieri",
+			"L7057_todayButton" : "Oggi",
+			"L7058_lastWeekButton" : "Settimana precedente",
+			"L7059_dateHour" : "Data",
+			"L7060_user" : "Utente",
+			"L7061_description" : "Descrizione",
+			"L7062_detail" : "Dettaglio"
+		},
+		"sysmsg_err" : {
+			"L11051_errmsg" : "Sys msg"
+		}
+    }
+}

@@ -1,0 +1,42 @@
+{
+    "azioni" : {
+        "usrmsg_err" : {
+			"L1101_errmsg" : "L1101_errmsg.ESP"
+		},
+		"usrmsg_warn" : {
+			"L4101_warningmsg" : "L4101_warningmsg.ESP"
+		},
+		"usrmsg_info" : {
+			"L7101_users" : "L7101_users.ESP",
+			"L7102_dateFrom" : "L7102_dateFrom.ESP",
+			"L7103_dateTo" : "L7103_dateTo.ESP",
+			"L7104_action" : "L7104_action.ESP",
+			"L7105_meButton" : "L7105_meButton.ESP",
+			"L7106_yesterdayButton" : "L7106_yesterdayButton.ESP",
+			"L7107_todayButton" : "L7107_todayButton.ESP",
+			"L7108_lastWeekButton" : "L7108_lastWeekButton.ESP",
+			"L7109_searchFields" : "L7109_searchFields.ESP",
+			"L7110_userId" : "L7110_userId.ESP",
+			"L7111_user" : "L7111_user.ESP",
+			"L7112_resource" : "L7112_resource.ESP",
+			"L7113_contact" : "L7113_contact.ESP",
+			"L7114_request" : "L7114_request.ESP",
+			"L7115_typeOfAction" : "L7115_typeOfAction.ESP",
+			"L7116_description" : "L7116_description.ESP",
+			"L7117_detail1" : "L7117_detail1.ESP",
+			"L7118_detail2" : "L7118_detail2.ESP",
+			"L7119_detail3" : "L7119_detail3.ESP",
+			"L7120_begin" : "L7120_begin.ESP",
+			"L7121_end" : "L7121_end.ESP",
+			"L7122_location" : "L7122_location.ESP",
+			"L7123_insertBy" : "L7123_insertBy.ESP",
+			"L7124_insertDate" : "L7124_insertDate.ESP",
+			"L7125_actionTypeDescr" : "L7125_actionTypeDescr.ESP",
+			"L7126_actionCategoryDescr" : "L7126_actionCategoryDescr.ESP",
+			"L7127_noOfRecords" : "L7127_noOfRecords.ESP"
+		},
+		"sysmsg_err" : {
+			"L11101_errmsg" : "L11101_errmsg.ESP"
+		}
+    }
+}

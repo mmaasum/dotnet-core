@@ -1,0 +1,85 @@
+<!-- New object add or edit form modal begin -->
+<div class="modal fade" bsModal 
+		#allStatsModal="bs-modal" 
+		tabindex="-1" 
+		[config]="{backdrop: 'static'}" 
+		role="dialog"
+		aria-labelledby="dialog-nested-name2">
+
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content modal_talent">
+			<!-- Modal header begin -->
+			<div class="modal-header ricerca-sfondo">
+				<h5 id="dialog-sizes-name1" class="modal-title pull-left">
+					{{ 'termini.usrmsg_info.L07185_allStatModalTitle' | translate:[translate] | async}}
+				</h5>
+				<button type="button" class="close pull-right" (click)="onCloseAllStatsModal()" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<!-- Modal header end -->
+
+			<!-- Modal body begin -->
+			<div class="modal-body pb-0">
+
+				<h5>{{ 'termini.usrmsg_info.L07186_allStatModalHeader' | translate:[translate] | async}}</h5>
+
+				<div style="height: 33vh;">
+
+					<ag-grid-angular 
+						style="width: 100%; height: 94%;" 
+						class="ag-theme-balham my-grid"
+						[rowData]="group1" 
+						[columnDefs]="colDefFirstTable" 
+						[defaultColDef]="colDefSecondTable">
+					</ag-grid-angular>
+					
+				</div>
+
+				<div style="height: 33vh;">
+
+					<ag-grid-angular 
+						style="width: 100%; height: 94%;" 
+						class="ag-theme-balham my-grid"
+						[rowData]="group2" 
+						[columnDefs]="colDefSecondTable" 
+						[defaultColDef]="defaultColDef">
+					</ag-grid-angular>
+					
+				</div>
+
+
+
+
+
+
+
+			</div>
+			<!-- Modal body end -->
+			<!-- Modal footer start -->
+			<div class="modal-footer">
+
+				<div class="row" style="width: 100%;">
+					<div class="col-md-6 pull-left pl-0">
+						
+					</div>
+					<div class="col-md-6 pl-0">
+						<div class="btn-group pull-right pr-0">
+							
+							<button type="button" class="btn btn-outline-secondary btn-sm" style="margin-right: 8px;"
+								(click)="onCloseAllStatsModal()">
+								<i class="fa fa-undo"></i>
+								{{ 'termini.usrmsg_info.L07174_exit' | translate:[translate] | async}}
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Modal footer end -->
+
+		</div>
+		<!-- End modal content -->
+	</div>
+	<!-- End modal dialogue -->
+</div>
+<!-- End modal -->

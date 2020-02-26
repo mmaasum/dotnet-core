@@ -1,0 +1,52 @@
+{
+    "common" : {
+        "usrmsg_err" : {
+			"L0001_accessDenied" : "Non poter accedere {{page}} page, non sei autorizzato",
+			"L0201_fieldEmpty" : "L0201_fieldEmpty.ITA{{par_01}}",
+			"L0202_dateFormat" : "Data non corretta. Utilizzare il formato GG/MM/AAAA",
+			"L0203_invalidFormData" : "I dati inseriti non sono validi",
+			"L0204_unexpecteddErrorMsg" : "Si è verificato un errore imprevisto"
+		},
+		"usrmsg_warn" : {
+			"L3001_logoutWarnMsg" : "Chiusura dell'applicazione",
+			"L3002_logoutConfirmMsg" : "Tutti i dati non salvati andranno persi. Confermi?",
+			"L3003_notImplemented" : "Non ancora implementato"
+		},
+		"usrmsg_info" : {
+			"L7001_save" : "Salva",
+			"L7002_edit" : "Modifica",
+			"L7003_delete" : "Elimina",
+			"L7004_close" : "Chiudi",
+			"L7005_clear" : "Annulla",
+			"L7006_applyFilter" : "Applica",
+			"L7007_maxRows" : "Nr. righe",
+			"L7008_duplicate" : "Duplica",
+			"L7009_saveAndExit" : "Salva ed esci",
+			"L7010_saveAndApply" : "Salva e applica",
+			"L7011_saveSuccessMsg" : "{{term}} salvato con successo",
+			"L7012_deleteSuccessMsg" : "{{term}} cancellato con successo",
+			"L7013_logout" : "Logout",
+			"L7014_yes" : "SI",
+			"L7015_no" : "NO",
+			"L7016_stay" : "Annulla",
+			"L7017_myAccount" : "Il mio profilo",
+			"L7018_add" : "Inserisci",
+			"L7019_confirmation" : "Conferma",
+			"L7020_confirmationMsg" : "Vuoi continuare?",
+			"L7021_reset" : "Reset",
+			"L7022_gridExportConfirmation" : "Conferma esportazione dati griglia in {{type}}",
+			"L7023_all" : "Tutti",
+			"L7024_dataOf" : "dati di",
+			"L7025_lastLoginInfo" : "Informazioni sull'ultimo accesso",
+			"L7026_time" : "Tempo",
+			"L7026_gridLoadWait" : "Un momento per favore...",
+			"L7027_returnHome" : "Portami a casa",
+			"L7028_unauthorized" : "Non Autorizzato",
+			"L7029_search" : "Search",
+			"L7030_select" : "Selezionare"
+		},
+		"sysmsg_err" : {
+			"L10001_errmsg" : "L10001_errmsg.ITA"
+		}
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "common" : {
+        "usrmsg_err" : {
+			"L0001_accessDenied" : "L0001_accessDenied.ESP {{page}}",
+			"L0201_fieldEmpty" : "L0201_fieldEmpty.ESP {{par_01}}",
+			"L0202_dateFormat" : "L0202_dateFormat.ESP",
+			"L0203_invalidFormData" : "Datos de formulario inválidos",
+			"L0204_unexpecteddErrorMsg" : "Se produjo un error inesperado!"
+		},
+		"usrmsg_warn" : {
+			"L3001_logoutWarnMsg" : "Estás a punto de cerrar sesión en la aplicación",
+			"L3002_logoutConfirmMsg" : "Cualquier información no guardada se perderá. ¿Quieres proceder?",
+			"L3003_notImplemented" : "Aún sin implementar"
+		},
+		"usrmsg_info" : {
+			"L7001_save" : "Salvar",
+			"L7002_edit" : "Editar",
+			"L7003_delete" : "Eliminar",
+			"L7004_close" : "Cerrar",
+			"L7005_clear" : "Despejar",
+			"L7006_applyFilter" : "Aplicar y actualizar datos",
+			"L7007_maxRows" : "Máx",
+			"L7008_duplicate" : "Duplicar",
+			"L7009_saveAndExit" : "Guardar y Salir",
+			"L7010_saveAndApply" : "Guardar y aplicar",
+			"L7011_saveSuccessMsg" : "{{term}} guardado exitosamente",
+			"L7012_deleteSuccessMsg" : "{{term}} borrado exitosamente",
+			"L7013_logout" : "Salir",
+			"L7014_yes" : "Si",
+			"L7015_no" : "No",
+			"L7016_stay" : "Estar",
+			"L7017_myAccount" : "Mi cuenta",
+			"L7018_add" : "Añadir",
+			"L7019_confirmation" : "Confirmación",
+			"L7020_confirmationMsg" : "¿Quieres continuar?",
+			"L7021_reset" : "Reiniciar",
+			"L7022_gridExportConfirmation" : "Confirmar exportación de cuadrícula a {{type}}",
+			"L7023_all" : "Todos",
+			"L7024_dataOf" : "datos de",
+			"L7025_lastLoginInfo" : "Última información de inicio de sesión",
+			"L7026_time" : "Hora",
+			"L7026_gridLoadWait" : "Un momento por favor...",
+			"L7027_returnHome" : "L7027_returnHome.ESP",
+			"L7028_unauthorized" : "No Autorizado",
+			"L7029_search" : "Search",
+			"L7030_select" : "Seleccione"
+		},
+		"sysmsg_err" : {
+			"L10001_errmsg" : "L10001_errmsg.ESP"
+		}
+    }
+}

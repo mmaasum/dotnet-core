@@ -1,0 +1,34 @@
+{
+	"ruoli" : {
+        "usrmsg_err" : {
+			"L01351_roleExist" : "Il ruolo esiste già!"
+		},
+		"usrmsg_warn" : {
+			"L04351_keywordExist" : ""
+		},
+		"usrmsg_info" : {
+			"L07351_state" : "Stato",
+			"L07352_enabled" : "Abilitato",
+			"L07353_disabled" : "Disabilitato",
+			"L07354_enabledPermissions" : "Autorizzazioni abilitate",
+			"L07355_searchInAll" : "Cerca in tutti i campi",
+			"L07356_myRole" : "Il mio ruolo",
+			"L07357_enabledRoles" : "Ruoli abilitati",
+			"L07358_system" : "Sistema",
+			"L07359_newRole" : "Nuovo ruolo",
+			"L07360_noOfPermissions" : "# permessi",
+			"L07361_noOfActiveUsers" : "# utenti attivi",
+			"L07362_code" : "Codice",
+			"L07363_name" : "Nome",
+			"L07364_language" : "linguaggio",
+			"L07365_resetToUserBtn" : "Ripristina l'autorizzazione al ruolo per tutti gli utenti attivi",
+			"L07366_description" : "Descrizione",
+			"L07367_fullDescription" : "Descrizione completa del ruolo",
+			"L07368_noOfPermissionTitle" : "{{count}} permessi abilitati",
+			"L07369_noOfUserTitle" : "{{count}} utenti attivi con ruolo"
+		},
+		"sysmsg_err" : {
+			"L11351_errmsg" : "Sys msg"
+		}
+    }
+}

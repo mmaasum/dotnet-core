@@ -1,0 +1,33 @@
+<div class="modal right fade in" bsModal 
+			#lastLoginInfoModal="bs-modal" 
+			(onHidden)="onCloseModal()"
+			role="dialog" 
+			aria-labelledby="dialog-nested-name2">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<!-- Modal header begin -->
+			<div class="modal-header ricerca-sfondo">
+				<h5 id="dialog-nested-name2" class="modal-title pull-left">
+					{{ 'common.usrmsg_info.L7025_lastLoginInfo' | translate:[translate] | async}}
+				</h5>
+				<button type="button" 
+						class="close pull-right" 
+						aria-label="Close" 
+						(click)="onCloseModal()">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<!-- Modal header end -->
+			<!-- Modal body begin -->
+			<div class="modal-body">
+				<i class="fa fa-at ip"></i>  {{ip}} <br>
+				<i [class]="browserIcon"></i>  {{client}} <br>
+				<i [class]="osIcon"></i>  {{os}} <br>
+				<i class="fa fa-history time"></i>  
+				{{ 'common.usrmsg_info.L7026_time' | translate:[translate] | async}} -> {{loginTime | date:'dd MMM yyyy, HH:mm:ss'}}
+			</div>
+			<!-- Modal body end -->
+		</div>
+	</div>
+
+</div>

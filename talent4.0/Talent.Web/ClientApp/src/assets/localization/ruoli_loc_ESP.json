@@ -1,0 +1,34 @@
+{
+	"ruoli" : {
+        "usrmsg_err" : {
+			"L01351_roleExist" : "L01351_roleExist.ESP"
+		},
+		"usrmsg_warn" : {
+			"L04351_keywordExist" : "L04351_keywordExist.ESP"
+		},
+		"usrmsg_info" : {
+			"L07351_state" : "L07351_state.ESP",
+			"L07352_enabled" : "L07352_enabled.ESP",
+			"L07353_disabled" : "L07353_disabled.ESP",
+			"L07354_enabledPermissions" : "L07354_enabledPermissions.ESP",
+			"L07355_searchInAll" : "L07355_searchInAll.ESP",
+			"L07356_myRole" : "L07356_myRole.ESP",
+			"L07357_enabledRoles" : "L07357_enabledRoles.ESP",
+			"L07358_system" : "L07358_system.ESP",
+			"L07359_newRole" : "L07359_newRole.ESP",
+			"L07360_noOfPermissions" : "L07360_noOfPermissions.ESP",
+			"L07361_noOfActiveUsers" : "L07361_noOfActiveUsers.ESP",
+			"L07362_code" : "L07362_code.ESP",
+			"L07363_name" : "L07363_name.ESP",
+			"L07364_language" : "L07364_language.ESP",
+			"L07365_resetToUserBtn" : "L07365_resetToUserBtn.ESP",
+			"L07366_description" : "L07366_description.ESP",
+			"L07367_fullDescription" : "L07367_fullDescription.ESP",
+			"L07368_noOfPermissionTitle" : "L07368_noOfPermissionTitle.ESP {{count}}",
+			"L07369_noOfUserTitle" : "L07369_noOfUserTitle.ESP {{count}}"
+		},
+		"sysmsg_err" : {
+			"L11351_errmsg" : "L11351_errmsg.ESP"
+		}
+    }
+}

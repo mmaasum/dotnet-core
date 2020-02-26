@@ -1,0 +1,23 @@
+USE [recruiting_multi_talent_test]
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_auth_role]    Script Date: 5/9/2019 8:17:28 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER proc [dbo].[sp_auth_role]( @roleName as varchar(15), @cliId as varchar(30))
+As
+Begin
+	select r.tipoabilit_procedura,t.ruoltipab_ruolo from tipi_abilitazione r left join 
+		(select t2.ruoltipab_uteab_procedura,t2.ruoltipab_ruolo from 
+		ruoli_tipi_abilitazione t2
+		where t2.ruoltipab_cli_id=@cliId and t2.ruoltipab_ruolo= @roleName)
+		t on r.tipoabilit_procedura = t.ruoltipab_uteab_procedura
+		where r.tipoabilit_procedura LIKE 'Talent%'
+End
+
+GO
+

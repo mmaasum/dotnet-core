@@ -1,0 +1,371 @@
+<style>
+
+    .modal.right .modal-dialog {
+        position: fixed;
+        margin: auto;
+        width: 70%;
+        height: 100%;
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+    }
+
+    .modal.right .modal-content {
+        max-height: 100%;
+        overflow-y: scroll;
+		display: block;
+    }
+
+    .modal.right .modal-body {
+        padding: 15px 15px;
+        min-height:93%;
+    }
+
+    .modal.right.fade .modal-dialog {
+        right: -320px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+    .modal.right.fade.show .modal-dialog {
+        right: 0;
+    }
+
+</style>
+<!-- Grid management Modal begin -->
+
+<ng-template #itemTemplate let-item="item" let-index="index">
+    <span (click)="itemClick(item)" style="display: block;padding : 6px 12px;" *ngIf="selectedItem == undefined">{{index+1}}: {{item.value}}</span>
+    <span (click)="itemClick(item)" style="display: block;padding : 6px 12px;" *ngIf="selectedItem != undefined" [class.sortable-item-selected]="item.value == selectedItem.tntgcuFieldLabelDescription">{{index+1}}: {{item.value}}</span>
+</ng-template>
+
+<div class="modal right fade in" bsModal 
+                        #gridSettingsModal="bs-modal"                         
+						role="dialog" 
+						(onHidden)="onCloseGridSettingsModal()"
+                        aria-labelledby="dialog-nested-name2">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!-- Modal header begin -->
+            <div class="modal-header">
+				{{ 'grid.usrmsg_info.L7551_title' | translate:[translate] | async}}
+                <button type="button" class="close pull-right" aria-label="Close"
+                    (click)="onCloseGridSettingsModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- Modal header end -->
+            <!-- Modal body begin -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row mb-1">
+                            <label for="grid_fonts" class="control-label col-md-3">
+								{{ 'grid.usrmsg_info.L7552_font' | translate:[translate] | async}}
+                            </label>
+                            <div class="col-md-3">
+                                <select name="grid_fonts" 
+                                        id="grid_fonts" 
+                                        class="form-control form-control-sm"
+                                        (change)="onMasterFontChange()"
+                                        [(ngModel)]="master.tntgruFontName">
+                                    <option *ngFor="let item of fonts" [value]="item.fontName">
+                                        {{item.fontName}}
+                                    </option>
+                                </select>
+                            </div>
+                            <label for="grid_font_size" class="control-label col-md-3">
+								{{ 'grid.usrmsg_info.L7553_fontSize' | translate:[translate] | async}}
+                            </label>
+                            <div class="col-md-3">
+                                <select name="grid_font_size" 
+                                        id="grid_font_size" 
+                                        class="form-control form-control-sm"
+                                        (change)="onMasterFontSizeChange()"
+                                        [(ngModel)]="master.tntgruFontSize">                            
+                                    <option *ngFor="let item of fontSizes" [value]="item.tntszFontDimensione">
+                                        {{item.tntszFontDimensione}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="grid_even_row" class="control-label col-md-3">
+								{{ 'grid.usrmsg_info.L7555_evenRowColor' | translate:[translate] | async}}
+                            </label>
+                            <div class="col-md-3">
+                                <input [(colorPicker)]="master.tntgruEvenRowsColor" 
+                                        [value]="master.tntgruEvenRowsColor"
+                                        class="form-control form-control-sm" 
+                                        [style.background]="master.tntgruEvenRowsColor"/>
+                            </div>
+                            <label for="grid_odd_row" class="control-label col-md-3">
+								{{ 'grid.usrmsg_info.L7556_oddRowColor' | translate:[translate] | async}}
+                            </label>
+                            <div class="col-md-3">
+                                <input [(colorPicker)]="master.tntgruOddRowsColor" 
+                                    [value]="master.tntgruOddRowsColor"
+                                    class="form-control form-control-sm" 
+                                    [style.background]="master.tntgruOddRowsColor"/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox"
+                                        name="showRowNumber"
+                                        [checked]="showRowNumber"
+                                        (change)="showRowNumber = !showRowNumber"> 
+									{{ 'grid.usrmsg_info.L7554_showRowNo' | translate:[translate] | async}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <hr style="background-color: burlywood;width: 96%;">
+                </div>
+                <div class="row" style="margin-bottom: 15px;">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                                    <div class="row">
+											<div class="col-md-5" style="padding-left: 0;">
+												{{ 'grid.usrmsg_info.L7557_fieldsHidden' | translate:[translate] | async}}
+                                                <bs-sortable #leftList
+                                                    [(ngModel)]="unassignedColumns"
+                                                    [itemTemplate]="itemTemplate"
+                                                    fieldName="tntgcuFieldLabelDescription"
+                                                    itemClass="sortable-item"
+                                                    itemActiveClass="sortable-item-active"
+                                                    placeholderItem="{{ 'grid.usrmsg_info.L7558_bsPlaceholder' | translate:[translate] | async}}"
+                                                    placeholderClass="placeholderStyle"
+                                                    wrapperClass="sortable-wrapper"
+                                                ></bs-sortable>
+                                            </div>
+                                            <div class="col-md-2" style="margin-left:10px; margin-top: 60px;">
+                                                <div class="row" style="margin-left: -40px; margin-right: -23px;">
+                                                    <div class="col-md-12" style="padding-right: 0px; padding-left: 0px;">
+                                                        <button type="button" class="btn btn-success btn-sm"
+                                                            style="width: 100%;margin-left: 3px;margin-bottom: 10px;"
+                                                            [disabled]="!leftSelected"
+                                                            (click)="moveLeftToRight()">
+                                                            {{ 'grid.usrmsg_info.L7560_add' | translate:[translate] | async}}
+                                                            <i class="fa fa-arrow-right"> </i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-left: -40px; margin-right: -23px;">
+                                                    <div class="col-md-12" style="padding-right: 0px; padding-left: 0px;">
+                                                        <button type="button" class="btn btn-success btn-sm"
+                                                            style="width: 100%;margin-left: 3px;margin-bottom: 10px;"
+                                                            [disabled]="!rightSelected"
+                                                            (click)="moveRightToLeft()">
+                                                            {{ 'grid.usrmsg_info.L7561_remove' | translate:[translate] | async}}
+                                                            <i class="fa fa-arrow-left"> </i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-left: -40px; margin-right: -23px;">
+                                                    <div class="col-md-12" style="padding-right: 0px; padding-left: 0px;">
+                                                        <button type="button" class="btn btn-success btn-sm"
+                                                            style="width: 100%;margin-left: 3px;margin-bottom: 10px;"
+                                                            [disabled]="!rightSelected"
+                                                            (click)="moveUp()">
+                                                            {{ 'grid.usrmsg_info.L7562_moveUp' | translate:[translate] | async}}
+                                                            <i class="fa fa-arrow-up"> </i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-left: -40px; margin-right: -23px;">
+                                                    <div class="col-md-12" style="padding-right: 0px; padding-left: 0px;">
+                                                        <button type="button" class="btn btn-success btn-sm"
+                                                            style="width: 100%;margin-left: 3px;margin-bottom: 10px;"
+                                                            [disabled]="!rightSelected"
+                                                            (click)="moveDown()">
+                                                            {{ 'grid.usrmsg_info.L7563_moveDown' | translate:[translate] | async}}
+                                                            <i class="fa fa-arrow-down"> </i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5" style="text-align: left;padding-left: 28px;padding-right: 0px;margin-left: -11px;">
+												{{ 'grid.usrmsg_info.L7559_fieldsVisible' | translate:[translate] | async}}
+												<bs-sortable #rightList
+                                                    [(ngModel)]="assignedColumns"
+                                                    [itemTemplate]="itemTemplate"
+                                                    fieldName="tntgcuFieldLabelDescription"
+                                                    itemClass="sortable-item"
+                                                    itemActiveClass="sortable-item-active"
+                                                    placeholderItem="{{ 'grid.usrmsg_info.L7558_bsPlaceholder' | translate:[translate] | async}}"
+                                                    placeholderClass="placeholderStyle"
+                                                    wrapperClass="sortable-wrapper"
+                                                    (onChange)="changed($event)"
+                                                ></bs-sortable>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 px-4" style="border-left: 1px solid burlywood;" id="column-detail-panel">
+                        
+                        <div class="text-center">
+                            <span class="text-center">
+								{{ 'grid.usrmsg_info.L7564_fieldProp' | translate:[translate] | async}}
+                            </span>                                
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label" for="">{{ 'grid.usrmsg_info.L7565_name' | translate:[translate] | async}}</label>
+                            <input type="text" id="col-name" 
+                                    name="col-name" 
+                                    class="form-control form-control-sm"
+                                    readonly
+                                    [(ngModel)]="detail.tntgcuFieldLabelDescription">
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label" for="">{{ 'grid.usrmsg_info.L7566_description' | translate:[translate] | async}}</label>
+                            <textarea id="col-description"
+                                    name="col-description" 
+                                    class="form-control"
+                                    readonly
+                                    [(ngModel)]="detail.tntgcuFieldLabelDescription">
+                            </textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group pl-0">
+                                <label class="control-label" for="">{{ 'grid.usrmsg_info.L7567_orderInGrid' | translate:[translate] | async}}</label>
+                                <input type="text" id="col-order" 
+                                        name="col-order" 
+                                        class="form-control form-control-sm"
+                                        [(ngModel)]="detail.tntgcuOrderPosition">
+                            </div>
+                            <div class="col-md-6 form-group pr-0">
+                                <label class="control-label" for="">{{ 'grid.usrmsg_info.L7568_align' | translate:[translate] | async}}</label>
+                                <select name="col-align" id="col-align" 
+                                        class="form-control form-control-sm"
+                                        [(ngModel)]="detail.tntgcuFieldTextAlign">
+                                    <option value="Left">Left</option>
+                                    <option value="Center">Center</option>
+                                    <option value="Right">Right</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group pl-0">
+                                <label class="control-label" for="col-min-size">{{ 'grid.usrmsg_info.L7569_minSize' | translate:[translate] | async}}</label>
+                                <input type="number" id="col-min-size"
+										name="col-min-size" 
+                                        class="form-control form-control-sm"
+										[(ngModel)]="detail.tntgcuMinSize">
+                            </div>
+                            <div class="col-md-6 form-group pr-0">
+                                <label class="control-label" for="col-max-size">{{ 'grid.usrmsg_info.L7570_maxSize' | translate:[translate] | async}}</label>
+                                <input type="number" id="col-max-size"
+										name="col-max-size" 
+                                        class="form-control form-control-sm"
+										[(ngModel)]="detail.tntgcuMaxSize">
+                            </div>
+                        </div>
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox"
+                                        name="isColumnAutoSize"
+                                        [checked]="isColumnAutoSize"
+                                        (change)="onColumnAutoWidthChange()"> 
+									{{ 'grid.usrmsg_info.L7571_autoSize' | translate:[translate] | async}}
+                            </label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group pl-0">
+                                <label class="control-label" for="col_fonts">{{ 'grid.usrmsg_info.L7552_font' | translate:[translate] | async}}</label>
+                                <select name="col_fonts" 
+                                        id="col_fonts" 
+                                        class="form-control form-control-sm"
+                                        [(ngModel)]="detail.tntgcuFieldFontName">
+                                    <option *ngFor="let item of fonts" [value]="item.fontName">
+                                        {{item.fontName}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group pr-0">
+                                <label class="control-label" for="col_font_size">{{ 'grid.usrmsg_info.L7553_fontSize' | translate:[translate] | async}}</label>
+                                <select name="col_font_size" 
+                                        id="col_font_size" 
+                                        class="form-control form-control-sm"
+                                        [(ngModel)]="detail.tntgcuFieldFontSize">                            
+                                    <option *ngFor="let item of fontSizes" [value]="item.tntszFontDimensione">
+                                        {{item.tntszFontDimensione}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-1 text-center" style="display: block;">
+							<div class="text-center">
+								<button type="button" class="btn btn-sm btn-success"
+										(click)="onDiscardFieldChanges()"
+										[disabled]="!detail.tntgcuFieldName">
+									{{ 'grid.usrmsg_info.L7572_discardFieldChange' | translate:[translate] | async}}
+								</button>
+							</div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <hr style="background-color: burlywood;width: 96%;">
+                </div>
+                <div class="row" style="width:100%;margin: 0px;">
+                        <div class="col-md-3 pull-left pl-1">
+							<button type="button" 
+									class="btn btn-danger btn-sm" 
+									style="background-color: #C00000;" 
+									(click)="onDiscardGridChanges()">
+								{{ 'grid.usrmsg_info.L7573_discardGridChange' | translate:[translate] | async}}
+                            </button>
+                        </div>
+                        <div class="col-md-3 pull-left pl-1">
+							<button type="button" 
+									class="btn btn-danger btn-sm" 
+									style="background-color: #C00000;" 
+									(click)="onResetSystemValues()">
+								{{ 'grid.usrmsg_info.L7574_resetSystem' | translate:[translate] | async}}
+                            </button>
+                        </div>
+                        <div class="col-md-3" style="padding: 0px; width: 100%;">
+							<button type="button" 
+									class="btn btn-danger btn-sm" 
+									style="background-color: #f1eaea; color: black;" 
+									(click)="onGridSettingsSave()">
+								{{ 'grid.usrmsg_info.L7575_saveAndApply' | translate:[translate] | async}}
+                            </button>
+                        </div>
+                        <div class="col-md-3 pull-right">
+                            <div class="btn-group pull-right pr-1">
+								<button type="button" 
+										class="btn btn-success btn-sm" 
+										(click)="onApplySettings()">
+                                    <i class="fa fa-life-ring"></i>
+                                    {{ 'grid.usrmsg_info.L7576_apply' | translate:[translate] | async}}
+                                </button>
+                            </div>
+                        </div>
+    
+                    </div>
+            </div>
+            <!-- Modal body end -->
+            <!-- Modal footer begin -->
+            
+            <!-- Modal footer end -->   
+        </div>
+        <!-- Modal content end -->
+    </div>
+    <!-- Modal dialog end -->
+</div>
+
+
+<!-- Grid management modal end-->

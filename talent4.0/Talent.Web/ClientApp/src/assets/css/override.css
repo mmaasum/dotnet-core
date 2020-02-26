@@ -1,0 +1,207 @@
+/* CUSTOMIZING NAVBAR BEGIN */
+.navbar {
+  padding: 0.25rem 1rem;
+}
+
+.bg-dark {
+  background-color: #343a40 !important;
+  height:48px !important;
+}
+
+ul.navbar-nav.mr-auto > .nav-item > .dropdown-toggle::after {
+  display: none;
+}
+
+
+#global-search .searchField {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-sizing: border-box;
+  box-shadow: none;
+  border: none;
+  padding: 8px 4px 8px 10px;
+  width: 160px;
+  height: 32px;
+  opacity: .5;
+  background-color: #747678 !important;
+  outline: none;
+  color: #404346 !important;
+}
+
+#global-search {
+  background-color: #747678 !important;
+  opacity: 1 !important;
+  color: #404346 !important;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+#global-search:hover {
+  background-color: #979797 !important;
+  opacity: 1 !important;
+}
+
+#global-search .iconClass {
+  padding: 3px 8px 8px 8px;
+  border-radius: 4px 0px 0px 4px;
+  background-color: #747678 !important;
+  color: #404346 !important;
+}
+
+#global-search:hover .iconClass {
+  background-color: #979797 !important;
+}
+
+
+#global-search:hover .searchField {
+  background-color: #979797 !important;
+  opacity: 1 !important;
+}
+
+
+#global-search:focus-within {
+  background-color: #fff !important;
+  opacity: 1 !important;
+  color: #404346 !important;
+}
+
+#global-search:focus-within .searchField {
+  background-color: #fff !important;
+  opacity: 1 !important;
+  color: #404346 !important;
+}
+
+#global-search:focus-within .iconClass {
+  background-color: #fff !important;
+  color: #404346 !important;
+}
+
+
+
+  /*-------------------------------------------------------*/
+  #global-search input::-webkit-input-placeholder {
+    color: #404346;
+  }
+
+  #global-search input:focus::-webkit-input-placeholder {
+    color: #747678;
+  }
+
+  /* Firefox < 19 */
+  #global-search input:-moz-placeholder {
+    color: #404346;
+  }
+
+  #global-search input:focus:-moz-placeholder {
+    color: #747678;
+  }
+
+  /* Firefox > 19 */
+  #global-search input::-moz-placeholder {
+    color: #404346;
+  }
+
+  #global-search input:focus::-moz-placeholder {
+    color: #747678;
+  }
+
+  /* Internet Explorer 10 */
+  #global-search input:-ms-input-placeholder {
+    color: #404346;
+  }
+
+  #global-search input:focus:-ms-input-placeholder {
+    color: #747678;
+  }
+
+  /*-----------------------------------------------------------*/
+
+/* CUSTOMIZING NAVBAR END */
+
+
+/* GRID TOP BAR BEGIN */
+.record-summery {
+  COLOR : GREEN;
+  FONT-WEIGHT : 600;
+}
+
+
+/* DYNAMIC BUTTON DESIGN  */
+
+.radio-inline {
+  background-color: none !important;
+  margin-left: 5px;
+}
+
+.radio-inline:hover > span{
+  color: #fff !important;
+  background: green !important;
+  border: 1px solid #747678;
+}
+
+.radio-inline span {
+  display: table-cell;
+  border: 1px solid green;
+  margin-right: 5px;
+  border-radius: 0.1rem;
+  cursor: pointer;
+  padding: 2px 12px;
+  background: #fff !important;
+  color: green !important;
+  border: 1px solid green; 
+}
+
+
+
+.radio-inline > input[type="radio"] {
+  display: none;
+}
+
+.radio-inline > input[type="radio"]:checked + span {
+  font-weight: 500;
+  color: #fff !important;
+  background: green !important;
+  border: 1px solid #fff;
+}
+
+
+
+/* ************************* */
+
+
+
+/* =================================================== */
+/* BOOTSTRAP CODE OVERRIDE FOR FORM INPUT BEGIN */
+
+input[type="text"].form-control,
+textarea.form-control,
+select.form-control {
+  color : #000000;
+  border-color : none;
+  background-color : #f2f2f2;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+input[type="text"].form-control:focus,
+textarea.form-control:focus {
+  outline: 0;
+  border :0.1rem solid #00a896;
+  box-shadow: none;
+  background-color :#02c39a;
+}
+
+input[type="text"].form-control:disabled,
+textarea.form-control:disabled,
+select.form-control:disabled {
+  background-color : #c0c0c0;
+}
+
+
+
+/* .form-control.ng-touched.ng-invalid {
+  border :0.1rem solid #f76c5e;
+  background-color :#ff8080;
+} */
+
+/* BOOTSTRAP CODE OVERRIDE FOR FORM INPUT BEGIN */
+/* =================================================== */

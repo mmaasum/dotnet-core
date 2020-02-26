@@ -1,0 +1,47 @@
+.clock-wrapper {
+	display: flow-root;
+	padding-right: 1rem;
+}
+
+.clock-face{
+	font-weight: 600;
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	float: right;
+	font-size: 1.5rem;
+}
+
+
+.card {
+	border-color : blue;
+	height: 100%;
+	border-radius: 0.05rem;
+}
+
+.card-header {
+	padding : 0.2rem;
+}
+
+.card-body {
+
+}
+
+.other-info-card>.card-body {
+	padding: 0.3rem;
+}
+.other-info-card>.card-body>p {
+	margin-bottom: 0.2rem;
+}
+
+.wiki-button {
+	padding: 0rem .5rem;
+    border-color: black;
+}
+
+.form-check-label {
+	font-size: smaller;
+}
+
+.form-control.ng-invalid.cus-error {
+	border :0.1rem solid #f76c5e;
+	background-color :#ff8080;
+}

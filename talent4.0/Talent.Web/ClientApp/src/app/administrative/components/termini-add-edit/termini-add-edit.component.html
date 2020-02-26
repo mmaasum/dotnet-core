@@ -1,0 +1,456 @@
+<!-- New object add or edit form modal begin -->
+<div class="modal fade" bsModal 
+		#newObjectAddModal="bs-modal" 
+		tabindex="-1" 
+		[config]="{backdrop: 'static'}"
+		role="dialog" 
+		aria-labelledby="dialog-nested-name2">
+
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content modal_talent">
+			<!-- Modal header begin -->
+			<div class="modal-header ricerca-sfondo">
+				<h5 id="dialog-sizes-name1" class="modal-title pull-left">
+					{{ 'termini.usrmsg_info.L07187_addEditModalHeader' | translate:[translate] | async}}
+				</h5>
+				<button type="button" class="close pull-right" (click)="onCloseAddEditModal(false)" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<!-- Modal header end -->
+			<!-- begin object add/edit form -->
+			<form (ngSubmit)="onNewObjectAddFormSubmit(false)" #newObjectAddForm="ngForm">
+				<!-- Modal body begin -->
+				<div class="modal-body pb-0">							
+					<!-- Row begin -->
+					<div class="row clock-wrapper">
+						<span class="clock-face">{{watchString}}</span>
+					</div>
+					<!-- Row end -->
+
+					<!-- Row begin -->
+					<div class="row">
+						<div class="col-md-3 pr-0">
+							<label for="termine">
+								{{ 'termini.usrmsg_info.L07160_keyword' | translate:[translate] | async}} <strong style="color:red">*</strong> 
+							</label>
+							<input type="text"  name="termine" id="termine" 
+									class="form-control form-control-sm" 
+									[class.cus-error]="isFormSubmitted"
+									placeholder="{{ 'termini.usrmsg_info.L07160_keyword' | translate:[translate] | async}}"
+									required 
+									[readonly]="!isNewRowAdding" 
+									maxlength="200"
+									[(ngModel)]="selectedObject.termine" >
+						</div>
+						<div class="col-md-3 pr-0">
+							<label for="language">
+								{{ 'termini.usrmsg_info.L07153_language' | translate:[translate] | async}} <strong style="color:red">*</strong> 
+							</label>
+							<select name="language" id="language"
+									class="form-control form-control-sm"
+									[class.cus-error]="isFormSubmitted"
+									required
+									[disabled]="!isNewRowAdding"
+									[(ngModel)]="selectedObject.terLingua" >
+								<option value="">
+									--{{ 'common.usrmsg_info.L7030_select' | translate:[translate] | async}}--
+								</option>
+								<option *ngFor="let item of allTerminiLanguage" [value]="item.key">
+									{{item.value}}
+								</option>
+							</select>
+						</div>
+						<div class="col-md-3 pr-0">
+							<label for="category">
+								{{ 'termini.usrmsg_info.L07154_category' | translate:[translate] | async}} <strong style="color:red">*</strong> 
+							</label>
+							<select name="category" id="category"
+									class="form-control form-control-sm"
+									[class.cus-error]="isFormSubmitted"
+									required
+									[(ngModel)]="selectedObject.terTipoTermine" >
+								<option value="">
+									--{{ 'common.usrmsg_info.L7030_select' | translate:[translate] | async}}--
+								</option>
+								<option *ngFor="let item of allTerminiTypes" [value]="item.key">
+									{{item.value}}
+								</option>
+							</select>
+						</div>
+						<div class="col-md-3">
+							<label for="state">
+								{{ 'termini.usrmsg_info.L07152_state' | translate:[translate] | async}}
+							</label>
+							<select name="state" id="state"
+									class="form-control form-control-sm"
+									[class.cus-error]="isFormSubmitted"
+									[(ngModel)]="selectedObject.terStato" >
+								<option value="">
+									--{{ 'common.usrmsg_info.L7030_select' | translate:[translate] | async}}--
+								</option>
+								<option *ngFor="let item of allTerminiStates" [value]="item.key">
+									{{item.value}}
+								</option>
+							</select>
+						</div>
+					</div>
+					<!-- Row end -->
+
+					<!-- Row begin -->
+					<div class="row">
+						<div class="col-md-6">
+							<label>
+								{{ 'termini.usrmsg_info.L07161_description' | translate:[translate] | async}}
+								<button type="button" 
+									class="btn btn-sm btn-default wiki-button"
+									(click)="onOpenWikipedia()">
+									{{ 'termini.usrmsg_info.L07162_openSite' | translate:[translate] | async}}
+								</button>
+							</label>
+							<textarea name="description" id="description"
+									class="form-control" 
+									placeholder="{{ 'termini.usrmsg_info.L07161_description' | translate:[translate] | async}}"
+									rows="3"
+									[(ngModel)]="selectedObject.terDescrizione" >
+							</textarea>
+						</div>
+						<div class="col-md-6" style="height: inherit;margin-top: 0.5rem;;">
+							<div class="card bg-light other-info-card" >
+								<div class="card-header">
+									{{ 'termini.usrmsg_info.L07163_otherInfo' | translate:[translate] | async}}
+								</div>
+								<div class="card-body">
+									<p>
+										<strong>{{ 'termini.usrmsg_info.L07180_totalOccurance' | translate:[translate] | async}} : </strong> 
+									</p>
+									<p>
+										<strong>{{ 'termini.usrmsg_info.L07181_oneOccurance' | translate:[translate] | async}} : </strong> 
+									</p>
+								</div>								
+							</div>							
+						</div>
+					</div>
+					<!-- Row end -->
+
+					<!-- Row begin -->
+					<div class="row">
+						<div class="col-md-6">
+							<label>
+								{{ 'termini.usrmsg_info.L07164_linkToDef' | translate:[translate] | async}}
+								<button type="button" 
+									class="btn btn-sm btn-default wiki-button"
+									(click)="onNotImplementedClicked()">
+									{{ 'termini.usrmsg_info.L07165_setSite' | translate:[translate] | async}}
+								</button>
+							</label>
+							<input type="text" name="link" id="link"
+									class="form-control form-control-sm"	
+									placeholder="{{ 'termini.usrmsg_info.L07164_linkToDef' | translate:[translate] | async}}"									
+									maxlength="500" 								
+									[(ngModel)]="selectedObject.terLink" >
+						</div>
+						<div class="col-md-6">
+							<label for="">
+								{{ 'termini.usrmsg_info.L07166_note' | translate:[translate] | async}} : 
+							</label>
+							<input type="text" name="note" id="note"
+									class="form-control form-control-sm"	
+									placeholder="{{ 'termini.usrmsg_info.L07166_note' | translate:[translate] | async}}"										
+									maxlength="500" 													
+									[(ngModel)]="selectedObject.terNote" >
+						</div>
+					</div>
+					<!-- Row end -->
+					
+					<div class="row">
+						<hr style="background-color: green;width: 96%;">
+					</div>
+
+					<!-- Row begin -->
+					<div class="row">
+						<div class="col-md-6">
+							<!-- Synonym 1 begin -->
+							<div class="row pb-1">
+								<label class="col-md-4" for="terSinonimo1">
+									{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 1 :
+								</label>
+								<div class="col-md-8">
+									<input type="text"  name="terSinonimo1" id="terSinonimo1"
+										class="form-control form-control-sm"
+										placeholder="{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 1" 
+										maxlength="200" 
+										[(ngModel)]="selectedObject.terSinonimo1"
+										#terSinonimo1="ngModel">
+								</div>								
+							</div>
+							<!-- Synonym 1 end -->
+							<!-- Synonym 2 begin -->
+							<div class="row pb-1">
+								<label class="col-md-4" for="terSinonimo2">
+									{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 2 :
+								</label>
+								<div class="col-md-8">
+									<input type="text"  name="terSinonimo2" id="terSinonimo2"
+										class="form-control form-control-sm"
+										placeholder="{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 2" 
+										maxlength="200" 
+										[disabled]="!terSinonimo1.value"
+										[(ngModel)]="selectedObject.terSinonimo2"
+										#terSinonimo2="ngModel">
+								</div>								
+							</div>
+							<!-- Synonym 2 end -->
+							<!-- Synonym 3 begin -->
+							<div class="row pb-1">
+								<label class="col-md-4" for="terSinonimo3">
+									{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 3 :
+								</label>
+								<div class="col-md-8">
+									<input type="text"  name="terSinonimo3" id="terSinonimo3"
+										class="form-control form-control-sm"
+										placeholder="{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 3" 
+										maxlength="200" 
+										[disabled]="!terSinonimo1.value || !terSinonimo2.value"
+										[(ngModel)]="selectedObject.terSinonimo3"
+										#terSinonimo3="ngModel">
+								</div>								
+							</div>
+							<!-- Synonym 3 end -->
+							<!-- Synonym 4 begin -->
+							<div class="row pb-1">
+								<label class="col-md-4" for="terSinonimo4">
+									{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 4 :
+								</label>
+								<div class="col-md-8">
+									<input type="text"  name="terSinonimo4" id="terSinonimo4"
+										class="form-control form-control-sm"
+										placeholder="{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 4" 
+										maxlength="200" 
+										[disabled]="!terSinonimo1.value || !terSinonimo2.value || !terSinonimo3.value"
+										[(ngModel)]="selectedObject.terSinonimo4"
+										#terSinonimo4="ngModel">
+								</div>								
+							</div>
+							<!-- Synonym 4 end -->
+							<!-- Synonym 5 begin -->
+							<div class="row pb-1">
+								<label class="col-md-4" for="terSinonimo5">
+									{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 5 :
+								</label>
+								<div class="col-md-8">
+									<input type="text"  name="terSinonimo5" id="terSinonimo5"
+										class="form-control form-control-sm"
+										placeholder="{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 5" 
+										maxlength="200" 
+										[disabled]="!terSinonimo1.value || !terSinonimo2.value || !terSinonimo3.value || !terSinonimo4.value"
+										[(ngModel)]="selectedObject.terSinonimo5"
+										#terSinonimo5="ngModel">
+								</div>								
+							</div>
+							<!-- Synonym 5 end -->
+							<!-- Synonym 6 begin -->
+							<div class="row pb-1">
+								<label class="col-md-4" for="terSinonimo6">
+									{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 6 :
+								</label>
+								<div class="col-md-8">
+									<input type="text"  name="terSinonimo6" id="terSinonimo6"
+										class="form-control form-control-sm"
+										placeholder="{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 6" 
+										maxlength="200" 
+										[disabled]="!terSinonimo1.value || !terSinonimo2.value || !terSinonimo3.value || !terSinonimo4.value || !terSinonimo5.value"
+										[(ngModel)]="selectedObject.terSinonimo6"
+										#terSinonimo6="ngModel">
+								</div>								
+							</div>
+							<!-- Synonym 6 end -->
+							<!-- Synonym 7 begin -->
+							<div class="row pb-1">
+								<label class="col-md-4" for="terSinonimo7">
+									{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 7 :
+								</label>
+								<div class="col-md-8">
+									<input type="text"  name="terSinonimo7" id="terSinonimo7"
+										class="form-control form-control-sm"
+										placeholder="{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 7" 
+										maxlength="200" 
+										[disabled]="!terSinonimo1.value || !terSinonimo2.value || !terSinonimo3.value || !terSinonimo4.value || !terSinonimo5.value || !terSinonimo6.value"
+										[(ngModel)]="selectedObject.terSinonimo7"
+										#terSinonimo7="ngModel">
+								</div>								
+							</div>
+							<!-- Synonym 7 end -->
+							<!-- Synonym 8 begin -->
+							<div class="row">
+								<label class="col-md-4" for="terSinonimo8">
+									{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 8 :
+								</label>
+								<div class="col-md-8">
+									<input type="text"  name="terSinonimo8" id="terSinonimo8"
+										class="form-control form-control-sm"
+										placeholder="{{ 'termini.usrmsg_info.L07167_synonym' | translate:[translate] | async}} 8" 
+										maxlength="200" 
+										[disabled]="!terSinonimo1.value || !terSinonimo2.value || !terSinonimo3.value || !terSinonimo4.value || !terSinonimo5.value || !terSinonimo6.value || !terSinonimo7.value"
+										[(ngModel)]="selectedObject.terSinonimo8"
+										#terSinonimo8="ngModel">
+								</div>								
+							</div>
+							<!-- Synonym 8 end -->
+						</div>
+						<div class="col-md-6" style="height: inherit;">
+							<div class="card bg-light" >
+								<div class="card-header">
+									<button type="button" class="btn btn-success btn-sm" style="width: 100%;" (click)="onOpenUsefulSites()">
+										{{ 'termini.usrmsg_info.L07168_openUsefulSite' | translate:[translate] | async}}
+									</button>
+								</div>
+								<div class="card-body">
+									<p>
+										<strong>Rules for correct keywords and synonyms management</strong>
+									</p>
+								</div>								
+							</div>
+						</div>
+					</div>
+					<!-- Row end -->
+
+					<div class="row">
+						<hr style="background-color: green;width: 96%;">
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<span>
+								<strong>
+									{{ 'termini.usrmsg_info.L07169_insUser' | translate:[translate] | async}} :
+								</strong>
+								{{selectedObject.terInsUteId}}
+							</span>
+							<span class="ml-2" >
+								<strong>
+									{{ 'termini.usrmsg_info.L07170_date' | translate:[translate] | async}} :
+								</strong>
+								{{selectedObject.terInsTimestamp | date:'dd/MM/yyyy HH:mm'}}
+							</span>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group form-check">
+								<label class="form-check-label"  *ngIf="!isNewRowAdding">
+									<input class="form-check-input" type="checkbox" 
+										name="setAsDefault"
+										[value]="willOpenWikiOnNext"
+										(change)="willOpenWikiOnNext = !willOpenWikiOnNext">
+										{{ 'termini.usrmsg_info.L07171_openSiteOnNext' | translate:[translate] | async}}
+								</label>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<!-- Modal body end -->
+				<!-- Modal footer start -->
+				<div class="modal-footer">
+
+					<div class="row" style="width: 100%;">
+						<div class="col-md-6 pull-left pl-0">
+							<div class="btn-group pull-left pl-0">
+								<button type="submit" class="btn btn-sm btn-outline-secondary btn-sm"
+										style="margin-right: 8px;" >
+										<i class="fa fa-check"></i>
+										{{ 'termini.usrmsg_info.L07172_saveAndExit' | translate:[translate] | async}}
+								</button>
+								<button type="button" class="btn btn-outline-secondary btn-sm"
+										style="margin-right: 8px;" 
+										(click)="onDuplicateClicked()">
+										<i class="fa fa-copy"></i>
+										{{ 'termini.usrmsg_info.L07173_duplicate' | translate:[translate] | async}}
+								</button>
+								<button type="button" class="btn btn-outline-secondary btn-sm"
+										style="margin-right: 8px;" 
+										(click)="onCloseAddEditModal(false)">
+										<i class="fa fa-undo"></i>
+										{{ 'termini.usrmsg_info.L07174_exit' | translate:[translate] | async}}
+								</button>
+							</div>
+						</div>
+						<div class="col-md-6 pl-0">
+							<div class="btn-group pull-right pr-1">
+								<button type="button" class="btn btn-sm btn-danger"
+										style="margin-right: 8px; background-color: red;"
+										(click)="onRejectNextClicked()"
+										*ngIf="!isNewRowAdding">
+										<i class="fa fa-times"></i>
+										{{ 'termini.usrmsg_info.L07175_setRejectGo' | translate:[translate] | async}}
+								</button>
+								<button type="button" class="btn btn-sm btn-success" (click)="onReviewedNextClicked()">
+									<i class="fa fa-long-arrow-right"></i>
+									{{ 'termini.usrmsg_info.L07176_setReviewGo' | translate:[translate] | async}}
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Modal footer end -->
+			</form>
+			<!-- Add/Edit form end  -->
+		</div>
+		<!-- End modal content -->
+	</div>
+	<!-- End modal dialogue -->
+</div>
+<!-- End modal -->
+
+
+<!-- Start existing record show modal -->
+<div class="modal fade" bsModal #existingRecordShowModal="bs-modal" tabindex="-1" role="dialog"
+	aria-labelledby="dialog-nested-name2">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- Start modal header -->
+			<div class="modal-header ricerca-sfondo">
+				<h6 id="dialog-nested-name2" class="modal-title pull-left">
+					{{ 'termini.usrmsg_info.L07179_existTitle' | translate:[translate] | async}}
+				</h6>
+				<button type="button" class="close pull-right" aria-label="Close"
+					(click)="existingRecordShowModal.hide()">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<!-- End modal header -->
+			<!-- Start modal body -->
+			<div class="modal-body text-center">
+				<h4>{{ 'termini.usrmsg_info.L07160_keyword' | translate:[translate] | async}}</h4>
+				<h3>"{{ matchedKeywords }}"</h3>
+				<h4>{{ 'termini.usrmsg_info.L07177_alreadyExist' | translate:[translate] | async}}</h4>
+				<table class="table table-stripped table-hover table-bordered" id="existingShowTable">
+					<thead>
+						<tr>
+							<th>{{ 'termini.usrmsg_info.L07160_keyword' | translate:[translate] | async}}</th>
+							<th>{{ 'termini.usrmsg_info.L07154_category' | translate:[translate] | async}}</th>
+							<th>{{ 'termini.usrmsg_info.L07178_matchedSynonym' | translate:[translate] | async}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let termini of existingTermini">
+							<td>{{ termini.termine }}</td>
+							<td>{{ termini.terTipoTermine }}</td>
+							<td>{{ termini.terSinonimo1 }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- End modal body -->
+			<!-- Start modal footer -->
+			<div class="modal-footer">
+				<!-- Modal close button -->
+				<button type="button" class="btn btn-warning" data-dismiss="modal"
+					(click)="existingRecordShowModal.hide()">
+					<i class="fa fa-times"></i> {{ 'common.usrmsg_info.L7004_close' | translate:[translate] | async}}
+				</button>
+			</div>
+			<!-- End modal footer   -->
+		</div>
+	</div>
+</div>
+<!-- Start existing record show modal -->

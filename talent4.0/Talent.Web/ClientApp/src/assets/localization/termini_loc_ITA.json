@@ -1,0 +1,55 @@
+{
+    "termini" : {
+        "usrmsg_err" : {
+			"L01151_errmsg" : "Error message"
+		},
+		"usrmsg_warn" : {
+			"L04151_keywordExist" : "Esiste già un termine chiamato '{{term}}'!!",
+			"L04152_sameSynonym" : "Il sinonimo {{syn1}} e il sinonimo {{syn2}} sono gli stessi <br />",
+			"L04153_provideKeyword" : "Fornisci prima una termine chiave",
+			"L04154_noKeywordFound" : "Nessuna termine chiave trovata"
+		},
+		"usrmsg_info" : {
+			"L07151_newKeyword" : "Nuova Termine",
+			"L07152_state" : "Stato",
+			"L07153_language" : "Linguaggio",
+			"L07154_category" : "Categoria",
+			"L07155_keywordsToReview" : "Parole chiave da rivedere",
+			"L07156_lastChecked" : "Ultima analisi",
+			"L07157_startAnalysis" : "Inizia una nuova analisi",
+			"L07158_allStats" : "Tutte le statistiche",
+			"L07159_searchInAll" : "Cerca in tutti i campi",
+			"L07160_keyword": "Termine",
+			"L07161_description": "Descrizione",
+			"L07162_openSite": "Aperta Wikipedia",
+			"L07163_otherInfo": "Altre informazioni/statistiche",
+			"L07164_linkToDef": "Link alla definizione",
+			"L07165_setSite": "Impostato come Wikipedia",
+			"L07166_note": "Appunti",
+			"L07167_synonym": "Sinonimo",
+			"L07168_openUsefulSite": "Apri utili siti Web sinonimo",
+			"L07169_insUser": "Utente ins",
+			"L07170_date": "Data",
+			"L07171_openSiteOnNext": "Apri il sito Web wiki e sinonimi sulle parole chiave successive",
+			"L07172_saveAndExit": "Salva ed esci",
+			"L07173_duplicate": "Duplicare",
+			"L07174_exit": "Uscita",
+			"L07175_setRejectGo": "Imposta rifiuta e vai avanti",
+			"L07176_setReviewGo": "Imposta recensione e vai avanti",
+			"L07177_alreadyExist": "esiste già",
+			"L07178_matchedSynonym": "Sinonimo abbinato",
+			"L07179_existTitle": "La termine chiave esiste",
+			"L07180_totalOccurance": "# di occorrenze totali",
+			"L07181_oneOccurance": "# di CV con almeno 1 occorrenza",
+			"L07182_noOfWords": "# parole",
+			"L07183_totalWords": "Parole totali",
+			"L07184_last6Analysis": "Ultime 6 analisi di esecuzione",
+			"L07185_allStatModalTitle": "Statistiche per la gestione delle parole chiave",
+			"L07186_allStatModalHeader": "Mostra statistiche utili per la gestione delle parole chiave",
+			"L07187_addEditModalHeader": "Inserimento/modifica Termini"
+		},
+		"sysmsg_err" : {
+			"L11151_errmsg" : "Sys msg"
+		}
+    }
+}

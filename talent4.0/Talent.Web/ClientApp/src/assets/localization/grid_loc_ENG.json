@@ -1,0 +1,51 @@
+{
+    "grid" : {
+        "usrmsg_err" : {
+            "L1551_errSaving" : "Error saving grid settings",
+            "L1552_errResetting" : "Error resetting grid settings"
+        },
+        "usrmsg_warn" : {
+            "L4551_reachedTop" : "Reached at the top of the list",
+			"L4552_reachedBottom" : "Reached at the bottom of the list",
+			"L4553_minGreaterMax" : "Min size is greater then max size for column {{col}}"
+        },
+        "usrmsg_info" : {
+            "L7551_title" : "Grid settings",
+            "L7552_font" : "Font",
+            "L7553_fontSize" : "Font Size",
+            "L7554_showRowNo" : "Show row number",
+            "L7555_evenRowColor" : "Even row color",
+            "L7556_oddRowColor" : "Odd row color",
+            "L7557_fieldsHidden" : "Fields Actually Hidden",
+            "L7558_bsPlaceholder" : "Drag here",
+            "L7559_fieldsVisible" : "Grid Fields In This Order",
+            "L7560_add" : "Add",
+            "L7561_remove" : "Remove",
+            "L7562_moveUp" : "Move Up",
+            "L7563_moveDown" : "Move Down",
+            "L7564_fieldProp" : "Field Properties",
+            "L7565_name" : "Name",
+            "L7566_description" : "Description",
+            "L7567_orderInGrid" : "Order in grid",
+            "L7568_align" : "Align",
+            "L7569_minSize" : "Min size",
+            "L7570_maxSize" : "Max size",
+            "L7571_autoSize" : "Auto size on field content",
+            "L7572_discardFieldChange" : "Discard Field Changes",
+            "L7573_discardGridChange" : "Discard Grid Changes",
+            "L7574_resetSystem" : "Reset System Values",
+            "L7575_saveAndApply" : "Save User Default and Apply",
+            "L7576_apply" : "Apply Settings"
+            
+        },
+        "sysmsg_err" : {
+            "L11551_errormsg" : "This is a system error message"
+        },
+        "sysmsg_warn" : {
+            "L14551_warningmsg" : "This is a system warning message"
+        },
+        "sysmsg_info" : {
+            "L17551_infomsg" : "This is a system info message"
+        }
+    }    
+}

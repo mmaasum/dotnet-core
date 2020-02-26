@@ -1,0 +1,140 @@
+<div class="login-wrapper">
+	<div class="row mx-0 justify-content-md-center">
+		<div class="col">
+
+		</div>
+		<div class="col-md-8" style="transform: scale(0.8); margin-top: -4rem;">
+			<div>
+				<div class="" *ngIf="clientLogo">
+					<img class="mx-auto d-block" src="../../../../assets/img/clients/{{clientLogo}}" />
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="pull-right form-inline mt-2 language-select-wrapper">
+				<div class="btn-group" dropdown>
+					<button type="button" class="btn btn-sm dropdown-toggle language-select" dropdownToggle>
+						<span class="form-control-sm">
+							<img src="../../../../assets/img/flags/{{selectedFlag}}" alt="">
+						</span>
+						{{selectedLanguage}}
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu language-dropdown-menu" role="menu" *dropdownMenu>
+						<li role="menuitem" *ngFor="let item of flagImageSource" (click)="onLanguageChange(item.key)">
+							<img src="../../../../assets/img/flags/{{item.value}}" alt="{{item.value}}">
+							{{item.description}}
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="talentbox" class="row mx-0 align-items-center">
+		<div class="container containertopmargin">
+			<div class="d-flex justify-content-center" *ngIf="isUrlValid">
+				<div class="shadow">
+					<!-- Error Mesage -->
+					<div class="alert alert-danger" *ngIf="errorMessage">
+						{{ errorMessage }}
+					</div>
+
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-6">
+
+							</div>
+						</div>
+					</div>
+
+
+					<div class="d-flex justify-content-center form_container_help">
+						<!-- Login form begin -->
+						<form (ngSubmit)="onLogin()" #loginForm="ngForm">
+							<div class="form-group text-center" *ngIf="clientLogo">
+								<img class="talentlogo" src="../../../../assets/immagini/talentn2logo_talent.png" />
+							</div>
+							<!-- Username section begin -->
+							<div class="form-group username">
+								<label for="uteId">{{ username }}</label> <span class="required-marker">*</span>
+								<span class="pull-right" tooltip="{{usernameTooltip}}">
+									<img class="tooltipicon" src="../../../../assets/img/icons/tooltipicon.png">
+								</span>
+								<div class="input-group">
+									<input type="text" name="uteId" id="uteId" 
+											class="form-control custom-input"
+											placeholder="username" 
+											autocomplete="off" 
+											maxlength="20" 
+											required
+											[(ngModel)]="user.uteId" 
+											#uteId="ngModel">
+								</div>
+							</div>
+							<!-- Username section end -->
+							<!-- PAssword section begin -->
+							<div class="form-group">
+								<ng-template #passwordTooltipPopUp>
+									<div [innerHtml]="passwordTooltip"></div>
+								</ng-template>
+								<label for="utePassword">{{ password }}</label> <span class="required-marker">*</span>
+								<span class="pull-right passwordspan" data-html="true" [tooltip]="passwordTooltipPopUp">
+									<img class="tooltipicon" src="../../../../assets/img/icons/tooltipicon.png">
+								</span>
+								<div class="input-group">
+									<input [type]="show ? 'text' : 'password'" name="utePassword" id="utePassword"
+											class="form-control custom-input" 
+											placeholder="password" 
+											autocomplete="off"
+											maxlength="10" 
+											required 
+											[(ngModel)]="user.utePassword" 
+											#utePassword="ngModel">
+									<div class="input-group-append">
+										<span class="input-group-text pointercursor">
+											<div class="input-group-addon" (click)="showPassword()">
+												<i [ngClass]="eyeSlash ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+											</div>
+										</span>
+									</div>
+								</div>
+							</div>
+							<!-- Password section end -->
+							<!-- Login button begin -->
+							<div class="justify-content-center mt-4 login_container text-center">
+								<button type="submit" name="button" class="btn login-btn text-center buttonhover">
+									{{ enterButtonText }}
+								</button>
+							</div>
+							<!-- Login button end -->
+							<!-- Help link begin -->
+							<div class="text-center mt-2">
+								{{ needHelp }}
+								<a class="help-link"
+									href="http://www.itpartneritalia.com/help_desk_jira/help_form_jira.html"
+									target="_blank" rel="noopener noreferrer" title="">
+									{{ clickhere }}
+								</a>
+							</div>
+							<!-- Help link end -->
+						</form>
+						<!-- Login form end -->
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-center py-5 invalid-msg" *ngIf="!isUrlValid">
+				<p class="well">
+					<i class="fa fa-exclamation-triangle"></i>
+					{{invalidUrlMsg}}
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>
+
+<app-confirmation-dialog 
+		[errorMessage]="errorMessage5" 
+		[showErrorDialog]="showCloseErrorDialog"
+		(confirmationSelectEvent)="onErrorDialogConfirm($event)">
+</app-confirmation-dialog>

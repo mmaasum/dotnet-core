@@ -1,0 +1,522 @@
+<!-- Global filter bar begin -->
+<div class="ricerca-sfondo container-fluid" style="height: 60px;">
+	<div class="row filter-bar-wrapper">
+		<!-- External filter section begin -->
+		<div class="col-md-9 external-filter">
+			<div class="row">
+				<div class="col-md-3">
+					<h5 class="talenth4">{{multiLanguageLable.cont_nome}}</h5>
+					<input type="text" class="form-control" name="filter_ris_citta_possibili"
+						placeholder={{multiLanguageLable.cont_nome}} id="filter_ris_citta_possibili"
+						[(ngModel)]="allFilters[0].option1">
+				</div>
+				<div class="col-md-3">
+					<h5 class="talenth4">{{multiLanguageLable.cont_az_id}}</h5>
+					<input type="text" class="form-control" name="filter_ris_competenza_1"
+						placeholder={{multiLanguageLable.cont_az_id}} id="filter_ris_competenza_1"
+						[(ngModel)]="allFilters[1].option1">
+				</div>
+
+				<div class="col-md-2 filter-button-wrapper">
+					<div class="btn-group">
+						<button type="button" class="btn btn-primary uppercase" (click)="onApplyFilter()">
+							{{multiLanguageCommonLable.applyFilterText}}
+						</button>
+						<button type="button" class="btn btn-primary uppercase d-none d-sm-inline-block btn
+					btn-primary shadow-sm talentbtn" (click)="filterClear()">
+							<img class="talent-icons" src="../../../../assets/immagini/restore.png" alt="">
+							{{multiLanguageCommonLable.clearFilterText}}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- External filter section end -->
+		<!-- Global filter section begin -->
+		<div class="col-md-3 global-filter-wrapper">
+			<app-filter-management [gridName]="columnName" [isFilterSaveable]="isFilterSaveable"
+				[isFilterCleared]="isFilterCleared" [appliedFilterInGrid]="appliedFilterInGrid"
+				[appliedSortingInGrid]="appliedSortingInGrid"
+				(quickFilterTextChangeEvent)="quickFilterTextChange($event)" (filterChangeEvent)="filterChange($event)"
+				(setFilterSortingTextEvent)="onChangeFilterText($event)">
+			</app-filter-management>
+		</div>
+		<!-- Global filter section end -->
+	</div>
+</div>
+<!-- Global filter bar end -->
+
+
+
+
+
+
+<div class="box box-primary">
+	<div class="box-body">
+		<!-- Grid topbar(Caption, pagw size, row count, add/edit button) begin -->
+		<div class="row">
+			<!-- Page name begin -->
+			<div class="box-header col-md-3">
+				<h3 class="box-title"><i class="fa fa-cubes"></i> {{multiLanguageLable.caption}} </h3>
+			</div>
+			<!-- Page name begin -->
+			<!-- Page size selection begin -->
+			<div class="col-md-3">
+				<div class="test-header">
+					<div class="col-md-12">
+						<div class="col-md-7 text-white text-lg">
+							{{multiLanguageCommonLable.pageSizeText}} :
+						</div>
+						<div class="col-md-1">
+							<select (change)="onPageSizeChanged()" id="page-size">
+								<option value="20" selected="">20</option>
+								<option value="50">50</option>
+								<option value="100">100</option>
+								<option value="500">500</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Page size selection end -->
+			<!-- Row count label begin -->
+			<div class="col-md-3">
+				<div class="form-group col-md-4 text-lg">
+					<span class="label" style="background-color:#9fa0a4;font-size:100%;">
+						{{multiLanguageCommonLable.totalRowCount}} = <span class="badge">
+							{{ totalDbRecords }}</span></span>
+				</div>
+			</div>
+			<!-- Row count label end -->
+			<!-- Add/Edit button begin -->
+			<div class="col-md-3">
+				<form (ngSubmit)="onSubmit()" #azioniForm="ngForm" class="form-inline usercreate">
+					<a (click)="onAddNew()" class="d-none d-sm-inline-block btn btn-primary shadow-sm talentbtn"
+						style="margin-left: 0px;" title="ADD Something" data-content="Content decided by Isabella">
+						<i class="fa fa-plus"></i>&nbsp; {{multiLanguageCommonLable.addMainText}}
+					</a>
+					<div class="wrapbutton" *ngIf="selectedObject.contNome">
+						<button type="button" id="edit" (click)="onEditClick()"
+							class="d-none d-sm-inline-block btn  btn-info shadow-sm talentbtn">
+							<i class="fa fa-check"></i>&nbsp; {{multiLanguageCommonLable.editText}}
+						</button>
+					</div>
+				</form>
+			</div>
+			<!-- Add/Edit button begin -->
+		</div>
+		<!-- Grid topbar(Caption, pagw size, row count, add/edit button) begin -->
+
+		<div class="row" style="height: 480px;">
+			<!-- Ag-Grid section begin -->
+			<div id="idGrid" class="col-md-12 grid-wrapper">
+				<ag-grid-angular style="width: 100%; height: 94%;" class="ag-theme-balham" [rowData]="rowData | async"
+					[columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+					[frameworkComponents]="frameworkComponents" [loadingOverlayComponent]="loadingOverlayComponent"
+					[loadingOverlayComponentParams]="loadingOverlayComponentParams"
+					[paginationPageSize]="paginationPageSize" (gridReady)="onGridReady($event)"
+					(cellKeyDown)="onCellKeyDown($event)" (rowClicked)='onRowClicked($event)'>
+				</ag-grid-angular>
+				<!-- Pagination begin -->
+				<div class="row">
+					<app-grid-pagination [total-items]="totalDbRecords" [page-size]="pageSize"
+						(page-changed)="onPaginationPageChanged($event)">
+					</app-grid-pagination>
+				</div>
+				<!-- Pagination end -->
+			</div>
+			<!-- Ag-Grid section end -->
+			<!-- Detail section begin -->
+			<div class="col-md-4 right-detail-pane" *ngIf="selectedObject.contNome">
+				<div class="row">
+					<div class="col-sm-12">
+						<dl class="dl-horizontal">
+							<dt>{{multiLanguageLable.cont_titolo}}</dt>
+							<dd>{{ selectedObject.contTitolo}} </dd>
+
+							<dt>{{multiLanguageLable.cont_nome}}</dt>
+							<dd>{{ selectedObject.contNome}} </dd>
+
+							<dt>{{multiLanguageLable.cont_cognome}}</dt>
+							<dd>{{ selectedObject.contCognome}} </dd>
+
+							<dt>{{multiLanguageLable.cont_email_1}}</dt>
+							<dd>{{ selectedObject.contEmail1}} </dd>
+
+							<dt>{{multiLanguageLable.cont_email_2}}</dt>
+							<dd>{{ selectedObject.contEmail2}} </dd>
+
+							<dt>{{multiLanguageLable.cont_telefono_1}}</dt>
+							<dd>{{ selectedObject.contTelefono1}} </dd>
+
+							<dt>{{multiLanguageLable.cont_telefono_2}}</dt>
+							<dd>{{ selectedObject.contTelefono2}} </dd>
+
+							<dt>{{multiLanguageLable.cont_attivo}}</dt>
+							<dd>{{ selectedObject.contAttivo}} </dd>
+
+							<dt>{{multiLanguageLable.cont_az_id}}</dt>
+							<dd>{{ selectedObject.azRagSociale}} </dd>
+
+							<dt>{{multiLanguageLable.cont_azsede_id}}</dt>
+							<dd>{{ selectedObject.azsedeDescr}} </dd>
+
+							<dt>{{multiLanguageLable.cont_citta}}</dt>
+							<dd>{{ selectedObject.contCitta}} </dd>
+
+							<dt>{{multiLanguageLable.cont_posizione}}</dt>
+							<dd>{{ selectedObject.contPosizione}} </dd>
+
+							<dt>{{multiLanguageLable.cont_note}}</dt>
+							<dd>{{ selectedObject.contNote}} </dd>
+
+							<dt>{{multiLanguageLable.cont_cv_iniziali}}</dt>
+							<dd>{{ selectedObject.contCvIniziali}} </dd>
+
+							<dt>{{multiLanguageLable.cont_tipo_contatto}}</dt>
+							<dd>{{ selectedObject.contTipoContatto}} </dd>
+
+							<dt>{{multiLanguageLable.cont_descrizione}}</dt>
+							<dd>{{ selectedObject.contDescrizione}} </dd>
+
+							<dt>{{multiLanguageLable.cont_priormin}}</dt>
+							<dd>{{ selectedObject.contPriormin}} </dd>
+
+							<dt>{{multiLanguageLable.cont_priormax}}</dt>
+							<dd>{{ selectedObject.contPriormax}} </dd>
+
+							<dt>{{multiLanguageLable.cont_invio_cv_note}}</dt>
+							<dd>{{ selectedObject.contInvioCvNote}} </dd>
+
+							<dt>{{multiLanguageLable.cont_rif_ute_id}}</dt>
+							<dd>{{ selectedObject.uteNome}} </dd>
+
+						</dl>
+					</div>
+
+				</div>
+				<div class="row top-padding-centered">
+					<button type="button" class="btn btn-info" (click)="onEmailModalOpened()">
+						<i class="fa fa-envelope"></i> {{multiLanguageLable.sendEmail}}
+					</button>
+				</div>
+			</div>
+			<!-- Detail section end -->
+		</div>
+	</div>
+</div>
+
+<!-- New object add or edit form modal begin -->
+<div bsModal #newObjectAddModal="bs-modal" class="modal fade" tabindex="-1" [config]="{backdrop: 'static'}"
+	role="dialog" aria-labelledby="dialog-sizes-name1">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content modal_talent">
+			<!-- Modal header begin -->
+			<div class="modal-header ricerca-sfondo">
+				<h4 id="dialog-sizes-name1" class="modal-title pull-left">
+					{{caption}}
+				</h4>
+				<button type="button" class="close pull-right" (click)="onCloseAddEditModal()" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<!-- Modal header end -->
+			<!-- begin object add/edit form -->
+			<form (ngSubmit)="onNewObjectAddFormSubmit(newObjectAddForm)" #newObjectAddForm="ngForm">
+				<!-- Modal body begin -->
+				<div class="modal-body">
+					<!-- Validation message section begin -->
+					<div class="alert alert-danger" *ngIf="newObjectAddForm.submitted && !newObjectAddForm.valid">
+						<ul>
+							<li *ngIf="contTitolo.invalid">Provide titolo</li>
+							<li *ngIf="contNome.invalid">Provide nome</li>
+							<li *ngIf="contCognome.invalid">Provide cognome</li>
+							<li *ngIf="contAzId.invalid">Provide aziende</li>
+							<li *ngIf="contAzsedeId.invalid">Provide sede</li>
+							<li *ngIf="contTelefono1.invalid">Provide telefono1</li>
+							<li *ngIf="contEmail1.invalid">Provide valid email address</li>
+							<!-- <li *ngIf="contCitta.invalid">Provide citta</li> -->
+							<li *ngIf="contRifUteId.invalid">Provide referral user</li>
+							<li *ngIf="contTipoContatto.invalid">Provide tipo contatto</li>
+						</ul>
+					</div>
+					<!-- Validation message section end -->
+					<!-- Row begin -->
+					<div class="row form-group">
+						<!-- Titolo input begin -->
+						<div class="col-md-3">
+							<label for="contTitolo">{{multiLanguageLable.cont_titolo}}</label>
+							<select class="form-control" name="contTitolo" id="contTitolo" required
+								[(ngModel)]="newObject.contTitolo" #contTitolo="ngModel">
+								<option value="">{{multiLanguageLable.cont_titolo_selection}}</option>
+								<option *ngFor="let titoli of allTitoli" value="{{titoli.titolo}}">{{titoli.titolo}}
+								</option>
+							</select>
+						</div>
+						<!-- Titolo input end -->
+						<!-- Nome input begin -->
+						<div class="col-md-3">
+							<label for="contNome">{{multiLanguageLable.cont_nome}}</label>
+							<input type="text" class="form-control" name="contNome" id="contNome"
+								placeholder={{multiLanguageLable.cont_nome}} required maxlength="25"
+								[(ngModel)]="newObject.contNome" #contNome="ngModel">
+						</div>
+						<!-- Nome input end -->
+						<!-- Cognome input begin -->
+						<div class="col-md-3">
+							<label for="contCognome">{{multiLanguageLable.cont_cognome}}</label>
+							<input type="text" class="form-control" name="contCognome" id="contCognome"
+								placeholder={{multiLanguageLable.cont_cognome}} required maxlength="25"
+								[(ngModel)]="newObject.contCognome" #contCognome="ngModel">
+						</div>
+						<!-- Cognome input end -->
+						<!-- Aziende select dropdown list begin -->
+						<div class="col-md-3">
+							<label for="contAzId">{{multiLanguageLable.cont_az_id}}</label>
+							<select class="form-control" id="contAzId" name="contAzId" required
+								(change)="onAziendeChange()" [(ngModel)]="newObject.contAzId" #contAzId="ngModel">
+								<option value>{{multiLanguageLable.cont_az_id_selection}}</option>
+								<option *ngFor="let aziend of aziende" value={{aziend.azId}}>{{aziend.azRagSociale}}
+								</option>
+							</select>
+						</div>
+						<!-- Aziende select dropdown list end -->
+					</div>
+					<!-- Row end -->
+					<!-- Row begin -->
+					<div class="row form-group">
+						<!-- City input begin -->
+						<div class="col-md-3">
+							<label for="contAzsedeId">{{multiLanguageLable.cont_azsede_id}}</label>
+							<select class="form-control" id="contAzsedeId" name="contAzsedeId" required
+								[(ngModel)]="newObject.contAzsedeId" #contAzsedeId="ngModel">
+								<option value="0">{{multiLanguageLable.headquarter}}</option>
+								<option *ngFor="let sede of allSedeAziende" value={{sede.azsedeId}}>
+									{{sede.azsedeDescr}}
+								</option>
+							</select>
+						</div>
+						<!-- City input end -->
+						<!-- Email 1 input begin -->
+						<div class="col-md-3">
+							<label for="contEmail1">{{multiLanguageLable.cont_email_1}}</label>
+							<input type="text" class="form-control" name="contEmail1" id="contEmail1"
+								placeholder={{multiLanguageLable.cont_email_1}} required maxlength="100" [email]=true
+								[(ngModel)]="newObject.contEmail1" #contEmail1="ngModel">
+						</div>
+						<!-- Email 1 input end -->
+						<!-- Phone 1 input begin -->
+						<div class="col-md-3">
+							<label for="contTelefono1">{{multiLanguageLable.cont_telefono_1}}</label>
+							<input type="text" class="form-control" name="contTelefono1" id="contTelefono1"
+								placeholder={{multiLanguageLable.cont_telefono_1}} required maxlength="20"
+								[(ngModel)]="newObject.contTelefono1" #contTelefono1="ngModel">
+						</div>
+						<!-- Phone 1 input end -->
+						<!-- Ute Id input begin -->
+						<div class="col-md-3">
+							<label for="contRifUteId">{{multiLanguageLable.cont_rif_ute_id}}</label>
+							<select class="form-control" name="contRifUteId" id="contRifUteId" required
+								[(ngModel)]="newObject.contRifUteId" #contRifUteId="ngModel">
+								<option value="">{{multiLanguageLable.cont_rif_ute_id_selection}}</option>
+								<option *ngFor="let user of allUtenti" value="{{user.uteId}}"> {{user.uteNome}}
+								</option>
+							</select>
+						</div>
+						<!-- Ute Id input end -->
+					</div>
+					<!-- Row end -->
+					<!-- Row begin -->
+					<div class="row form-group">
+						<!-- City input begin -->
+						<!-- <div class="col-md-3">
+				<label for="contCitta">{{multiLanguageLable.cont_citta}}</label>
+				<input type="text" class="form-control" name="contCitta" id="contCitta"
+						placeholder="{{multiLanguageLable.cont_citta}}"
+						
+						maxlength="40"
+						[(ngModel)]="newObject.contCitta"
+						#contCitta="ngModel">
+			  </div> -->
+						<!-- City input end -->
+						<!-- Tipo contatto select dropdown list begin -->
+						<div class="col-md-3">
+							<label for="contTipoContatto">{{multiLanguageLable.cont_tipo_contatto}}</label>
+							<select class="form-control" id="contTipoContatto" name="contTipoContatto" required
+								[(ngModel)]="newObject.contTipoContatto" #contTipoContatto="ngModel">
+								<option *ngFor="let tipo of allTipoContatto" value="{{tipo.tipoContatto}}">
+									{{tipo.tipoContatto}}
+								</option>
+							</select>
+						</div>
+						<!-- Tipo contatto select dropdown list end -->
+						<!-- Attivo select dropdown list begin -->
+						<div class="col-md-3">
+							<label for="contAttivo">{{multiLanguageLable.cont_attivo}}</label>
+							<select class="form-control" name="contAttivo" id="contAttivo" required
+								[(ngModel)]="newObject.contAttivo" #contAttivo="ngModel">
+								<option value="S">Yes</option>
+								<option value="N">No</option>
+							</select>
+						</div>
+						<!-- Attivo select dropdown list end -->
+					</div>
+					<!-- Row end -->
+					<!-- Row begin -->
+					<div class="row form-group">
+						<!-- City input begin -->
+						<div class="col-md-3">
+							<label for="contEmail2">{{multiLanguageLable.cont_email_2}}</label>
+							<input type="text" class="form-control" name="contEmail2" id="contEmail2"
+								placeholder={{multiLanguageLable.cont_email_2}} maxlength="100" [email]=true
+								[(ngModel)]="newObject.contEmail2" #contEmail2="ngModel">
+						</div>
+						<!-- City input end -->
+						<!-- Email 1 input begin -->
+						<div class="col-md-3">
+							<label for="cont_telefono_2">{{multiLanguageLable.cont_telefono_2}}</label>
+							<input type="text" class="form-control" name="cont_telefono_2" id="cont_telefono_2"
+								placeholder={{multiLanguageLable.cont_telefono_2}} maxlength="100"
+								[(ngModel)]="newObject.contTelefono2" #contTelefono2="ngModel">
+						</div>
+						<!-- Email 1 input end -->
+						<!-- Phone 1 input begin -->
+						<div class="col-md-3">
+							<label for="cont_posizione">{{multiLanguageLable.cont_posizione}}</label>
+							<input type="text" class="form-control" name="cont_posizione" id="cont_posizione"
+								placeholder={{multiLanguageLable.cont_posizione}} maxlength="100"
+								[(ngModel)]="newObject.contPosizione" #contPosizione="ngModel">
+						</div>
+						<!-- Phone 1 input end -->
+						<!-- Ute Id input begin -->
+						<div class="col-md-3">
+							<label for="cont_cv_iniziali">{{multiLanguageLable.cont_cv_iniziali}}</label>
+							<select class="form-control" name="cont_cv_iniziali" id="cont_cv_iniziali"
+								[(ngModel)]="newObject.contCvIniziali" #contCvIniziali="ngModel">
+								<option value="S">Yes</option>
+								<option value="N">No</option>
+							</select>
+						</div>
+						<!-- Ute Id input end -->
+					</div>
+					<!-- Row end -->
+					<!-- Row begin -->
+					<div class="row form-group">
+						<!-- City input begin -->
+						<div class="col-md-3">
+							<label for="cont_descrizione">{{multiLanguageLable.cont_descrizione}}</label>
+							<input type="text" class="form-control" name="cont_descrizione" id="cont_descrizione"
+								placeholder={{multiLanguageLable.cont_descrizione}} aria-multiline="true"
+								[(ngModel)]="newObject.contDescrizione" #contDescrizione="ngModel">
+						</div>
+						<!-- City input end -->
+						<!-- Email 1 input begin -->
+						<div class="col-md-3">
+							<label for="cont_priormin">{{multiLanguageLable.cont_priormin}}</label>
+							<input type="text" class="form-control" name="cont_priormin" id="cont_priormin"
+								placeholder={{multiLanguageLable.cont_priormin}} maxlength="10"
+								[(ngModel)]="newObject.contPriormin" #contPriormin="ngModel">
+						</div>
+						<!-- Email 1 input end -->
+						<!-- Phone 1 input begin -->
+						<div class="col-md-3">
+							<label for="cont_priormax">{{multiLanguageLable.cont_priormax}}</label>
+							<input type="text" class="form-control" name="cont_priormax" id="cont_priormax"
+								placeholder={{multiLanguageLable.cont_priormax}} maxlength="20"
+								[(ngModel)]="newObject.contPriormax" #contPriormax="ngModel">
+						</div>
+						<!-- Phone 1 input end -->
+						<!-- Ute Id input begin -->
+						<div class="col-md-3">
+							<label for="cont_invio_cv_note">{{multiLanguageLable.cont_invio_cv_note}}</label>
+							<input type="text" class="form-control" name="cont_invio_cv_note" id="cont_invio_cv_note"
+								placeholder={{multiLanguageLable.cont_invio_cv_note}} maxlength="100"
+								[(ngModel)]="newObject.contNote" #contNote="ngModel">
+						</div>
+						<!-- Ute Id input end -->
+					</div>
+					<!-- Row end -->
+
+					<!-- Row begin -->
+					<div class="row form-group">
+						<!-- City input begin -->
+						<div class="col-md-3">
+							<label for="cont_note">{{multiLanguageLable.cont_note}}</label>
+							<input type="text" class="form-control" name="cont_note" id="cont_note"
+								placeholder={{multiLanguageLable.cont_note}} maxlength="100"
+								[(ngModel)]="newObject.contNote" #contNote="ngModel">
+						</div>
+						<!-- City input end -->
+
+					</div>
+					<!-- Row end -->
+
+				</div>
+				<!-- Modal body end -->
+				<!-- Modal footer begin -->
+				<div class="modal-footer modal_footer_talent bg-dark">
+					<!-- Submit button -->
+					<button type="submit" class="btn btn-success text-uppercase">
+						<i class="fa fa-check text-uppercase"></i>
+						{{multiLanguageCommonLable.saveText}}
+					</button>
+					<!-- Modal close button -->
+					<button type="button" class="btn btn-warning text-uppercase" data-dismiss="modal"
+						(click)="onCloseAddEditModal()">
+						<i class="fa fa-times text-uppercase"></i> {{multiLanguageCommonLable.closeText}}
+					</button>
+				</div>
+				<!-- Modal footer end -->
+			</form>
+			<!-- End object add/edit form -->
+		</div>
+		<!-- End modal content -->
+	</div>
+	<!-- End modal dialogue -->
+</div>
+<!-- End modal -->
+<!-- Start mail modal -->
+<div class="modal fade" bsModal #emailModal="bs-modal" tabindex="-1" role="dialog"
+	aria-labelledby="dialog-nested-name2">
+	<div class="modal-dialog">
+		<div class="modal-content modal_talent">
+			<div class="modal-header ricerca-sfondo">
+				<h4 id="dialog-nested-name2" class="modal-title pull-left">Email</h4>
+				<button type="button" class="close pull-right" aria-label="Close" (click)="emailModal.hide()">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form name="emailForm" #emailForm="ngForm" (ngSubmit)="onSendMail(emailForm)">
+
+					<strong>To : </strong> {{ emailObject.email }}
+
+					<div class="row" style="margin : 5px;">
+						<textarea name="body" id="body" class="form-control" rows="10" placeholder="Email content"
+							required [(ngModel)]="emailObject.body" #body="ngModel"></textarea>
+						<div class="alert alert-danger" *ngIf="emailForm.submitted && body.invalid">
+							Provide email content
+						</div>
+					</div>
+
+					<div class="row top-padding-centered">
+						<button type="submit" class="btn btn-success inline-btn">
+							<i class="fa fa-envelope"></i> Send
+						</button>
+						<button type="button" class="btn btn-warning inline-btn" (click)="emailModal.hide()">
+							<i class="fa fa-arrow-left"></i> Back
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End mail modal-->
+
+
+<!-- On close click confirmation dialog begin -->
+<app-confirmation-dialog [showDialog]="showCloseConfirmDialog" (confirmationSelectEvent)="onDialogConfirm($event)">
+</app-confirmation-dialog>
+<!-- On close click confirmation dialog end -->

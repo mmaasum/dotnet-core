@@ -1,0 +1,52 @@
+{
+    "common" : {
+        "usrmsg_err" : {
+			"L0001_accessDenied" : "Cannot access {{page}} page, you are not authorized",
+			"L0201_fieldEmpty" : "Field {{par_01}} is required; please insert a valid value",
+			"L0202_dateFormat" : "Date format not valid; please use DD/MM/YYYY format",
+			"L0203_invalidFormData" : "Invalid form data",
+			"L0204_unexpecteddErrorMsg" : "Unexpected error occured"
+		},
+		"usrmsg_warn" : {
+			"L3001_logoutWarnMsg" : "You're about to log out from the application",
+			"L3002_logoutConfirmMsg" : "Any unsaved data will be lost. Do you want to procede?",
+			"L3003_notImplemented" : "Not implemented yet"
+		},
+		"usrmsg_info" : {
+			"L7001_save" : "Save",
+			"L7002_edit" : "Edit",
+			"L7003_delete" : "Delete",
+			"L7004_close" : "Close",
+			"L7005_clear" : "Clear",
+			"L7006_applyFilter" : "Apply and refresh data",
+			"L7007_maxRows" : "# rows",
+			"L7008_duplicate" : "Duplicate",
+			"L7009_saveAndExit" : "Save and exit",
+			"L7010_saveAndApply" : "Save and apply",
+			"L7011_saveSuccessMsg" : "{{term}} saved successfully",
+			"L7012_deleteSuccessMsg" : "{{term}} deleted successfully",
+			"L7013_logout" : "Logout",
+			"L7014_yes" : "YES",
+			"L7015_no" : "NO",
+			"L7016_stay" : "Cancel",
+			"L7017_myAccount" : "My account",
+			"L7018_add" : "Add",
+			"L7019_confirmation" : "Confirm",
+			"L7020_confirmationMsg" : "Do you want to continue?",
+			"L7021_reset" : "Reset",
+			"L7022_gridExportConfirmation" : "Confirm Grid export to {{type}}",
+			"L7023_all" : "All",
+			"L7024_dataOf" : "data of",
+			"L7025_lastLoginInfo" : "Last login information",
+			"L7026_time" : "Time",
+			"L7026_gridLoadWait" : "One moment please...",
+			"L7027_returnHome" : "Take Me Home",
+			"L7028_unauthorized" : "Unauthorized",
+			"L7029_search" : "Search",
+			"L7030_select" : "Select"
+		},
+		"sysmsg_err" : {
+			"L10001_errmsg" : "This is a common system error message"
+		}
+    }
+}

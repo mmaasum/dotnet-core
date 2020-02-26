@@ -1,0 +1,24 @@
+{
+    "aziende" : {
+        "usrmsg_err" : {
+			"L1401_accessDenied" : "No se puede acceder a la página {{par_01}}, su usuario no está autorizado"
+		},
+		"usrmsg_warn" : {
+			"L4401_provideCity" : "Proporcionar ciudad",
+			"L4402_provideluogoLavoro" : "Proporcionar lugar de trabajo al cliente!",
+			"L4403_existSiglaMSg" : "¡Las iniciales de la compañía ya existen!"
+		},
+		"usrmsg_info" : {
+			"L7401_companyName" : "Nombre",
+			"L7402_description" : "Descripción",
+			"L7403_city" : "Ciudad",
+			"L7404_compantType" : "tipo de compañía",
+			"L7405_defaultEmail" : "Dirección de correo electrónico predeterminada",
+			"L7406_defaultPhone" : "Número de teléfono predeterminado",
+			"L7407_zipCode" : "ZIP code"
+		},
+		"sysmsg_err" : {
+			"L11401_errmsg" : "Este es un mensaje de error del sistema común"
+		}
+    }
+}

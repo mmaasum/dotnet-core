@@ -1,0 +1,255 @@
+/*CUSTOM COLOR BEGIN*/
+
+.custom-green {
+    color: #3dff0d;
+}
+.custom-red {
+    color: #ff3942;
+}
+.custom-red-mint {
+    color: #E43A45;
+}
+.custom-red-flamingo {
+    color: #EF4836;
+}
+.custom-red-thunderbird {
+    color: #D91E18;
+}
+
+.custom-blue {
+    color: #0d15ff;
+}
+.custom-yellow {
+    color: #F3C200;
+}
+.custom-yellow-gold {
+    color: #E87E04;
+}
+
+.custom-cyan {
+    color: #61e2ff;
+}
+
+.custom-purple {
+    color: #8E44AD;
+}
+.custom-purple-seance {
+    color: #9A12B3;
+}
+.custom-magento {
+    color: #fb76bf;
+}
+.custom-casablanca {
+    color: #F2784B;
+}
+
+/*CUSTOM COLOR END*/
+
+
+
+
+/*CUSTOM COLOR BUTTON BEGIN*/
+
+.custom-btn-green {
+    background-color: #22b573;
+}
+
+.custom-btn-red {
+    background-color: #ff3942;
+}
+
+.custom-btn-red-mint {
+    background-color: #E43A45;
+}
+
+.custom-btn-red-flamingo {
+    background-color: #EF4836;
+    color : #FFF;
+}
+.custom-btn-red-flamingo:hover {
+    background-color: #f55f4e;
+    color : #FFF;
+}
+
+.custom-btn-red-thunderbird {
+    background-color: #D91E18;
+}
+
+.custom-btn-blue {
+    background-color: #0d15ff;
+    color : #FFF;
+}
+.custom-btn-blue:hover {
+    background-color: #373efd;
+    color : #FFF;
+}
+
+.custom-btn-yellow {
+    background-color: #F3C200;
+}
+
+.custom-btn-yellow-gold {
+    background-color: #E87E04;
+}
+
+.custom-btn-cyan {
+    background-color: #61e2ff;
+}
+
+.custom-btn-purple {
+    background-color: #8E44AD;
+    color : #FFF;
+}
+
+.custom-btn-purple-seance {
+    background-color: #9A12B3;
+    color : #FFF;
+}
+.custom-btn-purple-seance:hover {
+    background-color: #b424ce;
+    color : #FFF;
+}
+
+
+.custom-btn-magento {
+    background-color: #fb76bf;
+}
+
+.custom-btn-casablanca {
+    background-color: #F2784B;
+}
+
+.custom-btn-dark {
+    background-color: #16142b;
+    color: #FFF;
+} 
+.custom-btn-dark:hover{
+    background-color: #2a264e;
+    color: #FFF;
+}
+
+/*CUSTOM COLOR BUTTON END*/
+
+
+
+
+
+/*MODAL CUSTOMIZATION BEGIN*/
+
+.modal-header {
+    background-color: #f7f7f7;
+    color: #212529;
+    border-bottom: 1px solid #e5e5e5;
+    border-top-left-radius: .1rem; 
+    border-top-right-radius: .1rem;
+}
+.modal-header button {
+    opacity : 0.7;
+    /* color:#FFF; */
+}
+
+.modal-content {
+    border-radius : .1rem;
+}
+
+.modal-footer {
+    background-color: #f7f7f7;
+    box-shadow: inset 0 1px 0 0 #e5e5e5;
+    padding: .6rem;
+}
+
+.modal-xl-size {
+    width: 90%;
+    height: 80%;
+    padding: 0;
+}
+
+/*MODAL CUSTOMIZATION END*/
+
+
+/* INLINE BUTTONS WITH RIGHT MARGIN BEGIN*/
+.inline-btn {
+    margin-right: 5px;
+}
+/* INLINE BUTTONS WITH RIGHT MARGIN END*/
+
+/* BOOTSTRAP CLASS OVERRIDE WITH TALENT COLOR CODE START*/
+.btn-success {
+    background-color : #22b573;
+}
+.btn-success:hover {
+    background-color : #2eca84;
+}
+.btn-primary {
+    background-color : #09588a;
+}
+.btn-primary:hover {
+    background-color : #146ba1;
+}
+.btn-info {
+    background-color: #0071bc;
+}
+.btn-info:hover {
+    background-color: #168bda;
+}
+.btn-danger{
+    background-color: #f15a24;
+}
+.btn-dange:hover{
+    background-color: #f5703f;
+}
+.btn-warning{
+    background-color : #4d4d4d;
+    color:#fff;
+}
+.btn-warning:hover{
+    background-color : #3f3e3e;
+    color:#fff;
+}
+.btn-warning:active{
+    background-color : #272727;
+    color:#fff;
+}
+.btn-warning:focus{
+    background-color : #272727;
+    color:#fff;
+}
+
+/* BOOTSTRAP CLASS OVERRIDE WITH TALENT COLOR CODE END*/
+
+.ag-paging-row-summary-panel {
+    display: none;
+}
+
+.grid-wrapper {
+    /* height: 70vh; */
+}
+
+
+/* SORTABLE SELECT LIST BEGIN */
+
+
+.sortable-item {
+    /* padding: 6px 12px; */
+    margin-bottom: 4px;
+    font-size: 14px;
+    line-height: 1.4em;
+    /* text-align: center; */
+    cursor: grab;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    border-color: #adadad;
+}
+
+.sortable-item-selected {
+    background-color: green;
+    color : white;
+    font-weight: bold;
+}
+
+.sortable-item-active {
+    background-color: #e6e6e6;
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+}
+
+/* SORTABLE SELECT LIST END */

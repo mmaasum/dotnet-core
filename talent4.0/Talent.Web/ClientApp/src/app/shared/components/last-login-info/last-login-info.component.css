@@ -1,0 +1,19 @@
+.detail-info > i {
+    margin-right : 0.5rem;
+}
+
+i.ip {    
+    color : #12ecf7;
+}
+
+i.browser {
+    color : #e3f92d;
+}
+
+i.os {
+    color :#fd3333;
+}
+
+i.time {
+    color :#54ff1d;
+}

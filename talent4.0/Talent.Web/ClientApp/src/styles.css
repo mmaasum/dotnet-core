@@ -1,0 +1,125 @@
+/* Importing bootstrap style */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~ngx-bootstrap/datepicker/bs-datepicker.css";
+@import "~font-awesome/css/font-awesome.css";
+@import '~ngx-toastr/toastr.css';
+
+/* You can add global styles to this file, and also import other style files */
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+/* Add custom css */
+@import 'assets/css/custom-talent.css';
+@import 'assets/css/override.css';
+
+
+
+
+/* CUSTOMIZING CKEDITOR BEGIN */
+.cke_wysiwyg_frame, 
+.cke_wysiwyg_div {
+    background-color: #555151 !important;
+}
+textarea.cke_source {
+    background-color: #555151 !important;
+}
+span.cke_path {
+    display: none;
+}
+
+
+/* Global style customization */
+.filter-label{
+    margin-bottom: 0rem;
+}
+
+.filter-input{
+    border: 1px solid green;
+    border-radius : 0px;
+}
+
+.alert {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: #4A148Cd9;
+    color : #FFF;
+}
+
+/* CUSTOM CSS FROR LOADER BEGIN */
+
+/* Custom CSS for loader */
+.hidden {
+    visibility: hidden;
+}
+.loader-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 500000;
+    top: 0;
+    background: rgba(0, 0, 0, 0.55) 100% 100% no-repeat;
+}
+.loader {
+    height: 10px;
+    width: 24vw;
+    position: fixed;
+    overflow: hidden;
+    background-color: #FFF;
+    top: 49vh;
+    left: 38vw;
+}
+.loader:before {
+    display: block;
+    position: absolute;
+    content: "";
+    left: -5px;
+    width: 5px;
+    height: 10px;
+    background-color: #1ea31e;
+    animation: loading 2s linear infinite;
+}
+@keyframes loading {
+    from {left: -5px; width: 30%;}
+    50% {width: 30%;}
+    70% {width: 70%;}
+    80% {left: 50%;}
+    95% {left: 120%;}
+    to {left: 100%;}
+}
+/* CUSTOM CSS FOR LOADER END */
+
+
+
+/* DATEPICKER CUSTOMIZATION BEGIN */
+.theme-default .bs-datepicker-head {
+    background-color: #02c39a;
+}
+
+.theme-default .bs-datepicker-body table td span.selected, 
+.theme-default .bs-datepicker-body table td.selected span, 
+.theme-default .bs-datepicker-body table td span[class*="select-"]:after, 
+.theme-default .bs-datepicker-body table td[class*="select-"] span:after {
+    background-color: #02c39a;
+}
+
+
+.custom-today-class {
+    color: white;
+    font-weight: bold;
+    background-color: #697bfb;
+}
+/* DATEPICKER CUSTOMIZATION END */
+
+
+/* CUSTOMIZING DROPDOWN LIST BEGIN */
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #3f943f;
+}
+
+/* CUSTOMIZING DROPDOWN LIST END */

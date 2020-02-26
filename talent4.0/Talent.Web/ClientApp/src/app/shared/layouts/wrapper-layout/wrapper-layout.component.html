@@ -1,0 +1,20 @@
+<div class="alert alert-warning" *ngIf="isMobile">
+	<h3>Software not available at this screen resolution</h3>
+	<p>
+		For a correct visualization of the software and the data grids it is necessary to pass to a higher resolution.
+	</p>
+</div>
+
+<div *ngIf="!isMobile">
+	<app-menu-bar></app-menu-bar>
+
+	<!-- <app-last-login-info></app-last-login-info> -->
+
+	<div class="fakegrid" class="main-wrapper">
+		<router-outlet (activate)="onActivate($event)">
+		</router-outlet>
+	</div>
+
+	<app-footer></app-footer>
+
+</div>

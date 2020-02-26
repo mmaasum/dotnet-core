@@ -1,0 +1,86 @@
+<!-- Global filter bar begin -->
+<div class="ricerca-sfondo container-fluid" style="height: 60px;">
+  <div class="row filter-bar-wrapper">
+    <!-- External filter section begin -->
+    <div class="col-md-9 external-filter">
+
+    </div>
+    <!-- External filter section end -->
+    <!-- Global filter section begin -->
+    <div class="col-md-3 global-filter-wrapper">
+      <app-filter-management 
+              [gridName]="columnName" 
+              [isFilterSaveable]="isFilterSaveable"
+              (quickFilterTextChangeEvent)="quickFilterTextChange($event)"
+              (allFiltersClearEvent)="clearAllFilters($event)"
+              (filterChangeEvent)="filterChange($event)"
+              (setFilterSortingTextEvent)="onChangeFilterText($event)">
+      </app-filter-management>
+    </div>
+    <!-- Global filter section end -->
+  </div>
+</div>
+<!-- Global filter bar end -->
+<div class="box box-primary">
+  <div class="box-body">
+    <div class="row">
+      <div class="box-header col-md-3">
+        <h3 class="box-title"><i class="fa fa-cubes"></i> Survey Invitation </h3>
+      </div>
+    </div>
+    <!-- Survey invitation form begin -->
+    <form (ngSubmit)="onSubmit()" #surveyInvitationForm="ngForm">
+      <!-- Validation message section begin -->
+      <div class="alert alert-danger" *ngIf="surveyInvitationForm.submitted && surveyInvitationForm.invalid">
+        <ul>
+            <li *ngIf="firstName.invalid"> Please specify firstname</li>
+            <li *ngIf="surName.invalid"> Please specify lastname</li>
+            <li *ngIf="email.invalid"> Please provide valid email</li>
+        </ul>
+      </div>
+      <!-- validation message section end -->
+
+      <!-- Firstname input section begin -->
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName"
+               placeholder="First Name"
+               required
+               [(ngModel)]="user.firstName" name="firstName"
+               #firstName="ngModel">        
+      </div>
+      <!-- Firstname input section end -->
+
+      <!-- Surname input section begin -->
+      <div class="form-group">
+        <label for="surName">Last Name</label>
+        <input type="text" class="form-control" id="surName"
+               placeholder="Last Name"
+               required
+               [(ngModel)]="user.surName" name="surName"
+               #surName="ngModel">
+      </div>
+      <!-- Surname input section end -->
+
+      <!-- Email input section begin -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email"
+               placeholder="Email"
+               required
+               [(ngModel)]="user.email" name="email"
+               [email]=true
+               #email="ngModel">
+      </div>
+      <!-- Email Input section end -->
+      
+      <!-- Submit section begin -->
+      <button type="submit" class="btn btn-success"
+              [disabled]="!surveyInvitationForm.valid">
+        Submit
+      </button>
+      <!-- Submit section end -->
+    </form>
+    <!-- Survey invitation form end -->
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<input type="text" id="nameSurveyLabel" hidden [value]="authService.currentUser.name">
+<input type="text" id="emailSurveyLabel" hidden [value]="email">
+
+<nav *ngIf="isLoggedIn$ | async"
+     class="navbar navbar-expand navbar-light bg-dark topbar static-top shadow" style="margin-bottom: 0px;">
+  <!-- Sidebar Toggle (Topbar) -->
+  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+    <i class="fa fa-bars"></i>
+  </button>
+  <!--WELCOME USER-->
+  <h1 class="h3 mb-0 text-white">{{multiLanguageLable.welcome}}, {{ authService.currentUser.name }} ({{ authService.currentUser.role | uppercase }})</h1>
+  <!-- Topbar Navbar -->
+  <ul class="navbar-nav ml-auto">
+    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+    <li class="nav-item dropdown no-arrow d-sm-none">
+      <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" 
+      role="button" data-toggle="dropdown" 
+      aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-search fa-fw"></i>
+      </a>
+      <!-- Dropdown - Messages -->
+      <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" 
+      aria-labelledby="searchDropdown">
+        <form class="form-inline mr-auto w-100 navbar-search">
+          <div class="input-group">
+            <input type="text" class="form-control bg-light border-0 small" 
+            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button">
+                <i class="fas fa-search fa-sm"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </li>
+    <!-- Nav Item - LOGOUT -->
+    <li class="nav-item dropdown no-arrow mx-1">
+      <a class="nav-link dropdown-toggle"
+         (click)="onHelpClick()"
+         id="JiraTrigger"
+         role="button">
+        <img class="navbar-icons" src="../../../../assets/immagini/help.png" alt="">
+      </a>
+    </li>
+    <div class="topbar-divider d-none d-sm-block"></div>
+    <li class="nav-item dropdown no-arrow">
+      <a class="nav-link dropdown-toggle"
+         (click)="onLogout()"
+         id=""
+         role="button"
+         data-toggle="dropdown"
+         aria-haspopup="true"
+         aria-expanded="false">
+        <img class="navbar-icons" src="../../../../assets/immagini/icona-off.png" alt="">
+      </a>
+    </li>
+
+  </ul>
+</nav>
+
+
+
+    
+
+
+<!-- Log out confirmation Modal begin -->
+<div class="modal fade" bsModal #confirmationModal="bs-modal" 
+                        tabindex="-1" role="dialog" 
+                        aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-nested-name2" class="modal-title pull-left">{{multiLanguageLable.logout_title}}</h4>
+        <button type="button" 
+                class="close pull-right" 
+                aria-label="Close" 
+                (click)="confirmationModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- Modal body begin -->
+      <div class="modal-body text-center">
+        <h3>{{multiLanguageLable.info}}</h3>
+        <h3>{{multiLanguageLable.confirm}}</h3>
+      </div>
+      <!-- Modal body end -->
+      <!-- Modal footer begin -->
+      <div class="modal-footer modal_footer_talent bg-dark">
+        <div class="row" style="width:100%;">
+          <!-- No selection button -->
+          <div class="col-md-6 text-left">
+            <button class="btn btn-success" (click)="onConfirm()">
+              <i class="fa fa-sign-out"></i> {{multiLanguageLable.logout}}
+            </button>
+          </div>
+          <!-- Yes selection button -->
+          <div class="col-md-6 text-right">
+            <button class="btn btn-primary" (click)="confirmationModal.hide()">
+              <i class="fa fa-return"></i> {{multiLanguageLable.stay}}
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer endd -->
+    </div>
+    <!-- Modal content end -->
+  </div>
+  <!-- Modal dialog end -->
+</div>
+<!-- End log out confirmation modal-->

@@ -1,0 +1,586 @@
+<!-- Global filter bar begin -->
+<div class="ricerca-sfondo container-fluid" style="height:60px;">
+  <div class="row filter-bar-wrapper">
+    <!-- External filter section begin -->
+    <div class="col-md-9 external-filter">
+      <div class="row">
+        <div class="col-md-3">
+          <h5 class="talenth4">{{uteIdFilterText}}</h5>
+          <input type="text" class="form-control"
+                  name="filter_ute_id"
+                  placeholder={{uteIdFilterText}}
+                  id="filter_ute_id"
+                  (keyup.enter)="onApplyFilter()"
+                  [(ngModel)]="allFilters[0].option1"
+          >
+        </div>
+        <div class="col-md-3">
+          <h5 class="talenth4">{{uteNomeFilterText}}</h5>
+          <input type="text" class="form-control"
+                    name="filter_ute_nome"
+                    placeholder={{uteNomeFilterText}}
+                    id="filter_ute_nome"
+                    (keyup.enter)="onApplyFilter()"
+                    [(ngModel)]="allFilters[1].option1"
+          >
+        </div>
+        <div class="col-md-3">
+          <h5 class="talenth4">{{uteRuoloFilterText}}</h5>
+          <input type="text" class="form-control"
+                    name="filter_ute_ruolo"
+                    placeholder={{uteRuoloFilterText}}
+                    id="filter_ute_ruolo"
+                    (keyup.enter)="onApplyFilter()"
+                    [(ngModel)]="allFilters[2].option1"
+          >
+        </div>
+        <div class="col-md-2 filter-button-wrapper">
+          <div class="btn-group">
+            <button type="button"
+                    class="btn btn-primary uppercase"
+                    (click)="onApplyFilter()">
+              {{applyFilter}}
+            </button>
+            <button type="button"
+                    class="btn btn-primary uppercase d-none d-sm-inline-block btn
+                  btn-primary shadow-sm talentbtn"
+                    (click)="filterClear()">
+              <img class="talent-icons" src="../../../../assets/immagini/restore.png" alt="">
+              {{clearText}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- External filter section end -->
+    <!-- Global filter section begin -->
+    <div class="col-md-3 global-filter-wrapper">
+      <app-filter-management
+              [gridName]="columnName" 
+              [isFilterSaveable]="isFilterSaveable"
+              [isFilterCleared]="isFilterCleared"
+              [appliedFilterInGrid]="appliedFilterInGrid"
+              [appliedSortingInGrid]="appliedSortingInGrid"
+              (quickFilterTextChangeEvent)="quickFilterTextChange($event)"
+              (filterChangeEvent)="filterChange($event)"
+              (setFilterSortingTextEvent)="onChangeFilterText($event)">
+      </app-filter-management>
+    </div>
+    <!-- Global filter section end -->
+  </div>
+</div>
+<!-- Global filter bar end -->
+<div class="box box-primary">
+    <div class="box-body">
+        <!--Operation buttons -->
+        <div class="row">
+          <div class="box-header col-md-3">
+            <h3 class="box-title"><i class="fa fa-cubes"></i> {{caption}} </h3>
+          </div>
+          <div class="col-md-3">
+            <div class="test-header">
+              <div class="col-md-12">
+                <div class="col-md-7 text-white text-lg">
+                  {{pageSizeText}} :
+                </div>
+                <div class="col-md-1">
+                  <select (change)="onPageSizeChanged()" id="page-size">
+                    <option value="20" selected="">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="500">500</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group col-md-4 text-lg">
+              <span class="label" style="background-color:#9fa0a4;font-size:100%;">{{totalRowCount}} = <span class="badge">{{ totalDbRecords }}</span></span>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <form (ngSubmit)="onSubmit()" #azioniForm="ngForm" class="form-inline usercreate">
+              <a (click)="toggle()"
+                  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm talentbtn"
+                  style="margin-left: 0px;"
+                  title="ADD Something"
+                  data-content="Content decided by Isabella">
+                <img class="talent-icons" src="../../../../assets/immagini/add.png" alt="">&nbsp; {{buttonName}}
+              </a>
+              <div class="wrapbutton">
+                <button type="button"
+                        *ngIf="!show"
+                        [disabled]="!user.uteId"
+                        id="edit"
+                        (click)="toggleEdit()"
+                        class="d-none d-sm-inline-block btn  btn-info shadow-sm talentbtn">
+                  <i class="fa fa-remove"></i>&nbsp; {{edit}}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <form (ngSubmit)="onSubmit(usercreateForm)" #usercreateForm="ngForm" *ngIf="show">
+        <!-- Add new button row end -->
+        <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{ID}} <strong style="color:red">*</strong></label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <input type="text" placeholder="{{ID}}"
+                           [disabled]="isDisabled()"
+                           tabindex="1"
+                           class="form-control"
+                           id="uteId"
+                           required
+                           maxlength="20"
+                           [(ngModel)]="user.uteId"
+                           name="uteId">
+  
+                  </div>
+  
+                </div>
+  
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{Password}} <strong style="color:red">*</strong></label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <input id="password" type="text"
+                           class="form-control"
+                           name="password"
+                           autocomplete="off"
+                           tabindex="2"
+                           placeholder="{{Password}}"
+                           maxlength="10"
+                           [(ngModel)]="user.utePassword"
+                           max="10"
+                           required>
+  
+                  </div>
+                </div>
+  
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{Ruolo}}</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <select (change)="filterUteRuolo($event.target.value)"
+                            class="form-control"
+                            [(ngModel)]="user.uteRuolo"
+                            name="uteRuolo"
+                            id="uteRuolo"
+                            #uteRuolo="ngModel">
+                      <option value>--Select--</option>
+                      <option *ngFor="let ruolo of ruolos"
+                              value="{{ruolo.ruolo}}">
+                        {{ruolo.ruolo}}
+                      </option>
+                    </select>
+  
+                  </div>
+                </div>
+  
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{Attivo}} <strong style="color:red">*</strong></label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <select class="form-control"
+                            [(ngModel)]="user.uteAttivo"
+                            name="uteAttivo"
+                            id="uteAttivo">
+                      <option selected value="S">Yes</option>
+                      <option value="N">No</option>
+                    </select>
+  
+  
+  
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{Nome}} <strong style="color:red">*</strong></label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <input id="nome" type="text"
+                           class="form-control"
+                           name="nome"
+                           tabindex="5"
+                           autocomplete="off"
+                           placeholder="{{Nome}}"
+                           [(ngModel)]="user.uteNome"
+                           maxlength="20"
+                           required>
+  
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{Profilo}} </label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <input id="uteprofilo" type="text"
+                           class="form-control"
+                           name="uteprofilo"
+                           autocomplete="off"
+                           tabindex="6"
+                           maxlength="60"
+                           placeholder="{{Profilo}}"
+                           [(ngModel)]="user.uteProfilo">
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{Email}}</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <input id="utemail" type="text"
+                           class="form-control"
+                           name="utemail"
+                           autocomplete="off"
+                           tabindex="7"
+                           placeholder="{{Email}}"
+                           maxlength="150"
+                           [(ngModel)]="user.uteMail">
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{Telefono}} </label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <input id="utetelefono" type="text"
+                           class="form-control"
+                           name="utetelefono"
+                           autocomplete="off"
+                           tabindex="8"
+                           placeholder="{{Telefono}}"
+                           maxlength="20"
+                           [(ngModel)]="user.uteTelefono">
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{Titolo}} </label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <select class="form-control"
+                            [(ngModel)]="user.uteTitolo"
+                            name="utetitolo"
+                            id="utetitolo">
+                      <option *ngFor="let title of titoli"
+                              value="{{title.titolo}}">
+                        {{title.titolo}}
+                      </option>
+                    </select>
+  
+                  </div>
+                </div>
+  
+  
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{Sede}} </label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <select class="form-control"
+                            [(ngModel)]="user.uteSede"
+                            name="utesede"
+                            id="utesede">
+                      <option *ngFor="let sede of filiali"
+                              value="{{sede.filialeCodice}}">
+                        {{sede.filialeCodice}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{AltriRiferimenti}} </label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <input id="uteriferimenti" type="text"
+                           class="form-control"
+                           name="uteriferimenti"
+                           autocomplete="off"
+                           tabindex="13"
+                           maxlength="50"
+                           placeholder="{{AltriRiferimenti}}"
+                           [(ngModel)]="user.uteAltriRiferimenti">
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{EmailInvio}}</label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <input id="uterapportiniinvio"
+                           type="text"
+                           class="form-control"
+                           name="uterapportiniinvio"
+                           autocomplete="off"
+                           tabindex="14"
+                           placeholder="{{EmailInvio}}"
+                           maxlength="1000"
+                           [(ngModel)]="user.uteRapportiniEmailInvio">
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+  
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                  <label>{{UtentigestitiRapportini}} </label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <input id="uterapportinigestiti"
+                           type="text"
+                           class="form-control"
+                           name="uterapportinigestiti"
+                           autocomplete="off"
+                           maxlength="350"
+                           tabindex="15"
+                           placeholder="{{UtentigestitiRapportini}}"
+                           [(ngModel)]="user.uteRapportiniUtentiGestiti">
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                  <label>{{VPN}} </label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <select class="form-control"
+                            [(ngModel)]="user.uteUsaVpn"
+                            name="uteusavpn"
+                            id="uteusavpn">
+                      <option value="N">No</option>
+                      <option value="S">Yes</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="col-md-3 col-sm-12">
+                  <label>{{selectedRisorseLabel}} </label>
+                  <div class="input-group">
+                    <span class="input-group-addon"> </span>
+                    <input type="text" class="form-control" readonly [value]="searchNome +' '+ searchCogNome"> 
+                  </div>
+                </div>
+  
+                <div class="col-md-3" style="padding-top:20px;">
+                  <button type="button" class="btn btn-info" (click)="onEmailModalOpened()">{{emailModalOpened}}</button>
+                </div>
+              </div>
+              <div class="row">
+  
+                <div class="col-md-9 col-sm-12" style="padding-top: 25px;">
+                  <div class="btn-group pull-left">
+                    <button type="submit"
+                            style="width:110px;"
+                            id="save"
+                            [disabled]="usercreateForm.invalid"
+                            class="btn btn-success uppercase">
+                      <i class="fa fa-save"></i> {{saveButtonText}}
+                    </button>
+  
+                    <button type="button"
+                            style="width:110px;"
+                            id="cancel"
+                            (click)="cancel()"
+                            class="btn btn-info uppercase pull-left">
+                      <i class="fa fa-remove"></i> {{cancelButtonText}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="col-md-4 acl_selection">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="panel">
+                      <div class="panel-heading panel-default">
+                        {{authorizatiopnLabel}}
+                      </div>
+                      <div class="panel-body custom-switch">
+                        <div *ngFor="let auth of allAuths; let i = index">
+                          <input type="checkbox"
+                                 required
+                                 [checked]="auth.uteabUteId"
+                                 [id]="'auth_'+i"
+                                 (change)="onChange(i)">
+                          <label class="ml-2" [for]="'auth_'+i">{{ auth.tipoabilitProcedura }}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </form>
+
+        <div class="row" style="height: 480px;" *ngIf="!show">
+            <div id="idGrid" class="grid-wrapper" 
+                      [class.col-md-8]="user.uteId" 
+                      [class.col-md-12]="!user.uteId">
+                <!-- Load Ag-Grid -->
+                <ag-grid-angular style="width: 100%; height: 94%;"
+                                 class="ag-theme-balham"
+                                 [rowData]="rowData | async"
+                                 [columnDefs]="columnDefs"
+                                 [frameworkComponents]="frameworkComponents"
+                                 [loadingOverlayComponent]="loadingOverlayComponent"
+                                 [loadingOverlayComponentParams]="loadingOverlayComponentParams"
+                                 [paginationPageSize]="paginationPageSize"
+                                 (gridReady)="onGridReady($event)"
+                                 (cellKeyDown)="onCellKeyDown($event)"
+                                 (rowClicked)='onRowClicked($event)'>
+                </ag-grid-angular>
+                <div class="row" style="text-align: right;">
+                  <app-grid-pagination [total-items]="totalDbRecords"
+                                       [page-size]="pageSize"
+                                       (page-changed)="onPaginationPageChanged($event)">
+                  </app-grid-pagination>
+                </div>
+              </div>
+              <div class="col-md-4" *ngIf="user.uteId">
+                  <div class="row">
+                    <div class="col-sm-12 usercreateoutput" >
+                      <table class="table table-striped table-responsive ">
+                        <tbody>
+                          <tr>
+                            <th scope="row">ID:</th>
+                            <td><span class="goodoutput">{{user.uteId}}</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Password:</th>
+                            <td><span class="goodoutput">{{user.utePassword}}</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Ruolo:</th>
+                            <td><span class="goodoutput">{{user.uteRuolo}}</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Nome:</th>
+                            <td><span class="goodoutput">{{user.uteNome}}</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Profilo:</th>
+                            <td><span class="goodoutput">{{user.uteProfilo}}</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Email:</th>
+                            <td>
+								<span class="goodoutput" *ngIf="user.uteMail">
+									<a href="mailto:{{user.uteMail}}">{{user.uteMail}}</a>
+								</span>
+							</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Telefono:</th>
+                            <td>
+								<span class="goodoutput" *ngIf="user.uteTelefono">
+									<a href="tel:{{user.uteTelefono}}">{{user.uteTelefono}}</a>
+								</span>
+                          </tr>
+                          <tr>
+                            <th scope="row">Altri riferimenti:</th>
+                            <td><span class="goodoutput">{{user.uteRapportiniEmailInvio}}</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Id Risorsa protetta:</th>
+                            <td><span class="goodoutput">{{user.uteRisId}}</span></td>
+                          </tr>
+                      </table>
+                    </div>
+                  </div>
+              </div>
+      </div>
+
+    </div><!-- /.box-body -->
+
+</div>
+
+<!-- Start mail modal -->
+<div class="modal fade" bsModal #emailModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_talent">
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-nested-name2" class="modal-title pull-left">Risorse</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="emailModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form name="emailForm" #emailForm="ngForm" (ngSubmit)="onSendMail(emailForm)">
+          <div class="row">
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-4">
+              <input id="searchNome"
+                      type="text"
+                      class="form-control"
+                      name="searchNome"
+                      maxlength="350"
+                      placeholder="Nome"
+                      [(ngModel)]="searchNome">
+            </div>
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-4">
+              <input id="searchCogNome"
+                      type="text"
+                      class="form-control"
+                      name="searchCogNome"
+                      maxlength="350"
+                      placeholder="Cognome"
+                      [(ngModel)]="searchCogNome">
+            </div>
+          </div>
+          
+          <div class="row top-padding-centered">
+            <div style="width: 100%; text-align : center;">
+              <button type="button" class="btn btn-primary inline-btn" (click)="onRisorseSearch()">
+                <i class="fa fa-search"></i> Search
+              </button>
+            </div>
+            
+          </div>
+
+          <div class="row" *ngIf="allRisorse.length > 0">
+            <table class="table table-responsive table-bordered">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Cognome</th>
+                  <th>Selezione</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of allRisorse">
+                  <td> {{item.risNome}} </td>
+                  <td> {{item.risCognome}} </td>
+                  <td> 
+                    <input type="radio" name="selectedRisorse" [value]="item.risId" (click)="setRisorseId(item.risId)">  
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="width: 100%; text-align : center;">
+              <button type="button" class="btn btn-primary" (click)="onAddRisorseToUtente()" >
+                  <i class="fa fa-plus"></i> Add
+              </button>
+            </div>            
+          </div>        
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End mail modal-->

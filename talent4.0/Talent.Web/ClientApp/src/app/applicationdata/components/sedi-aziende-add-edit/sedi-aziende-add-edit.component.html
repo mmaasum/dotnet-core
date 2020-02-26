@@ -1,0 +1,167 @@
+<!-- New object add or edit form modal begin -->
+<div bsModal #newObjectAddModal="bs-modal" class="modal fade" 
+    [config]="{backdrop: 'static'}" 
+    tabindex="-1" role="dialog" 
+    aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">{{sediAzendiAddEditLable.caption}}</h4>
+        <button type="button" class="close pull-right" (click)="onCloseClicked()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- begin object add/edit form -->
+      <form (ngSubmit)="onNewObjectAddFormSubmit(newObjectAddForm)" #newObjectAddForm="ngForm">
+        <!-- Modal body begin -->
+        <div class="modal-body">
+          <!-- Validation message section begin -->
+          <div class="alert alert-danger" 
+          *ngIf="newObjectAddForm.submitted && !newObjectAddForm.valid">
+            <ul>
+              <li *ngIf="azsedeAzId.invalid">Provide company</li>
+              <li *ngIf="azsedeCitta.invalid">Provide city</li>
+            </ul>
+          </div>
+          <!-- Validation message section end -->
+          <!-- Row begin -->
+          <div class="row form-group">
+            <!-- Ragione sociale input begin -->
+            <div class="col-md-3">
+              <label for="azsedeAzId">{{ sediAzendiAddEditLable.azsede_az_id }}</label>
+              <select class="form-control" 
+                      name="azsedeAzId" 
+                      id="azsedeAzId"
+                      required
+                      [(ngModel)]="newObject.azsedeAzId"
+                      #azsedeAzId="ngModel">
+                <option value>{{ sediAzendiAddEditLable.azsede_az_id_selection }}</option>
+                <option *ngFor="let item of allAziende" [value]="item.azId">
+                  {{item.azRagSociale}}
+                </option>
+              </select>
+            </div>
+            <!-- Ragione sociale input begin -->
+            <!-- Attiva dropdown list begin -->
+            <div class="col-md-3">
+              <label for="azsedeAttiva">{{sediAzendiAddEditLable.azsede_attiva}}</label>
+              <select class="form-control" 
+                      name="azsedeAttiva" 
+                      id="azsedeAttiva"
+                      [(ngModel)]="newObject.azsedeAttiva"
+                      #azsedeAttiva="ngModel">
+                <option value="S">Yes</option>
+                <option value="N">No</option>
+              </select>
+            </div>
+            <!-- Attiva dropdown list begin -->
+            <!-- Sigla aziende input begin -->
+            <div class="col-md-3">
+              <label for="azsedeDescr">{{sediAzendiAddEditLable.azsede_descr}}</label>
+              <input type="text" class="form-control" 
+                      name="azsedeDescr" 
+                      id="azsedeDescr"
+                      placeholder={{sediAzendiAddEditLable.azsede_descr}}
+                      maxlength="150"
+                      [(ngModel)]="newObject.azsedeDescr"
+                      #azsedeDescr="ngModel">
+            </div>
+            <!-- Sigla aziende input end -->
+            <div class="col-md-3">
+                <label for="azsedeIndicColloquio">{{sediAzendiAddEditLable.azsede_indic_colloquio}}</label>
+                <input type="text" 
+                        class="form-control" 
+                        name="azsedeIndicColloquio" 
+                        id="azsedeIndicColloquio"
+                        placeholder={{sediAzendiAddEditLable.azsede_indic_colloquio}}
+                        maxlength="100"
+                        [(ngModel)]="newObject.azsedeIndicColloquio"
+                        #azsedeIndicColloquio="ngModel">
+              </div>
+          </div>
+          <!-- Row end -->
+          <!-- Row begin -->
+          <div class="row form-group">
+            <!-- Indirizzo input begin -->
+            <div class="col-md-3">
+              <label for="azsedeIndirizzo">{{sediAzendiAddEditLable.azsede_indirizzo}}</label>
+              <input type="text" class="form-control" 
+                      name="azsedeIndirizzo" 
+                      id="azsedeIndirizzo"
+                      placeholder={{sediAzendiAddEditLable.azsede_indirizzo}}
+                      maxlength="200"
+                      [(ngModel)]="newObject.azsedeIndirizzo"
+                      #azsedeIndirizzo="ngModel">
+            </div>
+            <!-- Indirizzo input begin -->
+            <!-- Citta / City input begin -->
+            <div class="col-md-3">
+              <label for="azsedeCitta">{{sediAzendiAddEditLable.azsede_citta}}</label>
+              <input type="text" class="form-control" 
+                      name="azsedeCitta" 
+                      id="azsedeCitta"
+                      placeholder={{sediAzendiAddEditLable.azsede_citta}}
+                      required
+                      maxlength="40"
+                      [(ngModel)]="newObject.azsedeCitta"
+                      #azsedeCitta="ngModel">
+            </div>
+            <!-- Citta / City input end -->
+            <!-- CAP input begin -->
+            <div class="col-md-3">
+              <label for="azsedeCap">{{sediAzendiAddEditLable.azsede_cap}}</label>
+              <input type="text" class="form-control" 
+                      name="azsedeCap" 
+                      id="azsedeCap"
+                      placeholder={{sediAzendiAddEditLable.azsede_cap}}
+                      maxlength="5"
+                      [(ngModel)]="newObject.azsedeCap"
+                      #azsedeCap="ngModel">
+            </div>
+            <!-- CAP input end -->
+            <!-- Sito web/URL input begin -->
+            <div class="col-md-3">
+              <label for="azsedeIndic">{{sediAzendiAddEditLable.azsede_indic}}</label>
+              <input type="text" class="form-control" 
+                      name="azsedeIndic" 
+                      id="azsedeIndic"
+                      placeholder={{sediAzendiAddEditLable.azsede_indic}}
+                      maxlength="200"
+                      [(ngModel)]="newObject.azsedeIndic"
+                      #azsedeIndic="ngModel">
+            </div>
+            <!-- Sito web/URL input end --> 
+          </div>
+          <!-- Row end -->          
+        </div>
+        <!-- Modal body end -->
+        <!-- Modal footer begin -->
+        <div class="modal-footer modal_footer_talent bg-dark">
+          <!-- Form submit button -->
+          <button type="submit" class="btn btn-success">
+            <i class="fa fa-check"></i> {{multiLanguageCommonLable.saveText}}
+          </button>
+          <!-- Modal close button -->
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onCloseClicked()">
+            <i class="fa fa-times"></i> {{multiLanguageCommonLable.closeText}}
+          </button>
+        </div>
+        <!-- Modal footer end -->
+      </form>
+      <!-- End object add/edit form -->
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- End modal -->>
+
+
+<!-- On close click confirmation dialog begin -->
+<app-confirmation-dialog
+        [showDialog] = "showCloseConfirmDialog"
+        (confirmationSelectEvent)="onDialogConfirm($event)">
+</app-confirmation-dialog>
+<!-- On close click confirmation dialog end -->

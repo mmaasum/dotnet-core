@@ -1,0 +1,91 @@
+
+.rela {
+    z-index: 1;
+    position: relative;
+  } 
+  
+  .abso {
+    background-color: #00CC99;
+    z-index: 2;
+    position: absolute;
+    top: 4px;
+    right: 19px;
+    cursor: pointer;
+    color: white;
+    height: 24px;
+    width: auto;
+    line-height: 100%;
+    vertical-align: middle;
+
+  }
+
+
+input {
+    background-color: lightgray;
+}
+  
+.filter-input {
+    border: 1px solid green;
+    border-radius: 0px;
+}
+  
+input:focus {
+    border-color:#68DE68;
+    background-color: #E8F3DA;
+}
+.custombutton {
+    border-radius: 0px;
+    width: 100%; 
+    background-color: #00CC99;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+  
+.buttonhover:hover {
+    background-color: #00a896;
+}
+.btn-print-spacing {
+    margin-right: 5px;
+    width: 73px;
+}
+.green {
+    color : white;
+    background-color: green;    
+}
+.red {
+    color : white;
+    background-color: #990000;
+}
+
+.btn-filter-custom {
+    width: 55px; 
+    background-color: #E8F3DA; 
+    color: #1e7e34;
+}
+
+
+/* CUSTOMIZING INPUT BOX BEGIN */
+.custom-input {
+    color : #000000;
+    border-color : none;
+    background-color : #f2f2f2;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.custom-input[type=text]:focus {
+    outline: 0;
+    border :0.1rem solid #00a896;
+    box-shadow: none;
+    background-color :#02c39a;
+}
+
+.custom-input.ng-touched.ng-invalid {
+    border :0.1rem solid #f76c5e;
+    background-color :#ff8080;
+}
+/* CUSTOMIZING INPUT BOX END */
+
+@media print{
+    .doNotPrint{display:none !important;}
+  }

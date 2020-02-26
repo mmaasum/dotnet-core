@@ -1,0 +1,87 @@
+
+<!-- Confirmation Modal begin -->
+<div class="modal fade" bsModal #confirmationModal="bs-modal" 
+                        [config]="{backdrop: 'static'}" 
+                        tabindex="-1" role="dialog" 
+                        aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h6 id="dialog-nested-name2" class="modal-title pull-left">
+          {{ message }}
+        </h6>
+        <button type="button" 
+                class="close pull-right" 
+                aria-label="Close" 
+                (click)="onConfirm(false)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- Modal body begin -->
+      <div class="modal-body text-center">
+        <p>
+          <i class="fa fa-question-circle fa-4"></i> 
+          <br>
+          {{ 'common.usrmsg_info.L7020_confirmationMsg' | translate:[translate] | async}}
+        </p>
+      </div>
+      <!-- Modal body end -->
+      <!-- Modal footer begin -->
+      <div class="modal-footer">
+        <div class="row" style="width:100%;">
+          <div class="col-md-12 text-right">
+            <div class="btn-group">
+              <button type="button" class="btn btn-success" (click)="onConfirm(true)">
+                {{ 'common.usrmsg_info.L7014_yes' | translate:[translate] | async}}
+              </button>
+              <button type="button" class="btn btn-danger" (click)="onConfirm(false)">
+                {{ 'common.usrmsg_info.L7015_no' | translate:[translate] | async}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer endd -->
+    </div>
+    <!-- Modal content end -->
+  </div>
+  <!-- Modal dialog end -->
+</div>
+<!-- End Confirmation modal-->
+
+
+<!-- Global error Modal begin -->
+<div class="modal fade" bsModal #globalErrorModal="bs-modal" 
+                        [config]="{backdrop: 'static'}" 
+                        tabindex="-1" 
+                        role="dialog"
+                        aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog">
+    <div class="modal-content modal_talent" style="background-color: red;">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo" style="background-color: red;">
+        <span class="close pull-left" style="padding-left: 0px; margin-left: 0px;">
+          <i class="fa fa-bug"></i>
+        </span>
+        <button type="button" 
+                class="close pull-right" 
+                aria-label="Close" 
+                (click)="onCloseErrorModel(false)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- Modal body begin -->
+      <div class="modal-body" style="word-wrap: break-word; color: white; text-align: left;">
+        {{errorMessage5}}
+      </div>
+      <!-- Modal body end -->
+    </div>
+    <!-- Modal content end -->
+  </div>
+  <!-- Modal dialog end -->
+</div>
+<!-- End Global error modal-->
+

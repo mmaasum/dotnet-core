@@ -1,0 +1,85 @@
+{
+    "filter" : {
+        "usrmsg_err" : {
+            "L1501_noFilterMsg" : "Please select a filter",
+            "L1502_noEditPermissionMsg" : "You don't have permission to edit a public filter",            
+            "L1503_noDeletePermissionMsg" : "You don't have permission to delete a public filter",
+			"L1504_filterAssignedWithButton" : "Filter can't be deleted.<br />Filter is either default or assigned with a button.",
+			"L1505_emptyValueFilter" : "Please provide a value for filter {{filterNo}}",       
+			"L1506_largeStringFilter" : "Value must be within {{maxCharacter}} characters for filter {{filterNo}}",       
+			"L1507_emptyDateFilter" : "Please select a date for filter {{filterNo}}",       
+			"L1508_emptyDateRangeFilter" : "Please select daterange for filter {{filterNo}}",       
+			"L1509_noNumberFilter" : "Value must be number for filter {{filterNo}}",       
+			"L1510_noUserFilter" : "Please select a user for filter {{filterNo}}"      
+        },
+        "usrmsg_warn" : {
+            "L4501_deleteConfirmation" : "Do you confirm filter deletion?",
+            "L4502_noFiltersToReorder" : "You currently have no private filters to reorder",
+            "L4503_buttonRemoveWarning" : "Do you confirm filter/button association removal?",
+            "L4504_maxButtonMsg" : "All the 4 buttons have been assigned already for this page",
+            "L4505_noFilterSorting" : "Select at least a filter condition or a sorting option",
+			"L4506_removeButtonLabel" : "Please select a button to assign or remove button label",
+			"L4507_noAuthorWarn" : "You are not the author of this filter"
+        },
+        "usrmsg_info" : {
+            "L7501_menuTitle" : "Filter management",
+            "L7502_filter" : "Filter",
+            "L7503_sorting" : "Sorting",
+            "L7504_filterAndSorting" : "Filter & Sorting",
+            "L7505_fieldList" : "Field list",
+            "L7506_sort1Label" : "Sort data by",
+            "L7507_sort2Label" : "and then by",
+            "L7508_name" : "Filter name",
+            "L7509_description" : "Description",
+            "L7510_nameInList" : "Name shown in list",
+            "L7511_buttonDropdownLabel" : "Assign filter to button",
+            "L7512_buttonDropdown" : "Button list",
+            "L7513_buttonLabel" : "Button label",
+            "L7514_setAsDefault" : "Set as default",
+            "L7515_author" : "Author",
+            "L7516_created" : "Created",
+            "L7517_lastUpdated" : "Last updated",
+            "L7518_userFilterDropdown" : "User filters",
+            "L7519_newFilter" : "New filter",
+            "L7520_filterUpdate" : "{{name}} filter update",
+            "L7521_clearFormFilterConfirmation" : "Clear all other active filters and sort order before filter application",
+            "L7522_testFilter" : "Test filter",
+			"L7523_filterdetails" : "Filter details",
+			"L7524_buttonNotAssigned" : "Not Assigned",
+			"L7525_public" : "Public",
+			"L7526_private" : "Private",
+
+			
+			"L7527_empty" : "Empty",
+			"L7528_notempty" : "Not empty",
+			"L7529_equal" : "Equal",
+			"L7530_notequal" : "Not equal",
+			"L7531_me" : "Me",
+			"L7532_contains" : "Contains",
+			"L7533_notcontains" : "Not contains",
+			"L7534_begins" : "Begins",
+			"L7535_notbegins" : "Not begins",
+			"L7536_finish" : "Finish",
+			"L7537_notfinishes" : "Not finish",
+			"L7538_before" : "Before",
+			"L7539_after" : "After",
+			"L7540_sameorbefore" : "Same day or before",
+			"L7541_sameorafter" : "Same day or after",
+			"L7542_range" : "Range",
+			"L7543_lower" : "Lower",
+			"L7544_greater" : "Greater",
+			"L7545_lowerorequal" : "Lower or equal",
+			"L7546_greaterorequal" : "Greater or equal"
+
+        },
+        "sysmsg_err" : {
+            "L11501_errormsg" : "This is a system error message"
+        },
+        "sysmsg_warn" : {
+            "L14501_warningmsg" : "This is a system warning message"
+        },
+        "sysmsg_info" : {
+            "L17501_infomsg" : "This is a system info message"
+        }
+    }    
+}

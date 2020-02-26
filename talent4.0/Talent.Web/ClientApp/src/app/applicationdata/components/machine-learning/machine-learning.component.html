@@ -1,0 +1,305 @@
+<div class="box box-primary">
+  <div class="box-body">
+    <div class="row">
+      <!-- Page name begin -->
+      <div class="box-header col-md-12">
+        <h3 class="box-title"><i class="fa fa-cubes"></i> Machine learning configuration page </h3>
+      </div>
+      <!-- Page name begin -->          
+    </div>
+    <div class="row" class="settings-list">
+      <Ul>
+        <li>
+          <a (click)="openKeywordsManagement()">
+            <i class="fa fa-sliders"></i> Keywords
+          </a> 
+        </li>
+        <li>
+          <a (click)="openModelsManagement()">
+            <i class="fa fa-database"></i> Models
+          </a> 
+        </li>
+      </Ul>              
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Keyword management form modal begin -->
+<div bsModal #keywordsManagementModal="bs-modal" class="modal fade" 
+        tabindex="-1" 
+        [config]="{backdrop: 'static'}" 
+        role="dialog" 
+        aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Keywords management
+        </h4>
+        <button type="button" class="close pull-right" (click)="onCloseKeywordsManagementModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- begin object add/edit form -->
+      <form (ngSubmit)="onKeywordsManagementFormSubmit(keywordsManagementForm)" #keywordsManagementForm="ngForm">
+        <div class="modal-body">
+
+          <!-- Validation message section begin -->
+          <div class="alert alert-danger" *ngIf="keywordsManagementForm.submitted && !keywordsManagementForm.valid">
+            <ul>                
+              <li *ngIf="start_date.invalid">Provide valid start date</li>
+              <li *ngIf="time_delta.invalid">Provide valid time window</li>
+              <li *ngIf="min_freq_ngrams.invalid">Provide valid min frequency (1-5)</li>
+              <li *ngIf="entropy_threshold.invalid">Provide valid entropy threshold (0-1)</li>
+            </ul>
+          </div>
+          <!-- Validation message section end -->
+
+          <!-- Row begin -->
+          <div class="row form-group">
+            <!-- Update dropdown list begin -->
+            <div class="col-md-3">
+              <label for="update">Update</label>
+              <select class="form-control" name="update" id="update"                      
+                      [(ngModel)]="mlKeyword.update"
+                      #update="ngModel">
+                <option value="True">True</option>
+                <option value="False">False</option>
+              </select>
+            </div>
+            <!-- Update dropdown list end -->
+            <!-- Start date input begin -->
+            <div class="col-md-3">
+              <label for="start_date">Start date</label>
+              <input type="date" class="form-control"
+                      name="start_date"
+                      id="start_date"
+                      required
+                      pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+                      [(ngModel)]="keywordStartDate"
+                      #start_date="ngModel">
+            </div>
+            <!-- Start date input end -->
+            <!-- Time window input begin -->
+            <div class="col-md-3">
+              <label for="time_delta">Time window</label>
+              <input type="number" class="form-control"                      
+                      name="time_delta"
+                      id="time_delta"
+                      required
+                      min="0"
+                      [(ngModel)]="mlKeyword.time_delta"
+                      #time_delta="ngModel">
+            </div>
+            <!-- Time window input end -->
+          </div>
+          <!-- Row end -->
+
+          <!-- Row begin -->
+          <div class="row form-group">
+            <!-- Language select dropdown list begin -->
+            <div class="col-md-3">
+              <label for="language">Language</label>
+              <select class="form-control" name="language" id="language"                      
+                      [(ngModel)]="mlKeyword.language"
+                      #language="ngModel">
+                <option value="it">IT</option>
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+              </select>
+            </div>
+            <!-- Language select dropdown list end -->
+            <!-- Max contigious words select dropdown list begin -->
+            <div class="col-md-3">
+              <label for="max_ngrams">Max contigious words</label>
+              <select class="form-control" name="max_ngrams" id="max_ngrams"                      
+                      [(ngModel)]="mlKeyword.max_ngrams"
+                      #max_ngrams="ngModel">
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+              </select>
+            </div>
+            <!-- Max contigious words select dropdown list end -->
+          </div>
+          <!-- Row end -->
+
+          <!-- Row begin -->
+          <div class="row">
+            <!-- Min frequency input begin -->
+            <div class="col-md-3">
+              <label for="min_freq_ngrams">Min frequency</label>
+              <input type="number" class="form-control"                      
+                      name="min_freq_ngrams"
+                      id="min_freq_ngrams"
+                      required
+                      min="1"
+                      max="5"
+                      [(ngModel)]="mlKeyword.min_freq_ngrams"
+                      #min_freq_ngrams="ngModel">
+            </div>
+            <!-- Min frequency input end -->
+            <!-- Entropy threshold input begin -->
+            <div class="col-md-3">
+              <label for="entropy_threshold">Entropy threshold</label>
+              <input type="number" class="form-control"                      
+                      name="entropy_threshold"
+                      id="entropy_threshold"
+                      required
+                      min=0
+                      max=1
+                      [(ngModel)]="mlKeyword.entropy_threshold"
+                      #entropy_threshold="ngModel">
+            </div>
+            <!-- Entropy threshold input end -->
+          </div>
+          <!-- Row end -->
+
+          <!-- Row begin -->
+          <div class="row form-group">
+            <!-- Weighting measure dropdown list begin -->
+            <div class="col-md-3">
+              <label for="weighting_measure">Weighting measure</label>
+              <select class="form-control" name="weighting_measure" id="weighting_measure"                      
+                      [(ngModel)]="mlKeyword.weighting_measure"
+                      #weighting_measure="ngModel">
+                <option value="ppmi">ppmi</option>
+                <option value="lmi">lmi</option>
+              </select>
+            </div>
+            <!-- Weighting measure dropdown list end -->
+          </div>
+          <!-- Row end -->
+
+        </div>
+        <!-- Modal footer begin -->
+        <div class="modal-footer modal_footer_talent bg-dark">
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-success text-uppercase">
+            <i class="fa fa-check text-uppercase"></i> 
+            Launch keywords extraction
+          </button>
+          <!-- Modal close button -->
+          <button type="button" class="btn btn-warning text-uppercase" data-dismiss="modal" (click)="onCloseKeywordsManagementModal()">
+            <i class="fa fa-times text-uppercase"></i> close
+          </button>
+        </div>
+        <!-- Modal footer end -->
+      </form>
+      <!-- End object add/edit form -->
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- End modal -->
+
+
+<!-- Keyword management form modal begin -->
+<div bsModal #modelsManagementModal="bs-modal" class="modal fade" 
+        tabindex="-1" 
+        [config]="{backdrop: 'static'}" 
+        role="dialog" 
+        aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Models management
+        </h4>
+        <button type="button" class="close pull-right" (click)="onCloseModelsManagementModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- Begin model management form -->
+      <form (ngSubmit)="onModelsManagementFormSubmit(modelsManagementForm)" #modelsManagementForm="ngForm">
+        <div class="modal-body">
+
+          <!-- Validation message section begin -->
+          <div class="alert alert-danger" *ngIf="modelsManagementForm.submitted && !modelsManagementForm.valid">
+            <ul>                
+              <li *ngIf="model_Id.invalid">Provide model id</li>
+              <li *ngIf="model_StartDate.invalid">Provide valid start date</li>
+              <li *ngIf="model_EndDate.invalid">Provide valid end date</li>
+            </ul>
+          </div>
+          <!-- Validation message section end -->
+
+          <!-- Row begin -->
+          <div class="row form-group">
+            <!-- Model id input begin -->
+            <div class="col-md-3">
+              <label for="modelId">Model id</label>
+              <input type="text" class="form-control"
+                      name="modelId"
+                      id="modelId"
+                      required
+                      [(ngModel)]="modelId"
+                      #model_Id="ngModel">
+            </div>
+            <!-- Model id input end -->            
+            <!-- Start date input begin -->
+            <div class="col-md-3">
+              <label for="modelStartDate">Start date</label>
+              <input type="date" class="form-control"
+                      name="modelStartDate"
+                      id="modelStartDate"
+                      required
+                      pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+                      [(ngModel)]="modelStartDate"
+                      #model_StartDate="ngModel">
+            </div>
+            <!-- Start date input end -->
+            <!-- End date input begin -->
+            <div class="col-md-3">
+              <label for="modelEndDate">End date</label>
+              <input type="date" class="form-control"
+                      name="modelEndDate"
+                      id="modelEndDate"
+                      required
+                      pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+                      [(ngModel)]="modelEndDate"
+                      #model_EndDate="ngModel">
+            </div>
+            <!-- End date input end -->
+            <!-- Update dropdown list begin -->
+            <div class="col-md-3">
+              <label for="update">Customer</label>
+              <select class="form-control" name="update" id="update"                  
+                      [(ngModel)]="mlModel.customer"
+                      #customer="ngModel">
+                <option *ngFor="let client of allClients" [value]="client.cliId">{{client.cliNome}}</option>
+              </select>
+            </div>
+            <!-- Update dropdown list end -->
+          </div>
+          <!-- Row end -->          
+        </div>
+
+        <!-- Modal footer begin -->
+        <div class="modal-footer modal_footer_talent bg-dark">
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-success text-uppercase">
+            <i class="fa fa-check text-uppercase"></i> 
+            Launch model creation
+          </button>
+          <!-- Modal close button -->
+          <button type="button" class="btn btn-warning text-uppercase" data-dismiss="modal" (click)="onCloseModelsManagementModal()">
+            <i class="fa fa-times text-uppercase"></i> close
+          </button>
+        </div>
+        <!-- Modal footer end -->
+      </form>
+      <!-- End model management form -->
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- End modal -->

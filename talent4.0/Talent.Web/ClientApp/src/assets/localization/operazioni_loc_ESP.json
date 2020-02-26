@@ -1,0 +1,27 @@
+{
+    "operazioni" : {
+        "usrmsg_err" : {
+			"L1051_errmsg" : "L1051_errmsg.ESP"
+		},
+		"usrmsg_warn" : {
+			"L4051_warningmsg" : "L4051_warningmsg.ESP"
+		},
+		"usrmsg_info" : {
+			"L7051_users" : "L7051_user.ESP",
+			"L7052_dateFrom" : "L7052_dateFrom.ESP",
+			"L7053_dateTo" : "L7053_dateTo.ESP",
+			"L7054_descriptionOrDetail" : "L7054_description.ESP",
+			"L7055_meButton" : "L7055_meButton.ESP",
+			"L7056_yesterdayButton" : "L7056_yesterdayButton.ESP",
+			"L7057_todayButton" : "L7057_todayButton.ESP",
+			"L7058_lastWeekButton" : "L7058_lastWeekButton.ESP",
+			"L7059_dateHour" : "L7059_dateHour.ESP",
+			"L7060_user" : "L7060_user.ESP",
+			"L7061_description" : "L7061_description.ESP",
+			"L7062_detail" : "L7062_detail.ESP"
+		},
+		"sysmsg_err" : {
+			"L11051_errmsg" : "L11051_errmsg.ESP"
+		}
+    }
+}

@@ -1,0 +1,59 @@
+.bg-dark {
+    background-image: none;
+    background-color: #343a40!important;
+    border-bottom: 1px solid rgba(0,51,102,0.2);
+    padding-top : 1rem;
+    color : #FFF;
+    height: unset!important;
+}
+
+.copyright span {
+    color: #FFF;
+}
+
+
+
+.footer {
+    margin-top:20px; 
+    position:absolute; 
+    bottom:0px; width:100%;
+  }
+.footerparagraph {
+    margin-right:0px;
+}
+  
+.footerleft {
+    width:10%; 
+    height:33px; 
+    float:left; 
+    margin-left:0px; 
+    text-align:center;
+}
+.footerleft > img {
+    height: 33px; width: 25px;
+}
+.footerversiontext {
+    width:90%; 
+    float:left; 
+    font-size:12px;
+}
+.loghistretti {
+    margin-right:0px;
+}
+.loghistretti > img {
+    height: 30px;
+}
+.footerparagraph > span {
+    font-size: 17px;
+}
+.footerparagraph > a > img {
+    height: 40px;
+}
+/*ITPITA MOD 12_11*/
+#talentfoot {
+  /* margin-top: -1rem;*/
+  /*ITPITA MOD 12_11*/
+  margin-top: -5vh;
+}
+@media screen and (min-width: 1367px) {
+}

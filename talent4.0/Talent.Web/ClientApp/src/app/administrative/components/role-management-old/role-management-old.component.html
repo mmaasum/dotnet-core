@@ -1,0 +1,271 @@
+<!-- Global filter bar begin -->
+<div class="ricerca-sfondo container-fluid" style="height: 60px;">
+	<div class="row filter-bar-wrapper">
+	  <!-- External filter section begin -->
+	  <div class="col-md-9 external-filter">
+  
+	  </div>
+	  <!-- External filter section end -->
+	  <!-- Global filter section begin -->
+	  <div class="col-md-3 global-filter-wrapper">
+		<app-filter-management 
+				[gridName]="columnName" 
+				[isFilterSaveable]="isFilterSaveable"
+				[isFilterCleared]="isFilterCleared"
+				[appliedFilterInGrid]="appliedFilterInGrid"
+				[appliedSortingInGrid]="appliedSortingInGrid"
+				(quickFilterTextChangeEvent)="quickFilterTextChange($event)"
+				(filterChangeEvent)="filterChange($event)"
+				(setFilterSortingTextEvent)="onChangeFilterText($event)">
+		</app-filter-management>
+	  </div>
+	  <!-- Global filter section end -->
+	</div>
+  </div>
+  <!-- Global filter bar end -->
+  
+  
+  <div class="box box-primary">
+	<div class="box-body">
+	  <div class="row">
+		<div class="box-header col-md-2">
+		  <h3 class="box-title"><i class="fa fa-cubes"></i> {{caption}} </h3>
+		</div>
+		<div class="box-header col-md-4">
+		  <div class="row justify-content-start">
+			<div class="col-md-6">
+			  <div class="dropdown">
+				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+				  Actions
+				</button>
+				<ul class="dropdown-menu" style="background-color: red;">
+				  <li>
+					<a (click)="onAddNew()">
+					  <i class="fa fa-plus"></i> Add New
+					</a>
+				   
+				  </li>
+				  <li>
+					<a (click)="onEditClick()" *ngIf="selectedObject.ruolo">
+					  <i class="fa fa-check"></i> Edit
+					</a>
+				  </li>
+				  <li>
+					<a (click)="onDeleteClick()" *ngIf="selectedObject.ruolo">
+					  <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
+					</a>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div class="box-header">
+			
+		</div>
+	  </div>
+	  <div class="row" style="height: 480px;">
+		<!-- Ag-Grid section begin -->
+		<div id="idGrid" class="grid-wrapper" 
+						[class.col-md-8]="allAuths.length > 0" 
+						[class.col-md-12]="allAuths.length <= 0">
+		  <ag-grid-angular style="width: 100%; height: 94%;"
+						   class="ag-theme-balham"
+						   [rowData]="rowData | async"
+						   [columnDefs]="columnDefs"
+						   [frameworkComponents]="frameworkComponents"
+						   [loadingOverlayComponent]="loadingOverlayComponent"
+						   [loadingOverlayComponentParams]="loadingOverlayComponentParams"
+						   [paginationPageSize]="paginationPageSize"
+						   (gridReady)="onGridReady($event)"
+						   (cellKeyDown)="onCellKeyDown($event)"
+						   (rowClicked)='onRowClicked($event)'>
+		  </ag-grid-angular>
+		  <!-- Pagination begin -->
+		  <div class="row">
+			<app-grid-pagination [total-items]="totalDbRecords"
+								  [page-size]="pageSize"
+								  (page-changed)="onPaginationPageChanged($event)">
+			</app-grid-pagination>
+		  </div>
+		  <!-- Pagination end -->
+		</div>
+		<!-- Ag-Grid section end -->
+		<!-- Auth section begin -->
+		<div class="col-md-4" *ngIf="allAuths.length > 0">
+		  <form name="authForm" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" >
+			<div class="role-auths-div">
+			  <table class="table fixed_header">
+				<thead>
+				  <tr>
+					<th>{{ selectedObject.ruolo | uppercase }}</th>
+					<th>
+					  <button type="submit" class="btn btn-success uppercase center-block">
+						<i class="fa fa-check"></i> Save
+					  </button>
+					</th>
+				  </tr>
+				  <tr>
+					<th>{{authorization}}</th>
+					<th>{{selected}}</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr *ngFor="let auth of allAuths; let i = index">
+					<td>{{ auth.tipoabilitProcedura }}</td>
+					<td>
+					  <input type="checkbox" [checked]="auth.uteabUteId" (change)="onAuthsChange(i)">
+					</td>
+				  </tr>
+				</tbody>
+				<tfoot class="text-center">
+				  
+				</tfoot>
+			  </table>
+			</div>
+  
+		  </form>
+		  
+		</div>
+		<!-- Auth section end -->
+	  </div>
+	</div><!-- /.box-body -->
+	<!-- /.box-footer -->
+  
+  </div>
+  
+  
+  <!-- Confirmation Modal begin -->
+  <div class="modal fade" bsModal #confirmationModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+	<div class="modal-dialog">
+	  <div class="modal-content modal_talent">
+		<!-- Modal header begin -->
+		<div class="modal-header ricerca-sfondo">
+		  <h4 id="dialog-nested-name2" class="modal-title pull-left">Confirmation</h4>
+		  <button type="button" class="close pull-right" aria-label="Close" (click)="confirmationModal.hide()">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<!-- Modal header end -->
+		<!-- Modal body begin -->
+		<div class="modal-body text-center">
+		  <h3>This operation will affect {{ totalUserInRole }} users with role</h3>
+		  <h3>{{ selectedObject.ruolo | uppercase }}</h3>
+		  <h3>Would you like to proceed?</h3>
+		</div>
+		<!-- Modal body end -->
+		<!-- Modal footer begin -->
+		<div class="modal-footer modal_footer_talent bg-dark">
+		  <div class="row" style="width:100%;">
+			<!-- No selection button -->
+			<div class="col-md-6 text-left">
+			  <button class="btn btn-primary" (click)="onConfirm(false)">
+				No
+			  </button>
+			</div>
+			<!-- Yes selection button -->
+			<div class="col-md-6 text-right">
+			  <button class="btn btn-light" (click)="onConfirm(true)">
+				Yes
+			  </button>
+			</div>
+		  </div>
+		</div>
+		<!-- Modal footer endd -->
+	  </div>
+	  <!-- Modal content end -->
+	</div>
+	<!-- Modal dialog end -->
+  </div>
+  <!-- End confirmation modal-->
+  
+  
+  
+  <!-- Add New Modal begin -->
+  <div class="modal fade" 
+		  bsModal 
+		  #addNewModal="bs-modal" 
+		  [config]="{backdrop: 'static'}" 
+		  tabindex="-1" 
+		  role="dialog" 
+		  aria-labelledby="dialog-nested-name2">
+	  <div class="modal-dialog">
+		<div class="modal-content modal_talent">
+		  <!-- Modal header begin -->
+		  <div class="modal-header ricerca-sfondo">
+			<h4 id="dialog-nested-name2" class="modal-title pull-left">{{ isDelete ? "Delete" : (isNewRowAdding ? "Add" : "Edit") }}</h4>
+			<button type="button" class="close pull-right" aria-label="Close"
+					(click)="onCloseClicked()">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <!-- Modal header end -->
+		  <!-- begin object add/edit form -->
+		  <form (ngSubmit)="onNewObjectAddFormSubmit(newObjectAddForm)" #newObjectAddForm="ngForm">
+			<!-- Modal body begin -->
+			<div class="modal-body text-center">
+			  <!-- Validation message section begin -->
+			  <div class="alert alert-danger" *ngIf="newObjectAddForm.submitted && !newObjectAddForm.valid">
+				<ul>
+				  <li>Provide role name</li>
+				</ul>
+			  </div>
+			  <!-- Validation message section end -->
+			  <div class="form-row" *ngIf="!isDelete">
+				<label class="col-sm-2 col-form-label" for="ruolo">Role Name :</label>
+				<input type="text" name="ruolo" id="ruolo"                  
+					  class="form-control col-sm-10"
+					  required
+					  maxlength="15"
+					  placeholder="Role"                        
+					  [(ngModel)]="newObject.ruolo"
+					  #ruolo="ngModel" />
+			  </div>
+			  <div class="form-row" *ngIf="isDelete">
+				<h3>Are you sure to delete the role {{ newObject.ruolo | uppercase}}?</h3>
+			  </div>
+			</div>
+			<!-- Modal body end -->
+			<!-- Modal footer begin -->
+			<div class="modal-footer modal_footer_talent bg-dark">
+			  <div class="row">
+				<!-- No selection button -->
+				<div class="col-md-6 pull-left" *ngIf="isDelete">
+				  <button type="submit" class="btn btn-danger" >
+					  <i class="fa fa-trash-o" aria-hidden="true"></i> Delete
+				  </button>
+				</div>
+  
+				<div class="col-md-6 pull-left" *ngIf="!isDelete">
+				  <button type="submit" class="btn btn-info" >
+					Save
+				  </button>
+				</div>
+				<!-- Yes selection button -->
+				<div class="col-md-6 text-right">
+				  <button type="button" class="btn btn-success" (click)="onCloseClicked()">
+					Cancel
+				  </button>
+				</div>
+			  </div>
+			</div>
+			<!-- Modal footer endd -->
+		  </form>
+		  <!-- End object add/edit form -->
+		</div>
+		<!-- Modal content end -->
+	  </div>
+	  <!-- Modal dialog end -->
+	</div>
+	<!-- End Add New modal-->
+  
+  
+  
+	
+  
+  <!-- On close click confirmation dialog begin -->
+  <app-confirmation-dialog
+		  [showDialog] = "showCloseConfirmDialog"
+		  (confirmationSelectEvent)="onDialogConfirm($event)">
+  </app-confirmation-dialog>
+  <!-- On close click confirmation dialog end -->

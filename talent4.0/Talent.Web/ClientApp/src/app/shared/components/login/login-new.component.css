@@ -1,0 +1,258 @@
+.login-wrapper {
+    margin: 0;
+    padding: 0;
+    min-height: 90vh;
+}
+
+.language-select-wrapper {
+    min-width : 9rem;
+}
+
+.language-select-wrapper>.btn-group {
+    width : 100%;
+}
+
+.language-select {
+    border-radius : 0.1rem;
+    /* border : 0.1rem solid #3485AE; */
+    width : 100%;
+    font-weight : 600;
+}
+.language-select:focus  {
+    outline: 0;
+    box-shadow: none;
+}
+
+.language-dropdown-menu {
+    /* border : 0.1rem solid #3485AE; */
+    border-radius : 0.05rem;
+    min-width : -webkit-fill-available;
+    margin  : 0;
+    padding : 0;
+}
+
+.language-dropdown-menu li {
+    padding-left : 1rem;
+    cursor: pointer;
+    padding-top : 0.4rem;
+    padding-bottom : 0.4rem;
+}
+.language-dropdown-menu li:hover {
+    background-color : #3485AE;
+    color : #FFF;
+}
+
+.invalid-msg {
+    background-color: #fff;
+    border-radius: 0.1rem;
+    color : #f13232;
+    font-weight: 600;
+    font-size: 2rem;;
+}
+.user_cardoff {
+    padding: 5%;
+    border-radius: 0.1rem;
+    min-width: 40%;
+    background-color: #fff;
+}
+
+
+.login-btn {
+  width: 100%;
+  background-color: #00CC99;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+  /*MODS ITPITA
+  border-bottom: 3px solid #666666;
+  border-top: 1px solid #66666663;
+  border-left: 1px solid #66666663;
+  border-right: 1px solid #66666663;*/
+  /*MODS ITPITA 14-11-19*/
+  box-shadow:
+    0 2px 2px 0 rgba(153, 153, 153, 0.14),
+    0 3px 1px -2px rgba(153, 153, 153, 0.2),
+    0 1px 5px 0 rgba(153, 153, 153, 0.12);
+}
+
+  .login-btn:hover {
+    background-color: rgb(2, 100, 2);
+    /*MODS ITPITA 14-11-19*/
+    box-shadow:
+      0 14px 26px -12px rgba(76, 175, 80, 0.42),
+      0 4px 23px 0px rgba(0, 0, 0, 0.12),
+      0 8px 10px -5px rgba(76, 175, 80, 0.2);
+  }
+
+  .shadow{
+ box-shadow:
+    0 2px 2px 0 rgba(153, 153, 153, 0.14),
+    0 3px 1px -2px rgba(153, 153, 153, 0.2),
+    0 1px 5px 0 rgba(153, 153, 153, 0.12);
+  }
+    .shadow:hover {
+      /*MODS ITPITA 14-11-19*/
+      box-shadow: 0 14px 26px -12px rgba(76, 175, 80, 0.42), 0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 175, 80, 0.2);
+    }
+
+.help-link {
+    color : green;
+    font-weight: 600;
+}
+input {
+    background-color: lightgray;
+}
+input:focus {
+    border-color:#68DE68;
+    background-color: #E8F3DA;
+}
+.ui-tooltip {
+    /* tooltip container box */
+  white-space: pre-line;
+}
+
+.ui-tooltip-content {
+    /* tooltip content */
+    white-space: pre-line;
+}
+
+.required-marker {
+    margin-left: 0.2rem;
+    color: red;
+    font-weight: bold;
+    font-size: large;
+}
+
+
+/* CUSTOMIZING INPUT BOX BEGIN */
+.custom-input {
+  color: #000000;
+  /*border-color : none;*/
+  border-color: #02c39a;
+  background-color: #f2f2f2;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.custom-input:focus {
+    outline: 0;
+    border :0.1rem solid #00a896;
+    box-shadow: none;
+    background-color :#02c39a;
+}
+
+.custom-input.ng-touched.ng-invalid {
+    border :0.1rem solid #f76c5e;
+    background-color :#ff8080;
+}
+input:-internal-autofill-selected {
+    background-color: #f2f2f2 !important;
+    background-image: none !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+
+/* Removing autofill color */
+input:-webkit-autofill  {
+    -webkit-box-shadow: 0 0 0 30px #f2f2f2 inset !important;
+}
+input:-webkit-autofill:focus  {
+    -webkit-box-shadow: 0 0 0 30px #02c39a inset !important;
+}
+:-moz-autofill, :-moz-autofill-preview {
+    filter: none;
+}
+input {
+    filter: none;
+}
+
+/* CUSTOMIZING INPUT BOX END */
+
+
+
+/* CUSTOMIZING TOOLTIP BEGIN */
+:host >>> .tooltip-inner {
+    background-color: #000000;
+    color: #fff;
+    max-width : unset;
+    text-align : left;
+}
+:host >>> .tooltip.top .tooltip-arrow:before,
+:host >>> .tooltip.top .tooltip-arrow {
+    border-top-color: #000000;
+}
+/* CUSTOMIZING TOOTLTIP END */
+
+/* Start login css */
+
+ 
+.buttonhover:hover {
+    background-color: #00a896;
+  }
+  
+  .pointercursor:hover {
+    background-color: #E8F3DA;
+    cursor: pointer;
+  }
+
+.containertopmargin {
+  /*margin-top: -50px;*/
+}
+  
+  .containertopmargin > div > div {
+    border: 2px solid; 
+    border-color: #3485AE;
+    width: 32%; 
+    padding: 25px;
+  }
+  .clientlogo {
+    padding:20px,0px,0px,20px;
+    height: 180px;
+    margin-top: -50px;
+  }
+  
+  .talentlogo {
+    padding:20px,0px,0px,20px;width: 100%;
+    margin-top: -35px;
+  }
+  
+  .tooltipicon {
+    height: 24px; background: #B9DA8F; 
+    filter: opacity(.8) drop-shadow(0 0 0 green); 
+    border-radius: 100%;
+  }
+  
+  .clientlogomargin {
+    margin-left: -60px;
+  }
+  .clientlogopadding {
+    padding: 15px;
+  }
+  
+  .username {
+    margin-top: -25px;
+  }
+  
+  .passwordspan {
+    white-space:pre;
+     max-width:none;
+  }
+  
+  .alreadylogedin {
+    color:black;
+  }
+#talentbox {
+  
+}
+
+/*GIOVANNI MAKING THINGS*/
+.input-group-text {
+  border: 1px solid #02c39a;
+}
+
+  @media screen and (min-width: 1367px) {
+    #talentbox {
+      margin-top: 4rem;
+    }
+  }
+
+

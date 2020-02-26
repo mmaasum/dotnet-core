@@ -1,0 +1,68 @@
+export class Aziende {
+	azId?: number;
+	azRagSociale: string;
+	azDescrizione: string;
+	azIndirizzo: string;
+	azCitta: string;
+	azSitoWeb: string;
+	azEmail1: string;
+	azEmail2: string;
+	azTelefono1: string;
+	azTelefono2: string;
+	azInsTimestamp: Date;
+	azInsUteId: string;
+	azModTimestamp: Date;
+	azModUteId: string;
+	azSiglaRichiesta: string;
+	azCap: string;
+	azTipoAzienda: string;
+	azAttiva: string;
+	azCvIniziali: string;
+	azUteIdComm: string;
+	azCollLuogo1: string;
+	azCollLuogo1Indic: string;
+	azCollLuogo2: string;
+	azCollLuogo2Indic: string;
+	azCollLuogo3: string;
+	azCollLuogo3Indic: string;
+	azNote: string;
+	azPriormin: number;
+	azPriormax: number;
+	azCliId: string;
+	azLocationLat?: number;
+	azLocationLong?: number;
+
+	constructor() {
+		this.azRagSociale = null;
+		this.azDescrizione = null;
+		this.azIndirizzo = null;
+		this.azCitta = null;
+		this.azSitoWeb = null;
+		this.azEmail1 = null;
+		this.azEmail2 = null;
+		this.azTelefono1 = null;
+		this.azTelefono2 = null;
+		this.azInsTimestamp = null;
+		this.azInsUteId = null;
+		this.azModTimestamp = null;
+		this.azModUteId = null;
+		this.azSiglaRichiesta = null;
+		this.azCap = null;
+		this.azTipoAzienda = null;
+		this.azAttiva = null;
+		this.azCvIniziali = null;
+		this.azUteIdComm = null;
+		this.azCollLuogo1 = null;
+		this.azCollLuogo1Indic = null;
+		this.azCollLuogo2 = null;
+		this.azCollLuogo2Indic = null;
+		this.azCollLuogo3 = null;
+		this.azCollLuogo3Indic = null;
+		this.azNote = null;
+		this.azPriormin = 0;
+		this.azPriormax = 0;
+		this.azCliId = null;
+		this.azLocationLat = null;
+		this.azLocationLong = null;
+	}
+}

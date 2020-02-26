@@ -1,0 +1,42 @@
+{
+    "azioni" : {
+        "usrmsg_err" : {
+			"L1101_errmsg" : "Error message"
+		},
+		"usrmsg_warn" : {
+			"L4101_warningmsg" : "Warn msg"
+		},
+		"usrmsg_info" : {
+			"L7101_users" : "Users",
+			"L7102_dateFrom" : "From date",
+			"L7103_dateTo" : "To date",
+			"L7104_action" : "Action",
+			"L7105_meButton" : "Me",
+			"L7106_yesterdayButton" : "Yesterday",
+			"L7107_todayButton" : "Today",
+			"L7108_lastWeekButton" : "Last week",
+			"L7109_searchFields" : "Search fields",
+			"L7110_userId" : "User Id",
+			"L7111_user" : "User",
+			"L7112_resource" : "Resource",
+			"L7113_contact" : "Contact",
+			"L7114_request" : "Request",
+			"L7115_typeOfAction" : "Type of action",
+			"L7116_description" : "Description",
+			"L7117_detail1" : "Detail 1",
+			"L7118_detail2" : "Detail 2",
+			"L7119_detail3" : "Detail 3",
+			"L7120_begin" : "Begin",
+			"L7121_end" : "End",
+			"L7122_location" : "Location",
+			"L7123_insertBy" : "Insert by",
+			"L7124_insertDate" : "Insert date",
+			"L7125_actionTypeDescr" : "Action Type Descr",
+			"L7126_actionCategoryDescr" : "Action Category Descr",
+			"L7127_noOfRecords" : "# Records"
+		},
+		"sysmsg_err" : {
+			"L11101_errmsg" : "Sys msg"
+		}
+    }
+}

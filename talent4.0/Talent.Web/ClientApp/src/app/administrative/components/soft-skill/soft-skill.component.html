@@ -1,0 +1,55 @@
+<!-- Job offer modal begin -->
+<div class="modal fade" bsModal #jobOfferModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Job offer</h4>
+        <button type="button" class="close pull-right" (click)="onModalClose()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- begin object add/edit form -->
+      <form (ngSubmit)="onSoftSkillsAddFormSubmit(softSkillsAddForm)" #softSkillsAddForm="ngForm">
+        <!-- Modal body begin -->
+        <div class="modal-body">
+          <!-- If profile detail exists show detail-->
+          <div class="row" *ngIf="richDetail">
+            <div class="col-md-12 text-center">
+                <h3>{{richDetail}}</h3>
+            </div>            
+          </div>
+          <!-- If profile detail does not exist show skills to select-->
+          <div class="row" *ngIf="!richDetail">
+            <div class="col-md-4" *ngFor="let skill of allSkills; let i = index">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="skills" [value]="skill.sskcompdescrCompetenza" (change)="onSkillCheck($event)">
+                  {{skill.sskcompdescrCompetenza}}
+                </label>
+              </div>
+            </div>
+          </div>            
+        </div>
+        <!-- Modal body end -->
+        <!-- Modal footer start -->
+        <div class="modal-footer modal_footer_talent bg-dark">
+          <!-- If there is no rich detail show submit button -->
+          <button type="submit" class="btn btn-success" *ngIf="!richDetail">
+            <i class="fa fa-check"></i> Save
+          </button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="onModalClose()">
+            <i class="fa fa-times"></i> Close
+          </button>
+        </div>
+        <!-- Modal footer end -->
+      </form>
+      <!-- Add/Edit form end  -->
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- End modal -->

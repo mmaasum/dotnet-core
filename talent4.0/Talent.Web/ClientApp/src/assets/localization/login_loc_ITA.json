@@ -1,0 +1,29 @@
+{
+    "login" : {
+        "usrmsg_err" : {
+            "L1001_userInactive" : "L'account è attualmente inattivo. Contatta l'Help Desk per l'attivazione",
+            "L1002_userLocked" : "L'account è stato bloccato. Contatta l'Help Desk per il supporto necessario",
+            "L1003_emptyusername" : "Digitare il nome Utente",
+            "L1004_emptypassword" : "Digitare la password",
+            "L1006_emptyclientid" : "ID Cliente mancante. Accesso non consentito",
+            "L1007_invalidclientid" : "L'ID Cliente non è valido. Accesso non consentito",
+            "L1008_wrongcredentials" : "Credenziali di accesso non valide",
+            "L1009_loginFailed" : "Accesso non riuscito"
+        },
+        "usrmsg_warn" : {
+            "L4001_warningmsg" : "L4001_warningmsg.ITA"
+        },
+        "usrmsg_info" : {
+            "L7001_needHelp" : "Hai bisogno di aiuto?",
+            "L7002_clickHere" : "Clicca qui",
+            "L7003_enterButton" : "Entra",
+            "L7004_usernameLabel" : "Nome Utente",
+            "L7005_passwordLabel" : "Password",
+            "L7006_usernameTooltip" : "Inserire il nome Utente",
+            "L7007_passwordTooltip" : "Inserire la password. <br />La password deve avere da 8 a 10 caratteri <br />I caratteri ammessi sono lettere, numeri, e i simboli punto (.), sottolineato (_) e il segno meno (-) <br />La password deve contenere almeno una lettera, un simbolo tra quelli ammessi, una lettera maiuscola e una minuscola"
+        },
+        "sysmsg_err" : {
+            "L11001_databaseDisconnected" : "Errore di connessione al Database"
+        }
+    }    
+}

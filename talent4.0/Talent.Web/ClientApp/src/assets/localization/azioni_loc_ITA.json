@@ -1,0 +1,42 @@
+{
+    "azioni" : {
+        "usrmsg_err" : {
+			"L1101_errmsg" : "Error message"
+		},
+		"usrmsg_warn" : {
+			"L4101_warningmsg" : "Warn msg"
+		},
+		"usrmsg_info" : {
+			"L7101_users" : "Utente",
+			"L7102_dateFrom" : "Dalla data",
+			"L7103_dateTo" : "alla data",
+			"L7104_action" : "Azione",
+			"L7105_meButton" : "Me",
+			"L7106_yesterdayButton" : "Ieri",
+			"L7107_todayButton" : "Oggi",
+			"L7108_lastWeekButton" : "Settimana precedente",
+			"L7109_searchFields" : "Campi di ricerca",
+			"L7110_userId" : "Utente Id",
+			"L7111_user" : "Utente",
+			"L7112_resource" : "Risorse",
+			"L7113_contact" : "Contatti",
+			"L7114_request" : "Richieste",
+			"L7115_typeOfAction" : "Tipo di azione",
+			"L7116_description" : "Descrizione",
+			"L7117_detail1" : "Dettaglio 1",
+			"L7118_detail2" : "Dettaglio 2",
+			"L7119_detail3" : "Dettaglio 3",
+			"L7120_begin" : "Inizio",
+			"L7121_end" : "Fine",
+			"L7122_location" : "Posizione",
+			"L7123_insertBy" : "Inserisci entro",
+			"L7124_insertDate" : "Inserisci la data",
+			"L7125_actionTypeDescr" : "Tipo di azione Descr",
+			"L7126_actionCategoryDescr" : "Categoria azione Descr",
+			"L7127_noOfRecords" : "# Records"
+		},
+		"sysmsg_err" : {
+			"L11101_errmsg" : "Sys msg"
+		}
+    }
+}

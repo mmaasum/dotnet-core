@@ -1,0 +1,115 @@
+<div class="row mx-0" *ngIf="!(isLoggedIn$ | async)">
+    <div class="col-md-11">
+      <div class="pull-left">
+        <div style="padding: 15px;">
+          <img style="padding:20px,0px,0px,20px;" src="../../../../assets/immagini/Talent_logo.png" />
+        </div>
+      </div>
+    </div>
+</div>
+<div class="container"  *ngIf="!(isLoggedIn$ | async)">
+  <div class="d-flex justify-content-center h-100">
+    <div class="user_cardoff">
+      <!-- Error Mesage -->
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+      
+      <div class="d-flex justify-content-center form_container_help">
+          <!-- Login form begin -->
+          <form (ngSubmit)="onLogin()" #loginForm="ngForm" style="width: 100%">
+                <!-- Username section begin -->
+                <div class="form-group">
+                    <label for="uteId">{{ username }}</label>
+                    <div class="input-group">
+                        
+                        <input type="text" name="uteId" id="uteId" class="form-control input_user" 
+                                  placeholder="username"
+                                  autocomplete="off"
+                                  style="border:1px solid white;"
+                                  required
+                                  (change)="onUsernameChange()"
+                                  [(ngModel)]="user.uteId"
+                                  #uteId="ngModel"
+                                  >
+                      
+                    </div>
+                </div>
+                <!-- Username section end -->
+
+                <!-- PAssword section begin -->
+                <div class="form-group">
+
+                    <label for="utePassword">{{ password }}</label>
+                    <div class="input-group">
+                        <input type="password" name="utePassword" id="utePassword" class="form-control input_pass" 
+                                  placeholder="password"
+                                  autocomplete="off"
+                                  style="border:1px solid white;"
+                                  required
+                                  [(ngModel)]="user.utePassword"
+                                  #utePassword="ngModel"
+                                  >                    
+                    </div>
+                </div>
+                <!-- Password section end -->
+
+                <!-- Company selection section begin -->
+                <div class="form-group">
+                    <label for="uteCliId">{{ company }}</label>
+                    <div class="input-group">
+                        <select class="form-control form-dropdown" name="uteCliId" id="uteCliId"
+                                  [(ngModel)]="user.uteCliId"
+                                  required
+                                  style="background-color:#858585;color: white;
+                                  border:1px solid white;"
+                                  #uteCliId="ngModel"
+                                  >
+                              <option *ngFor="let client of clients" value="{{client.cliId}}">{{client.cliNome}}</option>
+                        </select>
+                        
+                    </div>
+                </div>
+                
+                <!-- Company selection section end -->
+                <div class="form-group">
+                  <label for="languageSelection">{{ language }}</label>
+                  <div class="input-group">
+                    <select class="form-control" id="languageSelection" name="language"
+                                [(ngModel)]="user.language"
+                                (change)="onLanguageChange()">
+                      <option value="ENG">English</option>
+                      <option value="ITA">Italiano</option>
+                      <option value="ESP">Espa&ntilde;ol</option>
+                    </select>
+                  </div>
+              </div>
+
+                <!-- Help link begin -->
+                <div class="text-center">{{ needHelp }}
+                  <a style="color:white" href="http://www.itpartneritalia.com/help_desk_jira/help_form_jira.html" target="_blank" rel="noopener noreferrer" title="">
+                    {{ clickhere }}
+                  </a>
+                </div>
+                <!-- Help link end -->
+
+                <!-- Login button begin -->
+                <div class="d-flex justify-content-center mt-3 login_container">
+                    <button type="submit" style="height:30px;width:100px;color:white;font-size:17px;"
+                            name="button"
+                            class="btn btn-primary login_btn3 uppercase">
+                        {{ enterButtonText }}
+                    </button>
+                </div>
+                <!-- Login button end -->
+            </form>
+            <!-- Login form end -->
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Following message is hown when a logged in user tries to navigate to login page -->
+<div *ngIf="isLoggedIn$ | async" style="color:black">
+    <h3>Already logged in</h3>
+</div>
+    

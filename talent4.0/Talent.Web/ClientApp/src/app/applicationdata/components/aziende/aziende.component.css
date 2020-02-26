@@ -1,0 +1,92 @@
+ .green
+{
+    color : white;
+    background-color: green;    
+}
+.red
+{
+    color : white;
+    background-color: #990000;
+}
+input {
+  background-color: lightgray;
+}
+input:focus {
+  border-color:#68DE68;
+  background-color: #E8F3DA;
+}
+
+
+/*.fa {
+    color : #fff;
+}
+
+label {
+  display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+
+
+
+
+
+
+
+.record-summery {
+    COLOR : GREEN;
+    FONT-WEIGHT : 600;
+  } */
+
+/* DYNAMIC BUTTON DESIGN  */
+
+/* .radio-inline {
+    background-color: none !important;
+    margin-left: -15px;
+  }
+  
+  .radio-inline:hover > span{
+    color: #fff !important;
+    background: green !important;
+    border: 1px solid #747678;
+  }
+  
+  .radio-inline span {
+    display: table-cell;
+    border: 1px solid green;
+    border-radius: 0.1rem;
+    cursor: pointer;
+    padding: 5px 12px;
+    background: #fff !important;
+    color: green !important;
+    border: 1px solid green; 
+  }
+  
+  
+  
+  .radio-inline > input[type="radio"] {
+    display: none;
+  }
+  
+  .radio-inline > input[type="radio"]:checked + span {
+    font-weight: 500;
+    color: #fff !important;
+    background: green !important;
+    border: 1px solid #fff;
+  } */
+  
+  
+  
+  /* ************************* */
+
+/* .form-control-sm {
+    border : 0.05rem solid green;
+    border-radius: 0.1rem;
+}
+
+.btn-sm {
+    border-radius: 0.1rem;
+} */
+

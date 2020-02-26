@@ -1,0 +1,30 @@
+{
+    "login" : {
+        "usrmsg_err" : {
+            "L1001_userInactive" : "L1001_userInactive.ESP",
+            "L1002_userLocked" : "L1002_userLocked.ESP",
+            "L1003_emptyusername" : "Por favor proporcione nombre de usuario",
+            "L1004_emptypassword" : "Por favor proporcione la contraseña",
+            "L1006_emptyclientid" : "Inválido URL. Proporcionar cliente id",
+            "L1007_invalidclientid" : "Inválido URL. Proporcionar cliente id válido",
+            "L1008_wrongcredentials" : "Estás usando credenciales equivocadas",
+            "L1009_loginFailed" : "Error de inicio de sesion"
+        },
+        "usrmsg_warn" : {
+            "L4001_warningmsg" : "L4001_warningmsg.ESP"
+        },
+        "usrmsg_info" : {
+            "L7001_needHelp" : "¿Necesitas ayuda?",
+            "L7002_clickHere" : "haga clic aquí",
+            "L7003_enterButton" : "Entrar",
+            "L7004_usernameLabel" : "Usario",
+            "L7005_passwordLabel" : "Password",
+            "L7006_usernameTooltip" : "Ingrese el nombre de usuario",
+            "L7007_passwordTooltip" : "Ingrese la contraseña. <br /> La contraseña debe tener de 8 a 10 caracteres. <br /> Los caracteres permitidos son letras, números y los símbolos punto (.), Subrayado (_) y el signo menos (-) <br /> La contraseña debe contener al menos una letra, un símbolo entre esos admitido, una letra mayúscula y una minúscula",
+            "L7523_filterdetails" : "Filter details.ESP"
+        },
+        "sysmsg_err" : {
+            "L11001_databaseDisconnected" : "L11001_databaseDisconnected.ESP"
+        }
+    }
+}

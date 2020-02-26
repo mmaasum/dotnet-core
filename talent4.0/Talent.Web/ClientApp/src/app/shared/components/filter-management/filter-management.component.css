@@ -1,0 +1,245 @@
+.custombutton {
+  border-radius: 0px;
+}
+  
+.buttonhover:hover {
+  background-color: #00a896;
+}      
+  
+.red {
+  color : white;
+  background-color: #990000;
+}
+
+.btncustom {
+  width: 100%; 
+  background-color: #00CC99;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+} 
+
+.modal.right .modal-dialog {
+  position: fixed;
+  margin: auto;
+  width: 70%;
+  height: 100%;
+  -webkit-transform: translate3d(0%, 0, 0);
+  -ms-transform: translate3d(0%, 0, 0);
+  -o-transform: translate3d(0%, 0, 0);
+  transform: translate3d(0%, 0, 0);
+}
+
+.modal.right .modal-content {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.modal.right .modal-body {
+  padding: 15px 15px;
+  min-height:93%;
+}
+
+.modal.right.fade .modal-dialog {
+  right: -320px;
+  -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+  transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.show .modal-dialog {
+  right: 0;
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+.modal-header {
+  border-bottom-color: #eeeeee;
+  background-color: #fafafa;
+}
+
+/* ----- v CAN BE DELETED v ----- */
+body {
+  background-color: #78909c;
+}
+
+.demo {
+  padding-top: 60px;
+  padding-bottom: 110px;
+}
+
+.btn-demo {
+  margin: 15px;
+  padding: 10px 15px;
+  border-radius: 0;
+  font-size: 16px;
+  background-color: #ffffff;
+}
+
+.btn-demo:focus {
+  outline: 0;
+}
+
+
+.dropdown-item a i {
+  color : green;
+}
+
+button.btn {
+  border-radius : 0.1rem;
+}
+
+button.green {
+  background-color : green;
+  color : white;    
+}
+
+.form-control.ng-invalid.cus-error {
+  border :0.1rem solid #f76c5e;
+  background-color :#ff8080;
+}
+
+span.error {
+  font-style: italic;
+  color: red;
+}
+input[type="text"]:disabled {
+  background-color: #595959;
+}
+
+
+.required-asteric {
+  color : red;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+label {
+  font-size: 0.9rem;
+}
+
+/* .cus-disabled {
+  color : #595959!important;
+} */
+
+.radio-inline .cus-disabled {  
+  color : white!important;
+  background-color : #9d9b9b!important;
+  border-color : #303030!important;
+}
+
+.radio-inline .cus-disabled:hover {
+  color : white!important;
+  background-color : #807e7e!important;
+}
+
+
+
+.btn-binded-select {
+  border-radius: 0.1rem;
+  border : 0.07rem solid;
+}
+
+.btn-binded-select:hover {
+  text-decoration: unset;
+}
+
+.btn-binded-select-occupied {
+  border-color : #005a00;
+  background-color: #008000;
+  color : white;
+}
+.btn-binded-select-occupied:hover{
+  background-color : #005a00;
+}
+
+
+
+.btn-binded-select-empty {
+  border-color : #005a00;
+  background-color: white;
+  color : green;
+}
+.btn-binded-select-empty:hover{
+  background-color: #008000;
+  color : white;
+}
+
+.btn-binded-select-active {
+  border-color : #cc2828;
+  background-color:#b33e3e;
+  color : white;
+}
+.btn-binded-select-active:hover{
+  background-color : #cc2828;
+}
+
+
+
+
+/* FILTER SELECT DROPDOWN BEGIN */
+
+.language-select-wrapper {
+  min-width : 9rem;
+}
+
+.language-select-wrapper>.btn-group {
+  width : 100%;
+}
+
+.language-select {
+  border-radius : 0.1rem;
+  border: 1px solid #ced4da;
+  background-color: #f2f2f2;
+  width : 100%;
+  font-weight : 600;
+}
+.language-select:focus  {
+  outline: 0;
+  box-shadow: none;
+}
+
+.language-dropdown-menu {
+  background-color: #f2f2f2;
+  border-radius : 0.05rem;
+  min-width : -webkit-fill-available;
+  margin  : 0;
+  padding : 0;
+}
+
+.language-dropdown-menu li {
+  padding-left : 0.3rem;
+  cursor: pointer;
+  padding-top : 0.4rem;
+  padding-bottom : 0.4rem;
+}
+.language-dropdown-menu li:hover {
+  background-color : #3485AE;
+  color : #FFF;
+}
+
+.language-dropdown-menu li img {
+  padding : 3px;
+  /* background-color : rgb(167, 18, 18); */
+  height: 22px;
+}
+/* FILTER SELECT DROPDOWN END */
+
+
+.row-count {
+	font-style: italic;
+	color : green;
+	font-weight: bold;
+}
+
+
+.cus-disabled {
+	pointer-events: none;
+	opacity: 0.8;
+	background: #dbd2d2;
+}

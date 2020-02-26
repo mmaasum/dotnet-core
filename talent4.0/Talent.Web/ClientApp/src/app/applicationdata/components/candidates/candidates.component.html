@@ -1,0 +1,299 @@
+<!-- Global filter bar begin -->
+<div class="ricerca-sfondo container-fluid" style="height: 60px;">
+  <div class="row filter-bar-wrapper">
+    <!-- External filter section begin -->
+    <div class="col-md-9 external-filter">
+      <div class="row">
+        <div class="col-md-3">
+          <h5 class="talenth4">{{cityLabel}}</h5>
+          <input type="text" class="form-control"
+                   name="filter_ris_citta_possibili"
+                   placeholder={{cityLabel}}
+                   id="filter_ris_citta_possibili"
+                   (keyup.enter)="onApplyFilter()"
+                   [(ngModel)]="allFilters[0].option1">
+        </div>
+        <div class="col-md-3">
+          <h5 class="talenth4">{{competenzeLabel}}</h5>
+          <input type="text" class="form-control"
+                   name="filter_ris_competenza_1"
+                   placeholder={{competenzeLabel}}
+                   id="filter_ris_competenza_1"
+                   (keyup.enter)="onApplyFilter()"
+                   [(ngModel)]="allFilters[1].option1">
+        </div>
+        <div class="col-md-3">
+          <h5 class="talenth4">{{nameLabel}}/{{surnameLabel}}/{{emailLabel}}</h5>
+          <input type="text" class="form-control"
+                    name="filter_ris_competenza_1"
+                    id="filter_ris_competenza_1"
+                    (keyup.enter)="onApplyFilter()"
+                    [(ngModel)]="allFilters[2].option1">
+        </div>        
+        
+        <div class="col-md-2 filter-button-wrapper">
+          <div class="btn-group">
+            <button type="button"
+                    class="btn btn-primary uppercase"
+                    (click)="onApplyFilter()">
+              {{applyFilter}}
+            </button>
+            <button type="button"
+                    class="btn btn-primary uppercase d-none d-sm-inline-block btn
+                  btn-primary shadow-sm talentbtn"
+                    (click)="filterClear()">
+              <img class="talent-icons" src="../../../../assets/immagini/restore.png" alt="">
+              {{clearText}}
+            </button>
+          </div>
+        </div>
+        </div>
+    </div>
+    <!-- External filter section end -->
+    <!-- Global filter section begin -->
+    <div class="col-md-3 global-filter-wrapper">
+      <!-- <app-filter-management 
+                [gridName]="columnName"
+                [isFilterSaveable]="isFilterSaveable"
+                [isFilterCleared]="isFilterCleared"
+                [appliedFilterInGrid]="appliedFilterInGrid"
+                [appliedSortingInGrid]="appliedSortingInGrid"
+                (quickFilterTextChangeEvent)="quickFilterTextChange($event)"
+                (filterChangeEvent)="filterChange($event)"
+                (setFilterSortingTextEvent)="onChangeFilterText($event)">
+      </app-filter-management> -->
+    </div>
+    <!-- Global filter section end -->
+  </div>
+</div>
+<!-- Global filter bar end -->
+
+<div class="box box-primary">
+  <div class="box-body">
+    <!-- Grid topbar(Caption, pagw size, row count, add/edit button) begin -->
+    <div class="row">
+      <!-- Page name begin -->
+      <div class="box-header col-md-3">
+        <h3 class="box-title"><i class="fa fa-cubes"></i> {{caption}} </h3>
+      </div>
+      <!-- Page name begin -->
+      <!-- Page size selection begin -->
+      <div class="col-md-3">
+        <div class="test-header">
+          <div class="col-md-12">
+            <div class="col-md-7 text-white text-lg">
+              {{pageSizeText}} :
+            </div>
+            <div class="col-md-1">
+              <select (change)="onPageSizeChanged()" id="page-size">
+                <option value="20" selected="">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="500">500</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Page size selection end -->
+      <!-- Row count label begin -->
+      <div class="col-md-3">
+        <div class="form-group col-md-4 text-lg">
+          <span class="label" style="background-color:#9fa0a4;font-size:100%;">{{totalRowCount}} = <span class="badge">{{ totalDbRecords }}</span></span>
+        </div>
+      </div>
+      <!-- Row count label end -->
+      <!-- Add/Edit button begin -->
+      <div class="col-md-3">
+        <form (ngSubmit)="onSubmit()" #azioniForm="ngForm" class="form-inline usercreate">
+          <a (click)="onAddNew()"
+              class="d-none d-sm-inline-block btn btn-primary shadow-sm talentbtn"
+              style="margin-left: 0px;"
+              title="ADD Something"
+              data-content="Content decided by Isabella">
+            <i class="fa fa-plus"></i>&nbsp; Add
+          </a>
+          <!-- <div class="wrapbutton" *ngIf="selectedObject.risId"> -->
+              <div class="wrapbutton">
+            <button type="button"                      
+                    id="edit"
+                    (click)="onEditClick()"
+                    class="d-none d-sm-inline-block btn  btn-info shadow-sm talentbtn">
+              <i class="fa fa-check"></i>&nbsp; Edit
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- Add/Edit button begin -->
+    </div>
+    <!-- Grid topbar(Caption, pagw size, row count, add/edit button) begin -->
+    
+
+    <div class="row" style="height: 480px;">
+      <!-- Ag-Grid section begin -->
+      <div id="idGrid" class="grid-wrapper" 
+                      [class.col-md-8]="selectedObject.risId" 
+                      [class.col-md-12]="!selectedObject.risId">
+        <ag-grid-angular style="width: 100%; height: 100%;"
+                         class="ag-theme-balham"
+                         [rowData]="rowData | async"
+                         [columnDefs]="columnDefs"
+                         [defaultColDef]="defaultColDef"
+                         [frameworkComponents]="frameworkComponents"
+                         [loadingOverlayComponent]="loadingOverlayComponent"
+                         [loadingOverlayComponentParams]="loadingOverlayComponentParams"
+                         [paginationPageSize]="paginationPageSize"
+                         (gridReady)="onGridReady($event)"
+                         (cellKeyDown)="onCellKeyDown($event)"
+                         (rowClicked)='onRowClicked($event)'>
+        </ag-grid-angular>
+        <!-- Pagination begin -->
+        <div class="row">
+          <app-grid-pagination [total-items]="totalDbRecords"
+                                [page-size]="pageSize"
+                                (page-changed)="onPaginationPageChanged($event)">
+          </app-grid-pagination>
+        </div>
+        <!-- Pagination end -->
+      </div>
+      <!-- Ag-Grid section end -->
+      <!-- Detail section begin -->
+      <div class="col-md-4 right-detail-pane" *ngIf="selectedObject.risId">
+        <div style="text-align:right;">
+          <input #cvDoc type="file" id="file" class="inputfile" (change)="upload(cvDoc.files)" />
+          <label for="file">
+            <i class="fa fa-upload" style="color:white;"></i> Upload CV
+          </label>
+
+          <button type="button" class="btn btn-success" (click)="scanCv()">
+            <i class="fa fa-print"></i> Scan CV
+          </button>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+              <dl class="dl-horizontal">
+                  <dt> {{ titleLabel }}</dt>
+                  <dd>{{ selectedObject.risTitolo}} </dd>
+      
+                  <dt> {{ nameLabel }}</dt>
+                  <dd>{{ selectedObject.risNome}} </dd>
+      
+                  <dt> {{ surnameLabel }}</dt>
+                  <dd>{{ selectedObject.risCognome}} </dd>
+      
+                  <dt> {{ birthDateLabel }}</dt>
+                  <dd>{{ selectedObject.risDataNascita | date:'dd/MM/yyyy'}} </dd>
+      
+                  <dt> {{ phoneLabel }}</dt>
+                  <dd>{{ selectedObject.risCellulare}} </dd>
+      
+                  <dt> {{ cityLabel }}</dt>
+                  <dd>{{ selectedObject.risCittaPossibili}} </dd>
+      
+                  <dt> {{ emailLabel }}</dt>
+                  <dd>{{ selectedObject.risEmail}} </dd>
+      
+                  <dt> {{ competenzeLabel }}</dt>
+                  <dd>{{ selectedObject.risCompetenza1}} {{ selectedObject.risCompetenza2}} {{ selectedObject.risCompetenza3}}</dd>
+                </dl>
+
+          </div>
+          
+        </div>
+        
+
+        <div class="row">
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" (click)="onGetHardSkill()">
+              <i class="fa fa-check"></i> {{hardSkillButtonText}}
+            </button>
+            <button type="button" class="btn btn-success" (click)="onGetSoftSkill()">
+              {{softSkillButtonText}}
+            </button>
+            <button type="button" class="btn btn-info text-center" (click)="onGetCV()">
+              <i class="fa fa-list"></i> {{curriculumButttonText}}
+            </button>
+            <button type="button" 
+                    class="btn btn-danger text-center" 
+                    (click)="onAssignCandidate()"
+                    *ngIf="richId">
+              <i class="fa fa-upload"></i>Assign Candidate
+            </button>
+            
+          </div>
+        </div>
+      </div>
+      <!-- Detail section end -->
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- New object add or edit form modal begin -->
+<div bsModal #cvContentModal="bs-modal" 
+            class="modal fade" 
+            tabindex="-1" 
+            role="dialog" 
+            aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          CV content
+        </h4>
+        <button type="button" class="close pull-right" (click)="cvContentModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+        <!-- Modal body begin -->
+        <div class="modal-body">
+         
+          <pre>{{ cvContent }}</pre>
+          
+          
+        </div>
+        <!-- Modal body end -->
+        <!-- Modal footer begin -->
+        <div class="modal-footer modal_footer_talent bg-dark">
+          <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="cvContentModal.hide()">
+            <i class="fa fa-times"></i> Close
+          </button>
+        </div>
+        <!-- Modal footer end -->
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- End modal -->
+
+
+
+
+
+<!-- Hard skill selection component begin -->
+<app-hard-skill
+    [risId]="selectedObject.risId"
+    [showModal] = "showHardSkill"
+    (modalCloseEvent)="onHardSkillModalClose($event)">
+</app-hard-skill>
+<!-- Hard skill selection component end -->
+
+<app-candidate-soft-skill
+    [risorse]="selectedObject"
+    [showModal] = "showSoftSkill"
+    (modalCloseEvent)="onSoftSkillModalClose($event)">
+</app-candidate-soft-skill>
+
+
+<app-candidate-add-edit
+          [risorseId]="currentRisId"
+          [isNewRowAdding]="isNewRowAdding"
+          [showModal]="showAddEditModal"
+          (modalCloseEvent)="onAddEditComplete($event)">
+</app-candidate-add-edit>

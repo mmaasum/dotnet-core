@@ -1,0 +1,373 @@
+<!-- Global filter bar begin -->
+<div class="ricerca-sfondo container-fluid" style="height: 60px;">
+	<div class="row filter-bar-wrapper">
+		<!-- External filter section begin -->
+		<div class="col-md-9 external-filter">
+			<div class="row">
+				<div class="col-md-3">
+					<h5 class="talenth4">Stato</h5>
+					<select name="terStatoFilter" id="terStatoFilter" class="form-control"
+						[(ngModel)]="allFilters[0].option1" #terStato="ngModel">
+						<option value>--Select stato--</option>
+						<option value="revisionato">Revisionato</option>
+						<option value="da.revisionare">Da Revisionare</option>
+						<option value="scartato">Scartato</option>
+					</select>
+				</div>
+
+				<div class="col-md-2 filter-button-wrapper">
+					<div class="btn-group">
+						<button type="button" class="btn btn-primary uppercase" (click)="onApplyFilter()">
+							Apply
+						</button>
+						<button type="button" class="btn btn-primary uppercase d-none d-sm-inline-block btn
+                    btn-primary shadow-sm talentbtn" (click)="filterClear()">
+							<img class="talent-icons" src="../../../../assets/immagini/restore.png" alt="">
+							Clear
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- External filter section end -->
+		<!-- Global filter section begin -->
+		<div class="col-md-3 global-filter-wrapper">
+			<app-filter-management [gridName]="columnName" [isFilterSaveable]="isFilterSaveable"
+				[isFilterCleared]="isFilterCleared" [appliedFilterInGrid]="appliedFilterInGrid"
+				[appliedSortingInGrid]="appliedSortingInGrid"
+				(quickFilterTextChangeEvent)="quickFilterTextChange($event)" (filterChangeEvent)="filterChange($event)"
+				(setFilterSortingTextEvent)="onChangeFilterText($event)">
+			</app-filter-management>
+		</div>
+		<!-- Global filter section end -->
+	</div>
+</div>
+<!-- Global filter bar end -->
+
+<div class="box box-primary">
+	<div class="box-body">
+		<!-- Grid topbar(Caption, pagw size, row count, add/edit button) begin -->
+		<div class="row">
+			<!-- Page name begin -->
+			<div class="box-header col-md-3">
+				<h3 class="box-title"><i class="fa fa-cubes"></i> Termini </h3>
+			</div>
+			<!-- Page name begin -->
+			<!-- Page size selection begin -->
+			<div class="col-md-3">
+				<div class="test-header">
+					<div class="col-md-12">
+						<div class="col-md-7 text-white text-lg">
+							Page Size:
+						</div>
+						<div class="col-md-1">
+							<select (change)="onPageSizeChanged()" id="page-size">
+								<option value="20" selected="">20</option>
+								<option value="50">50</option>
+								<option value="100">100</option>
+								<option value="500">500</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Page size selection end -->
+			<!-- Row count label begin -->
+			<div class="col-md-3">
+				<div class="form-group col-md-4 text-lg">
+					<span class="label" style="background-color:#9fa0a4;font-size:100%;">Total rows count = <span
+							class="badge">{{ totalDbRecords }}</span></span>
+				</div>
+			</div>
+			<!-- Row count label end -->
+			<!-- Add/Edit button begin -->
+			<div class="col-md-3">
+				<form (ngSubmit)="onSubmit()" #azioniForm="ngForm" class="form-inline usercreate">
+					<a (click)="onAddNew()" class="d-none d-sm-inline-block btn btn-primary shadow-sm talentbtn"
+						style="margin-left: 0px;" title="ADD Something" data-content="Content decided by Isabella">
+						<i class="fa fa-plus"></i>&nbsp; Add
+					</a>
+				</form>
+			</div>
+			<!-- Add/Edit button begin -->
+		</div>
+		<!-- Grid topbar(Caption, pagw size, row count, add/edit button) begin -->
+
+
+
+		<div class="row" style="height: 480px;">
+			<!-- Ag-Grid section begin -->
+			<div id="idGrid" class="col-md-12 grid-wrapper">
+				<ag-grid-angular style="width: 100%; height: 94%;" class="ag-theme-balham" 
+						[rowData]="rowData | async"
+						[columnDefs]="columnDefs" 
+						[defaultColDef]="defaultColDef"					
+						[frameworkComponents]="frameworkComponents" 
+						[loadingOverlayComponent]="loadingOverlayComponent"
+						[loadingOverlayComponentParams]="loadingOverlayComponentParams" 
+						[suppressClickEdit]="true"
+						[components]="components" 
+						[paginationPageSize]="paginationPageSize"
+						
+						(gridReady)="onGridReady($event)" 
+						(rowClicked)='onRowClicked($event)'>
+				</ag-grid-angular>
+				<!-- Pagination begin -->
+				<div class="row">
+					<app-grid-pagination [total-items]="totalDbRecords" [page-size]="pageSize"
+						(page-changed)="onPaginationPageChanged($event)">
+					</app-grid-pagination>
+				</div>
+				<!-- Pagination end -->
+			</div>
+			<!-- Ag-Grid section end -->
+		</div>
+	</div>
+</div>
+
+<!-- New object add or edit form modal begin -->
+<div class="modal fade" bsModal #newObjectAddModal="bs-modal" tabindex="-1" [config]="{backdrop: 'static'}"
+	role="dialog" aria-labelledby="dialog-nested-name2">
+
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content modal_talent">
+			<!-- Modal header begin -->
+			<div class="modal-header ricerca-sfondo">
+				<h4 id="dialog-sizes-name1" class="modal-title pull-left">Edit Termini</h4>
+				<button type="button" class="close pull-right" (click)="onCloseAddEditModal()" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<!-- Modal header end -->
+			<!-- begin object add/edit form -->
+			<form (ngSubmit)="onNewObjectAddFormSubmit(newObjectAddForm)" #newObjectAddForm="ngForm">
+				<!-- Modal body begin -->
+				<div class="modal-body">
+					<!-- Validation message section begin -->
+					<div class="alert alert-danger" *ngIf="newObjectAddForm.submitted && !newObjectAddForm.valid">
+						<ul>
+							<li *ngIf="termine.invalid">Provide termine</li>
+						</ul>
+					</div>
+					<!-- Validation message section end -->
+					<!-- Row begin -->
+					<div class="row form-group">
+						<!-- Termine input begin -->
+						<div class="col-md-3">
+							<label for="termine">Termine <strong style="color:red">*</strong> </label>
+							<input type="text" class="form-control" name="termine" id="termine" placeholder="Termine"
+								required [readonly]="!isNewRowAdding" maxlength="200"
+								[(ngModel)]="selectedObject.termine" #termine="ngModel">
+						</div>
+						<!-- Termine input end -->
+						<!-- Tipo termine select list begin -->
+						<div class="col-md-3">
+							<label for="terTipoTermine">Tipo Termine</label>
+							<select class="form-control" id="terTipoTermine" name="terTipoTermine" required
+								[(ngModel)]="selectedObject.terTipoTermine" #terTipoTermine="ngModel">
+								<option *ngFor="let tipiTermine of allTipiTermine" value={{tipiTermine.tipoTermine}}>
+									{{tipiTermine.tipoTermine}}
+								</option>
+							</select>
+						</div>
+						<!-- Tipo termine select list end -->
+						<!-- Sinonimo 1 input begin -->
+						<div class="col-md-3">
+							<label for="terSinonimo1">Sinonimo 1</label>
+							<input type="text" class="form-control" name="terSinonimo1" id="terSinonimo1"
+								placeholder="Sinonimo 1" maxlength="200" [(ngModel)]="selectedObject.terSinonimo1"
+								#terSinonimo1="ngModel">
+						</div>
+						<!-- Sinonimo 1 input end -->
+						<!-- Sinonimo 2 input begin -->
+						<div class="col-md-3">
+							<label for="terSinonimo2">Sinonimo 2</label>
+							<input type="text" class="form-control" name="terSinonimo2" id="terSinonimo2"
+								[disabled]="!terSinonimo1.value" placeholder="Sinonimo 2" maxlength="200"
+								[(ngModel)]="selectedObject.terSinonimo2" #terSinonimo2="ngModel">
+						</div>
+						<!-- Sinonimo 2 input end -->
+					</div>
+					<!-- Row end -->
+					<!-- row begin -->
+					<div class="row form-group">
+						<!-- Sinonimo 3 input begin -->
+						<div class="col-md-3">
+							<label for="terSinonimo3">Sinonimo 3</label>
+							<input type="text" class="form-control" name="terSinonimo3" id="terSinonimo3"
+								[disabled]="!terSinonimo1.value || !terSinonimo2.value" placeholder="Sinonimo 3"
+								maxlength="200" [(ngModel)]="selectedObject.terSinonimo3" #terSinonimo3="ngModel">
+						</div>
+						<!-- Sinonimo 3 input end -->
+						<!-- Sinonimo 4 input begin -->
+						<div class="col-md-3">
+							<label for="terSinonimo4">Sinonimo 4</label>
+							<input type="text" class="form-control" name="terSinonimo4" id="terSinonimo4"
+								[disabled]="!terSinonimo1.value || !terSinonimo2.value || !terSinonimo3.value"
+								placeholder="Sinonimo 4" maxlength="200" [(ngModel)]="selectedObject.terSinonimo4"
+								#terSinonimo4="ngModel">
+						</div>
+						<!-- Sinonimo 4 input end -->
+						<!-- Sinonimo 5 input begin -->
+						<div class="col-md-3">
+							<label for="terSinonimo5">Sinonimo 5</label>
+							<input type="text" class="form-control" name="terSinonimo5" id="terSinonimo5"
+								[disabled]="!terSinonimo1.value || !terSinonimo2.value || !terSinonimo3.value || !terSinonimo4.value"
+								placeholder="Sinonimo 5" maxlength="200" [(ngModel)]="selectedObject.terSinonimo5"
+								#terSinonimo5="ngModel">
+						</div>
+						<!-- Sinonimo 5 input end -->
+						<!-- Sinonimo 6 input begin -->
+						<div class="col-md-3">
+							<label for="terSinonimo6">Sinonimo 6</label>
+							<input type="text" class="form-control" name="terSinonimo6" id="terSinonimo6"
+								[disabled]="!terSinonimo1.value || !terSinonimo2.value || !terSinonimo3.value || !terSinonimo4.value || !terSinonimo5.value"
+								placeholder="Sinonimo 6" maxlength="200" [(ngModel)]="selectedObject.terSinonimo6"
+								#terSinonimo6="ngModel">
+						</div>
+						<!-- Sinonimo 6 input begin -->
+					</div>
+					<!-- Row end -->
+					<!-- Row begin -->
+					<div class="row form-group">
+						<!-- Sinonimo 7 input begin -->
+						<div class="col-md-3">
+							<label for="terSinonimo7">Sinonimo 7</label>
+							<input type="text" class="form-control" name="terSinonimo7" id="terSinonimo7"
+								[disabled]="!terSinonimo1.value || !terSinonimo2.value || !terSinonimo3.value || !terSinonimo4.value || !terSinonimo5.value || !terSinonimo6.value"
+								placeholder="Sinonimo 7" maxlength="200" [(ngModel)]="selectedObject.terSinonimo7"
+								#terSinonimo7="ngModel">
+						</div>
+						<!-- Sinonimo 7 input end -->
+						<!-- Sinonimo 8 input begin -->
+						<div class="col-md-3">
+							<label for="terSinonimo8">Sinonimo 8</label>
+							<input type="text" class="form-control" name="terSinonimo8" id="terSinonimo8"
+								[disabled]="!terSinonimo1.value || !terSinonimo2.value || !terSinonimo3.value || !terSinonimo4.value || !terSinonimo5.value || !terSinonimo6.value || !terSinonimo7.value"
+								placeholder="Sinonimo 8" maxlength="200" [(ngModel)]="selectedObject.terSinonimo8"
+								#terSinonimo8="ngModel">
+						</div>
+						<!-- Sinonimo 8 input end -->
+						<!-- Note begin -->
+						<div class="col-md-3">
+							<label for="terNote">Note</label>
+							<input type="text" class="form-control" name="terNote" id="terNote" placeholder="Note"
+								maxlength="500" [(ngModel)]="selectedObject.terNote" #terNote="ngModel">
+						</div>
+						<!-- Note end -->
+						<!-- Description begin -->
+						<div class="col-md-3">
+							<label for="terDescrizione">Descrizione</label>
+							<input type="text" class="form-control" name="terDescrizione" id="terDescrizione"
+								placeholder="Descrizione" [(ngModel)]="selectedObject.terDescrizione"
+								#terDescrizione="ngModel">
+						</div>
+						<!-- Description end -->
+					</div>
+					<!-- Row end -->
+					<!-- Row begin -->
+					<div class="row form-group">
+						<!-- Link input begin -->
+						<div class="col-md-3">
+							<label for="terLink">Link</label>
+							<input type="text" class="form-control" name="terLink" id="terLink" placeholder="Link"
+								maxlength="500" [(ngModel)]="selectedObject.terLink" #terLink="ngModel">
+						</div>
+						<!-- Link input end -->
+						<!-- Stato input begin -->
+						<div class="col-md-3">
+							<label for="terStato">Stato</label>
+							<select name="terStato" id="terStato" class="form-control"
+								[(ngModel)]="selectedObject.terStato" #terStato="ngModel">
+								<option value=null>--Select stato--</option>
+								<option value="revisionato">Revisionato</option>
+								<option value="da.revisionare">Da Revisionare</option>
+								<option value="scartato">Scartato</option>
+							</select>
+						</div>
+						<!-- Stato input end -->
+					</div>
+					<!-- Row end -->
+				</div>
+				<!-- Modal body end -->
+				<!-- Modal footer start -->
+				<div class="modal-footer modal_footer_talent bg-dark">
+					<button type="submit" class="btn btn-primary" (click)="isSaveAndNextclicked = true"
+						*ngIf="!isNewRowAdding">
+						<i class="fa fa-check"></i> Submit & Next record
+					</button>
+					<button type="submit" class="btn btn-success">
+						<i class="fa fa-check"></i> Save
+					</button>
+					<button type="button" class="btn btn-warning" data-dismiss="modal" (click)="onCloseAddEditModal()">
+						<i class="fa fa-times"></i> Close
+					</button>
+				</div>
+				<!-- Modal footer end -->
+			</form>
+			<!-- Add/Edit form end  -->
+		</div>
+		<!-- End modal content -->
+	</div>
+	<!-- End modal dialogue -->
+</div>
+<!-- End modal -->
+
+<!-- Start existing record show modal -->
+<div class="modal fade" bsModal #existingRecordShowModal="bs-modal" tabindex="-1" role="dialog"
+	aria-labelledby="dialog-nested-name2">
+	<div class="modal-dialog">
+		<div class="modal-content modal_talent">
+			<!-- Start modal header -->
+			<div class="modal-header ricerca-sfondo">
+				<h4 id="dialog-nested-name2" class="modal-title pull-left">Keyword exists</h4>
+				<button type="button" class="close pull-right" aria-label="Close"
+					(click)="existingRecordShowModal.hide()">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<!-- End modal header -->
+			<!-- Start modal body -->
+			<div class="modal-body text-center">
+				<h4>The keyword</h4>
+				<h3>"{{ matchedKeywords }}"</h3>
+				<h4>already exists in keywords</h4>
+				<table class="table table-responsive table-stripped table-hover table-bordered" id="existingShowTable">
+					<thead>
+						<tr>
+							<th>Termine</th>
+							<th>Tipo Termine</th>
+							<th>Matched Sinonimo</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let termini of existingTermini">
+							<td>{{ termini.termine }}</td>
+							<td>{{ termini.terTipoTermine }}</td>
+							<td>{{ termini.terSinonimo1 }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- End modal body -->
+			<!-- Start modal footer -->
+			<div class="modal-footer modal_footer_talent bg-dark">
+				<!-- Modal close button -->
+				<button type="button" class="btn btn-warning" data-dismiss="modal"
+					(click)="existingRecordShowModal.hide()">
+					<i class="fa fa-times"></i> Close
+				</button>
+			</div>
+			<!-- End modal footer   -->
+		</div>
+	</div>
+</div>
+<!-- Start existing record show modal -->
+
+
+
+
+<!-- On close click confirmation dialog begin -->
+<app-confirmation-dialog [showDialog]="showCloseConfirmDialog" (confirmationSelectEvent)="onDialogConfirm($event)">
+</app-confirmation-dialog>
+<!-- On close click confirmation dialog end -->

@@ -1,0 +1,178 @@
+
+<!-- New object add or edit form modal begin -->
+<div bsModal #newObjectAddModal="bs-modal" 
+            class="modal fade" 
+            [config]="{backdrop: 'static'}" 
+            tabindex="-1" 
+            role="dialog" 
+            aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          <!-- {{ isNewRowAdding ? "Add new" : "Edit" }} -->
+        </h4>
+        <button type="button" class="close pull-right" (click)="onCloseClicked()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->
+      <!-- begin object add/edit form -->
+      <form (ngSubmit)="onNewObjectAddFormSubmit(newObjectAddForm)" #newObjectAddForm="ngForm">
+        <!-- Modal body begin -->
+        <div class="modal-body">
+         
+          <!-- Row begin -->
+          <div class="row form-group">
+            <!-- Title select begin -->
+            <div class="col-md-2">
+              <label for="risTitolo">Title</label>
+              <select class="form-control" 
+                      name="risTitolo" 
+                      id="risTitolo"
+                      required
+                      [(ngModel)]="newObject.risTitolo"
+                      #risTitolo="ngModel">
+                <option value>--Select title--</option>
+                <option *ngFor="let item of allTitoli" [value]="item.titolo">
+                  {{item.titolo}}
+                </option>
+              </select>
+            </div>
+            <!-- Title select begin -->
+            <!-- Name lavoro  begin -->
+            <div class="col-md-4">
+              <label for="risNome">Name</label>
+              <input type="text" 
+                    class="form-control" 
+                    name="risNome" 
+                    id="risNome"
+                    placeholder="Name"
+                    maxlength="50"
+                    required
+                    [(ngModel)]="newObject.risNome"
+                    #risNome="ngModel">
+            </div>
+            <!-- Name lavoro  begin -->
+            <!-- Surname input begin -->
+            <div class="col-md-4">
+              <label for="risCognome">Surname</label>
+              <input type="text" 
+                    class="form-control" 
+                    name="risCognome" 
+                    id="risCognome"
+                    placeholder="Surname"
+                    maxlength="50"
+                    required
+                    [(ngModel)]="newObject.risCognome"
+                    #risCognome="ngModel">
+            </div>
+            <!-- Surname input end -->
+            <!-- Gender begin -->
+            <div class="col-md-2">
+              <label for="clifinRaggMezziPubblici">Gender</label>
+              <select class="form-control" 
+                      name="risSesso" 
+                      id="risSesso"
+                      [(ngModel)]="newObject.risSesso"
+                      #risSesso="ngModel">
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+              </select>
+            </div>
+            <!-- Gender end -->
+          </div>
+          <!-- Row end -->
+          <!-- row begin -->
+          <div class="row">
+            <!-- Email input begin -->
+            <div class="col-md-3">
+              <label for="risEmail">Email</label>
+              <input type="email" 
+                    class="form-control" 
+                    name="risEmail" 
+                    id="risEmail"
+                    placeholder="Email"
+                    maxlength="150"
+                    required
+                    [(ngModel)]="newObject.risEmail"
+                    #risEmail="ngModel">
+            </div>
+            <!-- Email input end -->
+            <!-- Phone input begin -->
+            <div class="col-md-3">
+              <label for="risCellulare">Phone</label>
+              <input type="text" 
+                    class="form-control" 
+                    name="risCellulare" 
+                    id="risCellulare"
+                    placeholder="Phone"
+                    maxlength="100"
+                    required
+                    [(ngModel)]="newObject.risCellulare"
+                    #risCellulare="ngModel">
+            </div>
+            <!-- Phone input end -->
+            <!-- Cities input begin -->
+            <div class="col-md-3">
+              <label for="risCittaPossibili">Cities</label>
+              <input type="text" 
+                    class="form-control" 
+                    name="risCittaPossibili" 
+                    id="risCittaPossibili"
+                    placeholder="Cities , seperated"
+                    maxlength="200"
+                    required
+                    [(ngModel)]="newObject.risCittaPossibili"
+                    #risCittaPossibili="ngModel">
+            </div>
+            <!-- Cities input end -->
+            <!-- Main skill input begin -->
+            <div class="col-md-3">
+              <label for="risCompetenza1">Main skill</label>
+              <input type="text" 
+                    class="form-control" 
+                    name="risCompetenza1" 
+                    id="risCompetenza1"
+                    placeholder="Main skill"
+                    required
+                    maxlength="150"
+                    [(ngModel)]="newObject.risCompetenza1"
+                    #risCompetenza1="ngModel">
+            </div>
+            <!-- Main skill input end -->
+          </div>
+          <!-- Row end -->
+          
+          
+        </div>
+        <!-- Modal body end -->
+        <!-- Modal footer begin -->
+        <div class="modal-footer modal_footer_talent bg-dark">
+          <!-- Form submit button -->
+          <button type="submit" class="btn btn-success">
+            <i class="fa fa-check"></i> Save
+          </button>
+          <!-- Modal close button -->
+          <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="onCloseClicked()">
+            <i class="fa fa-times"></i> Close
+          </button>
+        </div>
+        <!-- Modal footer end -->
+      </form>
+      <!-- End object add/edit form -->
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- End modal -->
+
+
+<!-- On close click confirmation dialog begin -->
+<app-confirmation-dialog
+        [showDialog] = "showCloseConfirmDialog"
+        (confirmationSelectEvent)="onDialogConfirm($event)">
+</app-confirmation-dialog>
+<!-- On close click confirmation dialog end -->

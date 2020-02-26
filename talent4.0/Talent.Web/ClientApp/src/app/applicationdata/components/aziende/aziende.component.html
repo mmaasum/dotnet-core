@@ -1,0 +1,153 @@
+<div class="container-fluid ">
+    <div class="container-fluid pt-3">
+
+        <div class="row" style="padding-bottom: 13px;">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-success btn-sm" (click)="onAddNew()">
+                    <i class="fa fa-plus"></i> {{ 'common.usrmsg_info.L7018_add' | translate:[translate] | async}}
+                </button>
+            </div>
+            <div class="col-md-6 text-center record-summery">
+                {{totalGridRecords}} {{ 'common.usrmsg_info.L7024_dataOf' | translate:[translate] | async}} {{ totalDbRecords }}
+            </div>
+            <div class="col-md-3 pull-right">
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr style="margin-top: 2px; margin-bottom: 2px;">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+              <div class="row">
+                    <div class="col-md-2 pr-0">
+                            <label class="filter-label">
+								{{ 'aziende.usrmsg_info.L7401_companyName' | translate:[translate] | async}}
+							</label>
+                            <input type="text" class="form-control form-control-sm filter-input"
+                                    name="filter_ute_id"
+                                    placeholder="{{ 'aziende.usrmsg_info.L7401_companyName' | translate:[translate] | async}}"
+                                    id="filter_ute_id"
+                                    (keyup.enter)="onApplyFilter()"
+                                    [(ngModel)]="allFilters[0].option1"
+                            >
+                        </div>
+                        <div class="col-md-2 px-1">
+                            <label class="filter-label">
+								{{ 'aziende.usrmsg_info.L7402_description' | translate:[translate] | async}}
+							</label>
+                            <input type="text" class="form-control form-control-sm filter-input"
+                                    name="filter_ute_nome"
+                                    placeholder="{{ 'aziende.usrmsg_info.L7402_description' | translate:[translate] | async}}"
+                                    id="filter_ute_nome"
+                                    (keyup.enter)="onApplyFilter()"
+                                    [(ngModel)]="allFilters[1].option1"
+                            >
+                        </div>
+                        <div class="col-md-2 px-1">
+                            <label class="filter-label">
+								{{ 'aziende.usrmsg_info.L7403_city' | translate:[translate] | async}}
+							</label>
+                            <input type="text" class="form-control form-control-sm filter-input"
+                                    name="filter_ute_ruolo"
+                                    placeholder="{{ 'aziende.usrmsg_info.L7403_city' | translate:[translate] | async}}"
+                                    id="filter_ute_ruolo"
+                                    (keyup.enter)="onApplyFilter()"
+                                    [(ngModel)]="allFilters[2].option1"
+                            >
+                        </div>
+                        <div class="col-md-2 px-1">
+                            <label class="filter-label">
+								{{ 'aziende.usrmsg_info.L7404_compantType' | translate:[translate] | async}}
+							</label>
+                            <input type="text" class="form-control form-control-sm filter-input"
+                                    name="filter_ute_ruolo"
+                                    placeholder="{{ 'aziende.usrmsg_info.L7404_compantType' | translate:[translate] | async}}"
+                                    id="filter_ute_ruolo"
+                                    (keyup.enter)="onApplyFilter()"
+                                    [(ngModel)]="allFilters[3].option1"
+                            >
+                        </div>
+              </div>
+      
+              <div class="row">
+                <div class="col-md-12" style="padding-right: unset;">
+                  <hr style="margin-top: 7px; margin-bottom: 7px;">
+                </div>
+              </div>
+      
+              <div class="row mt-2">
+                <label class="radio-inline">
+                    <input type="radio" name="optradio" value="A-Z" (change)="onApplyFilter()" [(ngModel)]="allFilters[4].option1">
+                    <span>
+						{{ 'common.usrmsg_info.L7023_all' | translate:[translate] | async}}
+					</span>
+                </label>
+                <label class="radio-inline" *ngFor="let item of allRadioValues">               
+                    <input type="radio" name="optradio" 
+                            value="{{item}}" 
+                            (change)="onApplyFilter()"
+                            [(ngModel)]="allFilters[4].option1">
+                    <span>{{item}}</span>
+                </label>
+              </div>                 
+            </div>
+            
+            <div class="col-md-4" style="padding-top: 22px;padding-left: unset;padding-left: 0px;">
+              
+				<app-filter-management 
+					[gridName]="columnName" 
+					[isFilterSaveable]="isFilterSaveable"
+					[appliedFilterIdInGrid]="appliedFilterIdInGrid"
+					[showBindedButtons]=true
+					[filterSortingModel]="filterSortingModel"
+
+					(quickFilterTextChangeEvent)="quickFilterTextChange($event)"
+					(filterChangeEvent)="filterChange($event)" 
+					(testFilterApplyEvent)="onTestFilterApply($event)"
+					(allFiltersClearEvent)="filterClear($event)">
+				</app-filter-management>
+             
+            </div>
+          </div>
+
+        <div class="row my-2" style="/*height: 480px;*/height: 67vh;">
+            <!-- Ag-Grid section begin -->
+            <div id="idGrid" class="grid-wrapper col-md-12" >
+                <ag-grid-angular style="width: 100%; height: 94%;"
+                                class="ag-theme-balham"
+                                [rowData]="rowData | async"
+                                [columnDefs]="columnDefs"
+                                [defaultColDef]="defaultColDef"
+                                [rowSelection]="rowSelection"
+                                [frameworkComponents]="frameworkComponents"
+                                [loadingOverlayComponent]="loadingOverlayComponent"
+                                [loadingOverlayComponentParams]="loadingOverlayComponentParams"
+                                [paginationPageSize]="paginationPageSize"
+                                (gridReady)="onGridReady($event)"
+                                (cellKeyDown)="onCellKeyDown($event)"
+                                (cellClicked)="onCellClicked($event)"
+                                (rowSelected)="onRowSelected($event)"
+                                (rowClicked)='onRowClicked($event)'>
+                </ag-grid-angular>
+        
+                <!-- Pagination begin -->
+                <div class="row">
+                    <app-grid-pagination [total-items]="totalDbRecords"
+                                        [page-size]="pageSize"
+                                        (page-changed)="onPaginationPageChanged($event)">
+                    </app-grid-pagination>
+                </div>
+                <!-- Pagination end -->
+            </div>
+            <!-- Ag-Grid section end -->
+            
+        </div>
+    
+    </div>
+    
+    
+    
+    

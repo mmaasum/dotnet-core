@@ -1,0 +1,787 @@
+<style>
+	:host>>>.custom-today-class {
+		color: #f10000;
+		font-weight: bold;
+	}
+</style>
+
+<div class="row">
+	<div class="col-md-3 pr-0 pl-0">
+		<button type="button" style="width: 100%;" class="btn btn-sm red pull-right" (click)="onClearAllFilters()">
+			<i class="fa fa-close"></i> {{ 'common.usrmsg_info.L7005_clear' | translate:[translate] | async}}
+		</button>
+	</div>
+
+	<div class="col-md-6 pr-0 pl-1 language-select-wrapper">
+		<div class="btn-group" dropdown>
+			<button type="button" class="btn btn-sm dropdown-toggle language-select" dropdownToggle>
+				<!-- <span class="form-control-sm">
+            <img [src]="selectedFlag" alt="">
+          </span> -->
+				{{selectedFilterName}}
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu language-dropdown-menu" role="menu" *dropdownMenu>
+				<li role="menuitem" *ngFor="let filter of allPageFiltersForDdl"
+					(click)="onFilterChange(filter.tntfilFiltropagId)">
+					<img src="../../../../assets/img/icons/talent_filter_public.png"
+						*ngIf="filter.tntfilFiltropagPubblico == 'S'">
+					<img src="../../../../assets/img/icons/talent_filter_private.png"
+						*ngIf="filter.tntfilFiltropagPubblico != 'S'">
+					{{filter.tntfilFiltropagNomeCorto}}
+				</li>
+			</ul>
+		</div>
+
+	</div>
+
+
+
+
+	<!-- <div class="col-md-6 pr-0 pl-1">
+      <select class="form-control form-control-sm"
+              name="validate-select"
+              id="validate-select"
+              [(ngModel)]="selectedFilterId"
+              (change)="onFilterChange()">
+        <option value=0 disabled>{{ 'filter.usrmsg_info.L7518_userFilterDropdown' | translate:[translate] | async}}</option>
+        <option *ngFor="let filter of allPageFiltersForDdl" value="{{filter.tntfilFiltropagId}}">
+          {{filter.tntfilFiltropagNomeCorto}}
+        </option>
+      </select>
+    </div> -->
+
+	<!-- Action select dropdown list begin -->
+	<div class="col-md-3 pl-1">
+		<div class="btn-group">
+			<button type="button" class="btn btn-sm buttonhover btncustom mr-1"
+				tooltip="{{ 'common.usrmsg_info.L7018_add' | translate:[translate] | async}}"
+				(click)="onAddNewClicked()">
+				<i class="fa fa-plus" aria-hidden="true"></i>
+			</button>
+
+			<button type="button" class="btn btn-sm buttonhover btncustom mr-1"
+				tooltip="{{ 'common.usrmsg_info.L7002_edit' | translate:[translate] | async}}"
+				(click)="onEditClicked()">
+				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+			</button>
+
+			<button type="button" class="btn btn-sm buttonhover btncustom" aria-haspopup="true" aria-expanded="false">
+				<i class="fa fa-cog" aria-hidden="true"></i>
+			</button>
+
+		</div>
+	</div>
+</div>
+<div class="row" style="display: block; margin-top: 9px;">
+	<div class="col-md-12">
+		<hr style="margin-top: 7px; margin-bottom: 7px;">
+	</div>
+</div>
+<div class="row mt-2 mr-1 pull-right" style="margin-left: -100px;" *ngIf="showBindedButtons">
+	<label class="radio-inline" *ngFor="let filter of allPageFiltersForButton">
+		<input type="radio" name="optouterradio" 
+			[value]="filter.tntfilFiltropagUteFiltroPagId"
+			[disabled]="filter.tntfilFiltropagUteFiltroPagId <= 0" 
+			(change)="onCustomButtonChange()"
+			[(ngModel)]="selectedFilterId">
+		<span [class.cus-disabled]="filter.tntfilFiltropagUteFiltroPagId <= 0">
+			{{filter.tntfilFiltropagUteButtonLabel}}
+		</span>
+	</label>
+</div>
+<!-- Action select dropdown list end -->
+
+
+
+
+<div class="container">
+	<div class="modal right fade in" id="exampleModal" tabindex="-1" bsModal #filterManagementModal="bs-modal"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<span id="dialog-nested-name2" class="modal-title pull-left"
+						*ngIf="masterFilterTemplate.tntfilFiltropagId == 0" style="font-size: 16px;">
+						{{ 'filter.usrmsg_info.L7519_newFilter' | translate:[translate] | async}}
+					</span>
+					<span id="dialog-nested-name2" class="modal-title pull-left"
+						*ngIf="masterFilterTemplate.tntfilFiltropagId > 0" style="font-size: 16px;">
+						{{ 'filter.usrmsg_info.L7520_filterUpdate' | translate:[translate, {name : masterFilterTemplate.tntfilFiltropagNome }] | async}}
+					</span>
+					<button type="button" class="close pull-right" aria-label="Close" style="padding-top: 14px;"
+						(click)="filterManagementModal.hide()">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<form name="filterManagementForm" #filterManagementForm="ngForm"
+					(ngSubmit)="onFilterManagementFormSubmit(action)">
+
+					<!-- Modal body begin -->
+					<div class="modal-body">
+
+						<div class="jumbotron" style="padding: 0.3rem 2rem;margin-bottom: .3rem;">
+							<span style="font-size: 15px;">
+								{{ 'filter.usrmsg_info.L7504_filterAndSorting' | translate:[translate] | async}}
+							</span>
+							<hr class="my-4" style="margin-top: 0.1rem!important;margin-bottom: 0.3rem!important;">
+
+							<!-- Filter and sorting section begin -->
+							<div class="card" [class.cus-disabled]="!isSameAuthor">
+								<div class="card-body">
+
+									<!-- Filter 1 begin -->
+
+									<div class="row">
+										<label class="col-md-3">
+											{{ 'filter.usrmsg_info.L7502_filter' | translate:[translate] | async}} 1
+										</label>
+										<!-- FILER FIELD SELECT DROPDOWN -->
+										<div class="col-md-3 pr-0" style="margin-left: -60px;">
+											<select name="filter_1_field" id="filter_1_field"
+													class="form-control form-control-sm" 
+													[class.cus-error]="isFormSubmitted"
+													[required]="!appliedSorting[0].key" 
+													(change)="onFilterFieldChange(0)"
+													[(ngModel)]="appliedFilters[0].field">
+												<option value="">
+													{{ 'filter.usrmsg_info.L7505_fieldList' | translate:[translate] | async}}
+												</option>
+												<option *ngFor="let item of filterFields"
+													[value]="item.tntfilFiltropagcampoCodice"
+													[hidden]="item.tntfilFiltropagcampoCodice == appliedFilters[1].field || item.tntfilFiltropagcampoCodice == appliedFilters[2].field">
+													{{ item.tntfilFiltropagcampoPagina}}
+												</option>
+											</select>
+										</div>
+										<!-- CONDITION SELECT DROPDOWN -->
+										<div class="col-md-3 pr-0">
+											<select name="filter_1_condition" id="filter_1_condition"
+												class="form-control form-control-sm"
+												(change)="onFilterConditionChange(0)"
+												[(ngModel)]="appliedFilters[0].condition">
+												<option *ngFor="let item of filter1ConditionsList" [value]="item.key">
+													{{ item.value }}
+												</option>
+											</select>
+										</div>
+										<!-- IF FILTER TYPE IS STRING OR NUMBER -->
+										<div class="col-md-2 pr-0"
+											*ngIf="(appliedFilters[0].type == 'S' || appliedFilters[0].type == 'N') && appliedFilters[0].condition != 'empty' && appliedFilters[0].condition != 'notempty'">
+											<input type="text" name="filter_1_value" 
+													id="filter_1_value"
+													class="form-control form-control-sm" 
+													placeholder=""
+													(focusout)="pullRecordCountForFilter(0)"
+													[(ngModel)]="appliedFilters[0].value">
+										</div>
+
+										<!-- IF FILTER TYPE IS DATE -->
+										<div class="col-md-2 pr-0"
+											*ngIf="appliedFilters[0].type == 'D' && (appliedFilters[0].condition == 'before' || appliedFilters[0].condition == 'after' || appliedFilters[0].condition == 'sameorbefore' || appliedFilters[0].condition == 'sameorafter')">
+											<input type="text" name="filter_1_date" 
+													id="filter_1_date"
+													class="form-control form-control-sm"
+													placeholder=""
+													autocomplete="off"
+													bsDatepicker
+													(onHidden)="pullRecordCountForFilterWithDate($event, 0)" 
+												 	[(ngModel)]="appliedFilters[0].date" 
+													[bsConfig]="bsDateConfig"
+													placement="left">
+										</div>
+
+										<!-- IF FILTER TYPE IS DATE AND CONDITION IS RANGE-->
+										<div class="col-md-2 pr-0"
+											*ngIf="appliedFilters[0].type == 'D' && appliedFilters[0].condition == 'range'">
+											<input type="text" name="filter_1_date" 
+													id="filter_1_date"
+													class="form-control form-control-sm"
+													placeholder=""
+													autocomplete="off"
+													bsDaterangepicker
+													(onHidden)="pullRecordCountForFilterWithDateRange($event, 0)" 
+													[(ngModel)]="appliedFilters[0].dateRangeValue" 
+													[bsConfig]="bsDateConfig"
+													placement="left">
+										</div>
+
+										<!-- IF FILTER TYPE IS USER -->
+										<div class="col-md-2 pr-0"
+											*ngIf="appliedFilters[0].type == 'U' && appliedFilters[0].condition != 'empty' && appliedFilters[0].condition != 'notempty' && appliedFilters[0].condition != 'me'">
+											<select name="filter_1_select" id="filter_1_select"
+													class="form-control form-control-sm"
+													(change)="pullRecordCountForFilter(0)"
+													[(ngModel)]="appliedFilters[0].value">
+												<option value="">--Select User--</option>
+												<option *ngFor="let item of allUsers" [value]="item.uteId">
+													{{item.uteId}}
+												</option>
+											</select>
+										</div>
+
+										<!-- IF FILTER TYPE IS LIST -->
+										<div class="col-md-2 pr-0"
+											*ngIf="appliedFilters[0].type == 'L' && appliedFilters[0].condition != 'empty' && appliedFilters[0].condition != 'notempty'">
+											<select name="filter_1_list" id="filter_1_list"
+													class="form-control form-control-sm"
+													(change)="pullRecordCountForFilter(0)"
+													[(ngModel)]="appliedFilters[0].value">
+												<option value="">--Select--</option>
+												<option *ngFor="let item of filter1DropdownListValue" [value]="item.key">
+													{{item.value}}
+												</option>
+											</select>
+										</div>
+
+										<div class="col-md-1 px-0 text-right" 
+												[class.offset-md-2]="(appliedFilters[0].type == 'U' && (appliedFilters[0].condition == 'empty' || appliedFilters[0].condition == 'notempty' || appliedFilters[0].condition == 'me')) || (appliedFilters[0].type == 'D' && (appliedFilters[0].condition == 'empty' || appliedFilters[0].condition == 'notempty'))  ||   ((appliedFilters[0].type == 'S' || appliedFilters[0].type == 'N') && (appliedFilters[0].condition == 'empty' || appliedFilters[0].condition == 'notempty'))"
+												>
+											<span class="row-count" *ngIf="appliedFilters[0].rowCount >= 0">
+												{{appliedFilters[0].rowCount}}
+											</span>
+										</div>
+									</div>
+									<!-- Filter 1 end -->
+
+									<!-- Filter 2 begin -->
+									<div class="row mt-1" *ngIf="appliedFilters[0].rowCount > -1 || (inEditMode)" >
+										<label class="col-md-3">
+											{{ 'filter.usrmsg_info.L7502_filter' | translate:[translate] | async}} 2
+										</label>
+										<!-- FILER FIELD SELECT DROPDOWN -->
+										<div class="col-md-3 pr-0" style="margin-left: -60px;">
+											<select name="filter_2_field" id="filter_2_field"
+													class="form-control form-control-sm" 
+													(change)="onFilterFieldChange(1)"
+													[(ngModel)]="appliedFilters[1].field">
+												<option value="">
+													{{ 'filter.usrmsg_info.L7505_fieldList' | translate:[translate] | async}}
+												</option>
+												<option *ngFor="let item of filterFields; index as i"
+													[value]="item.tntfilFiltropagcampoCodice"
+													[hidden]="item.tntfilFiltropagcampoCodice == appliedFilters[0].field || item.tntfilFiltropagcampoCodice == appliedFilters[2].field">
+													{{ item.tntfilFiltropagcampoPagina}}
+												</option>
+											</select>
+										</div>
+										<!-- CONDITION SELECT DROPDOWN -->
+										<div class="col-md-3 pr-0">
+											<select name="filter_2_condition" 
+													id="filter_2_condition"
+													class="form-control form-control-sm"
+													(change)="onFilterConditionChange(1)"
+													[(ngModel)]="appliedFilters[1].condition">
+												<option *ngFor="let item of filter2ConditionsList" [value]="item.key">
+													{{ item.value }}
+												</option>
+											</select>
+										</div>
+										<!-- IF FILTER TYPE IS STRING OR NUMBER -->
+										<div class="col-md-2 pr-0"
+											*ngIf="(appliedFilters[1].type == 'S' || appliedFilters[1].type == 'N') && appliedFilters[1].condition != 'empty' && appliedFilters[1].condition != 'notempty'">
+											<input type="text" name="filter_2_value" 
+													id="filter_2_value"
+													class="form-control form-control-sm" 
+													placeholder=""
+													(focusout)="pullRecordCountForFilter(1)"
+													[(ngModel)]="appliedFilters[1].value">
+										</div>
+
+										<!-- IF FILTER TYPE IS DATE -->
+										<div class="col-md-2 pr-0"
+											*ngIf="appliedFilters[1].type == 'D' && (appliedFilters[1].condition == 'before' || appliedFilters[1].condition == 'after' || appliedFilters[1].condition == 'sameorbefore' || appliedFilters[1].condition == 'sameorafter')">
+											<input type="text" name="filter_2_date" 
+													id="filter_2_date"
+													class="form-control form-control-sm"
+													placeholder=""
+													autocomplete="off"
+													bsDatepicker
+													(onHidden)="pullRecordCountForFilterWithDate($event, 1)" 
+												 	[(ngModel)]="appliedFilters[1].date" 
+													[bsConfig]="bsDateConfig"
+													placement="left">
+										</div>
+
+										<!-- IF FILTER TYPE IS DATE AND CONDITION IS RANGE-->
+										<div class="col-md-2 pr-0"
+											*ngIf="appliedFilters[1].type == 'D' && appliedFilters[1].condition == 'range'">
+											<input type="text" name="filter_2_date" 
+													id="filter_2_date"
+													class="form-control form-control-sm"
+													placeholder=""
+													autocomplete="off"
+													bsDaterangepicker
+													(onHidden)="pullRecordCountForFilterWithDateRange($event, 1)" 
+													[(ngModel)]="appliedFilters[1].dateRangeValue" 
+													[bsConfig]="bsDateConfig"
+													placement="left">
+										</div>
+
+										<!-- IF FILTER TYPE IS USER -->
+										<div class="col-md-2 pr-0"
+											*ngIf="appliedFilters[1].type == 'U' && appliedFilters[1].condition != 'empty' && appliedFilters[1].condition != 'notempty' && appliedFilters[1].condition != 'me'">
+											<select name="filter_2_select" id="filter_2_select"
+													class="form-control form-control-sm"
+													(change)="pullRecordCountForFilter(1)"
+													[(ngModel)]="appliedFilters[1].value">
+												<option value="">--Select User--</option>
+												<option *ngFor="let item of allUsers" [value]="item.uteId">
+													{{item.uteId}}
+												</option>
+											</select>
+										</div>
+
+										<!-- IF FILTER TYPE IS LIST -->
+										<div class="col-md-2 pr-0"
+											*ngIf="appliedFilters[1].type == 'L' && appliedFilters[1].condition != 'empty' && appliedFilters[1].condition != 'notempty'">
+											<select name="filter_2_list" id="filter_2_list"
+													class="form-control form-control-sm"
+													(change)="pullRecordCountForFilter(1)"
+													[(ngModel)]="appliedFilters[1].value">
+												<option value="">--Select--</option>
+												<option *ngFor="let item of filter2DropdownListValue" [value]="item.key">
+													{{item.value}}
+												</option>
+											</select>
+										</div>
+
+										<div class="col-md-1 px-0 text-right" 
+												[class.offset-md-2]="(appliedFilters[1].type == 'U' && (appliedFilters[1].condition == 'empty' || appliedFilters[1].condition == 'notempty' || appliedFilters[1].condition == 'me')) || (appliedFilters[1].type == 'D' && (appliedFilters[1].condition == 'empty' || appliedFilters[1].condition == 'notempty'))  ||   ((appliedFilters[1].type == 'S' || appliedFilters[1].type == 'N') && (appliedFilters[1].condition == 'empty' || appliedFilters[1].condition == 'notempty'))"
+												>
+											<span class="row-count" *ngIf="appliedFilters[1].rowCount >= 0">
+												{{appliedFilters[1].rowCount}}
+											</span>
+										</div>
+									</div>
+									<!-- Filter 2 end -->
+
+									<!-- Filter 3 begin -->
+									<div class="row mt-1" *ngIf="(appliedFilters[0].rowCount > -1 && appliedFilters[1].rowCount > -1) || (inEditMode && appliedFilters[1].field )" >
+										<label class="col-md-3">
+											{{ 'filter.usrmsg_info.L7502_filter' | translate:[translate] | async}} 3
+										</label>
+										<!-- FILER FIELD SELECT DROPDOWN -->
+										<div class="col-md-3 pr-0" style="margin-left: -60px;">
+											<select name="filter_3_field" id="filter_3_field"
+													class="form-control form-control-sm" 
+													(change)="onFilterFieldChange(2)"
+													[(ngModel)]="appliedFilters[2].field">
+												<option value="">
+													{{ 'filter.usrmsg_info.L7505_fieldList' | translate:[translate] | async}}
+												</option>
+												<option *ngFor="let item of filterFields"
+													[value]="item.tntfilFiltropagcampoCodice"
+													[hidden]="item.tntfilFiltropagcampoCodice == appliedFilters[0].field || item.tntfilFiltropagcampoCodice == appliedFilters[1].field">
+													{{ item.tntfilFiltropagcampoPagina}}
+												</option>
+											</select>
+										</div>
+										<!-- CONDITION SELECT DROPDOWN -->
+										<div class="col-md-3 pr-0">
+											<select name="filter_3_condition" 
+													id="filter_3_condition"
+													class="form-control form-control-sm"
+													(change)="onFilterConditionChange(2)"
+													[(ngModel)]="appliedFilters[2].condition">
+												<option *ngFor="let item of filter3ConditionsList" [value]="item.key">
+													{{ item.value }}
+												</option>
+											</select>
+										</div>
+										<!-- IF FILTER TYPE IS STRING OR NUMBER -->
+										<div class="col-md-2 pr-0"
+											*ngIf="(appliedFilters[2].type == 'S' || appliedFilters[2].type == 'N') && appliedFilters[2].condition != 'empty' && appliedFilters[2].condition != 'notempty'">
+											<input type="text" name="filter_3_value" 
+													id="filter_3_value"
+													class="form-control form-control-sm" 
+													placeholder=""
+													(focusout)="pullRecordCountForFilter(2)"
+													[(ngModel)]="appliedFilters[2].value">
+										</div>
+
+										<!-- IF FILTER TYPE IS DATE -->
+										<div class="col-md-2 pr-0"
+											*ngIf="appliedFilters[2].type == 'D' && (appliedFilters[2].condition == 'before' || appliedFilters[2].condition == 'after' || appliedFilters[2].condition == 'sameorbefore' || appliedFilters[2].condition == 'sameorafter')">
+											<input type="text" name="filter_3_date" 
+													id="filter_3_date"
+													class="form-control form-control-sm"
+													placeholder=""
+													autocomplete="off"
+													bsDatepicker
+													(onHidden)="pullRecordCountForFilterWithDate($event, 2)" 
+												 	[(ngModel)]="appliedFilters[2].date" 
+													[bsConfig]="bsDateConfig"
+													placement="left">
+										</div>
+
+										<!-- IF FILTER TYPE IS DATE AND CONDITION IS RANGE-->
+										<div class="col-md-2 pr-0"
+											*ngIf="appliedFilters[2].type == 'D' && appliedFilters[2].condition == 'range'">
+											<input type="text" name="filter_3_date" 
+													id="filter_3_date"
+													class="form-control form-control-sm"
+													placeholder=""
+													autocomplete="off"
+													bsDaterangepicker
+													(onHidden)="pullRecordCountForFilterWithDateRange($event, 2)" 
+													[(ngModel)]="appliedFilters[2].dateRangeValue" 
+													[bsConfig]="bsDateConfig"
+													placement="left">
+										</div>
+
+										<!-- IF FILTER TYPE IS USER -->
+										<div class="col-md-2 pr-0"
+											*ngIf="appliedFilters[2].type == 'U' && appliedFilters[2].condition != 'empty' && appliedFilters[2].condition != 'notempty' && appliedFilters[2].condition != 'me'">
+											<select name="filter_3_select" id="filter_3_select"
+													class="form-control form-control-sm"
+													(change)="pullRecordCountForFilter(2)"
+													[(ngModel)]="appliedFilters[2].value">
+												<option value="">--Select User--</option>
+												<option *ngFor="let item of allUsers" [value]="item.uteId">
+													{{item.uteId}}
+												</option>
+											</select>
+										</div>
+
+										<!-- IF FILTER TYPE IS LIST -->
+										<div class="col-md-2 pr-0"
+											*ngIf="appliedFilters[2].type == 'L' && appliedFilters[2].condition != 'empty' && appliedFilters[2].condition != 'notempty'">
+											<select name="filter_3_list" id="filter_3_list"
+													class="form-control form-control-sm"
+													(change)="pullRecordCountForFilter(2)"
+													[(ngModel)]="appliedFilters[2].value">
+												<option value="">--Select--</option>
+												<option *ngFor="let item of filter3DropdownListValue" [value]="item.key">
+													{{item.value}}
+												</option>
+											</select>
+										</div>
+
+										<div class="col-md-1 px-0 text-right" 
+												[class.offset-md-2]="(appliedFilters[2].type == 'U' && (appliedFilters[2].condition == 'empty' || appliedFilters[2].condition == 'notempty' || appliedFilters[2].condition == 'me')) || (appliedFilters[2].type == 'D' && (appliedFilters[2].condition == 'empty' || appliedFilters[2].condition == 'notempty'))  ||   ((appliedFilters[2].type == 'S' || appliedFilters[2].type == 'N') && (appliedFilters[2].condition == 'empty' || appliedFilters[2].condition == 'notempty'))"
+												>
+											<span class="row-count" *ngIf="appliedFilters[2].rowCount >= 0">
+												{{appliedFilters[2].rowCount}}
+											</span>
+										</div>
+									</div>
+									<!-- Filter 3 end -->
+
+									<!-- Sorting 1 begin -->
+									<div class="row mt-3">
+										<label class="col-md-3">
+											{{ 'filter.usrmsg_info.L7506_sort1Label' | translate:[translate] | async}}
+										</label>
+										<div class="col-md-3 pr-0" style="margin-left: -60px;">
+											<select id="sort_1" name="sort_1" 
+													class="form-control form-control-sm"
+													[class.cus-error]="isFormSubmitted"
+													[required]="!appliedFilters[0].field" 
+													(change)="onSortingChanged(0)"
+													[(ngModel)]="appliedSorting[0].key">
+												<option value="">
+													{{ 'filter.usrmsg_info.L7505_fieldList' | translate:[translate] | async}}
+												</option>
+												<option *ngFor="let item of sortingFields"
+													[value]="item.tntfilFiltropagcampoCodice"
+													[hidden]="item.tntfilFiltropagcampoCodice == appliedSorting[1].key">
+													{{ item.tntfilFiltropagcampoPagina}}</option>
+											</select>
+										</div>
+										<div class="col-md-3 pr-0">
+											<select name="sorting_1" id="sorting_1" 
+													class="form-control form-control-sm"
+													[(ngModel)]="appliedSorting[0].value">
+												<option value="S">
+													{{ appliedSorting[0].description == "S" ? "A-Z" : "ASC" }}</option>
+												<option value="N">
+													{{ appliedSorting[0].description == "S" ? "Z-A" : "DESC" }}</option>
+											</select>
+										</div>
+									</div>
+									<!-- Sorting 1 end -->
+
+									<!-- Sorting 2 begin -->
+									<div class="row mt-1">
+										<label class="col-md-3" *ngIf="appliedSorting[0].key">
+											{{ 'filter.usrmsg_info.L7507_sort2Label' | translate:[translate] | async}}
+										</label>
+										<div class="col-md-3 pr-0" style="font-size: 13px; margin-left: -60px;" *ngIf="appliedSorting[0].key">
+											<select id="sort_2" name="sort_2" 
+													class="form-control form-control-sm"
+													(change)="onSortingChanged(1)" 
+													[(ngModel)]="appliedSorting[1].key">
+												<option value="">
+													{{ 'filter.usrmsg_info.L7505_fieldList' | translate:[translate] | async}}
+												</option>
+												<option *ngFor="let item of sortingFields"
+													[value]="item.tntfilFiltropagcampoCodice"
+													[hidden]="item.tntfilFiltropagcampoCodice == appliedSorting[0].key">
+													{{ item.tntfilFiltropagcampoPagina}}
+												</option>
+											</select>
+										</div>
+										<div class="col-md-3 pr-0" *ngIf="appliedSorting[0].key">
+											<select name="sorting_2" id="sorting_2" class="form-control form-control-sm"
+												[(ngModel)]="appliedSorting[1].value">
+												<option value="S">
+													{{ appliedSorting[1].description == "S" ? "A-Z" : "ASC" }}</option>
+												<option value="N">
+													{{ appliedSorting[1].description == "S" ? "Z-A" : "DESC" }}</option>
+											</select>
+										</div>
+										<div class="col-md-3" >
+											<button type="button" class="btn btn-sm btn-success"
+												(click)="onTestFilter()">
+												{{ 'filter.usrmsg_info.L7522_testFilter' | translate:[translate] | async}}
+											</button>
+										</div>
+									</div>
+									<!-- Sorting 2 end -->
+
+								</div>
+							</div>
+							<!-- Filter and sorting section end -->
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-check">
+										<input type="checkbox" id="exampleCheck1" class="form-check-input"
+											[checked]="isPageFiltersCleared"
+											[disabled]="!isSameAuthor"
+											(change)="isPageFiltersCleared = !isPageFiltersCleared">
+										<label class="form-check-label" for="exampleCheck1">
+											{{ 'filter.usrmsg_info.L7521_clearFormFilterConfirmation' | translate:[translate] | async}}
+										</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row" style="display: block;">
+								<div class="col-md-12" style="padding-top: 10px;">
+									<span style="font-size: 15px;">
+										{{ 'filter.usrmsg_info.L7523_filterdetails' | translate:[translate] | async}}
+									</span>
+									<hr style="margin-top: 0px; margin-bottom: 7px;">
+								</div>
+							</div>
+
+							<!-- Filter name and public/private section begin -->
+							<div class="row" style="margin-left: 0px;" [class.cus-disabled]="!isSameAuthor">
+								<div class="col-md-7 px-1">
+									<label class="col-md-3 pl-0">
+										{{ 'filter.usrmsg_info.L7508_name' | translate:[translate] | async}}
+										<span class="required-asteric">*</span>
+									</label>
+									<input type="text" name="filter_name" 
+										id="filter_name"
+										class="form-control form-control-sm" 
+										[class.cus-error]="isFormSubmitted"
+										placeholder="{{ 'filter.usrmsg_info.L7508_name' | translate:[translate] | async}}"
+										required 
+										maxlength = "150"
+										[(ngModel)]="masterFilterTemplate.tntfilFiltropagNome">
+
+								</div>
+
+								<div class="col-md-5" style="padding-top: 35px; padding-left: 0px;">
+									<label class="radio-inline pr-0 mr-0" *ngIf="hasPublicSavePermission">
+										<input type="radio" name="optradio" value="S"
+											[(ngModel)]="masterFilterTemplate.tntfilFiltropagPubblico">
+										<span>
+											{{ 'filter.usrmsg_info.L7525_public' | translate:[translate] | async}}
+										</span>
+									</label>
+									<label class="radio-inline pl-0 ml-0">
+										<input type="radio" name="optradio" value="N"
+											[(ngModel)]="masterFilterTemplate.tntfilFiltropagPubblico">
+										<span>
+											{{ 'filter.usrmsg_info.L7526_private' | translate:[translate] | async}}
+										</span>
+									</label>
+								</div>
+							</div>
+							<!-- Filter name and public/private section end -->
+
+							<!-- Last section begin -->
+							<div class="card">
+								<div class="card-body">
+									<div class="row pb-2" style="margin-left: 0px;margin-top: -10px;">
+										<div class="col-md-7 px-1" >
+											<label class="col-md-3 pl-0">
+												{{ 'filter.usrmsg_info.L7509_description' | translate:[translate] | async}}
+											</label>
+											<textarea id="exampleFormControlTextarea1" name="filterDescription"
+												class="form-control"
+												placeholder="{{ 'filter.usrmsg_info.L7509_description' | translate:[translate] | async}}"
+												rows="4" 
+												maxlength="2000"
+												[disabled]="!isSameAuthor"
+												[(ngModel)]="masterFilterTemplate.tntfilFiltropagDescrizione">
+                      						</textarea>
+											<div class="form-group form-check">
+												<label class="form-check-label">
+													<input class="form-check-input" type="checkbox" 
+														name="setAsDefault"
+														[checked]="setAsDefault"
+														(change)="setAsDefault = !setAsDefault">
+													{{ 'filter.usrmsg_info.L7514_setAsDefault' | translate:[translate] | async}}
+												</label>
+											</div>
+										</div>
+
+										<div class="col-md-5 px-3">
+											<div class="card" style="padding:10px">
+												<div class="card-body">
+													<div class="row" style="margin-top: -30px;" >
+														<label class="filter-label">
+															{{ 'filter.usrmsg_info.L7510_nameInList' | translate:[translate] | async}}
+															<span class="required-asteric">*</span>
+														</label>
+														<input type="text" name="filter_descr" id="filter_descr"
+															class="form-control form-control-sm"
+															[class.cus-error]="isFormSubmitted"
+															placeholder="{{ 'filter.usrmsg_info.L7510_nameInList' | translate:[translate] | async}}"
+															required
+															maxlength="50"
+															[disabled]="!isSameAuthor"
+															[(ngModel)]="masterFilterTemplate.tntfilFiltropagNomeCorto">
+													</div>
+													<div class="row">
+														<span style="font-size: 13px;">
+															{{ 'filter.usrmsg_info.L7513_buttonLabel' | translate:[translate] | async}}
+														</span>
+														<input type="text"  
+															name="button_label"
+															id="button_label" class="form-control form-control-sm"
+															placeholder="{{ 'filter.usrmsg_info.L7513_buttonLabel' | translate:[translate] | async}}"
+															maxlength="30"
+															[disabled]="!isButtonCreatable"
+															[(ngModel)]="masterFilterTemplate.tntfilFiltropagUteButtonLabel">
+														<span class="error" *ngIf="!isButtonCreatable">
+															{{ 'filter.usrmsg_warn.L4504_maxButtonMsg' | translate:[translate] | async}}
+														</span>
+													</div>
+													<div class="row row pull-right px-3 mt-1">
+														<div class="row pull-right button-group">
+															<button
+																*ngFor="let item of allPageFiltersForButtonInEditModal; let i = index"
+																class="btn btn-sm mr-1 btn-binded-select"
+																[class.btn-binded-select-occupied]="item.tntfilFiltropagUteFiltroPagId > 0 && item.tntfilFiltropagUteButtonId != masterFilterTemplate.tntfilFiltropagUteButtonId"
+																[class.btn-binded-select-empty]="item.tntfilFiltropagUteFiltroPagId <= 0"
+																[class.btn-binded-select-active]="item.tntfilFiltropagUteButtonId == masterFilterTemplate.tntfilFiltropagUteButtonId"
+																(click)="onBindButtonClick(i)">
+																B{{i+1}}
+															</button>
+															<button class="btn btn-sm btn-success"
+																(click)="resetBindButton()">
+																{{ 'common.usrmsg_info.L7021_reset' | translate:[translate] | async}}
+															</button>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Last section begin -->
+
+
+						</div>
+					</div>
+					<!-- Modal body end -->
+
+					<div class="modal-footer"
+						style="padding: .0rem;box-shadow: none; background-color: transparent;font-size: 12px;">
+						<div class="row" style="width:100%;margin: 0px;">
+							<div class="col-md-12">
+								<span>
+									<strong>
+										{{ 'filter.usrmsg_info.L7515_author' | translate:[translate] | async}} :
+									</strong>
+									{{masterFilterTemplate.tntfilFiltropagInsUteId}}
+								</span>
+								<span class="ml-2" *ngIf="masterFilterTemplate.tntfilFiltropagId > 0">
+									<strong>
+										{{ 'filter.usrmsg_info.L7516_created' | translate:[translate] | async}} :
+									</strong>
+									{{masterFilterTemplate.tntfilFiltropagInsTimestamp | date: 'dd/MM/yyyy'}}
+								</span>
+								<span class="ml-2" *ngIf="masterFilterTemplate.tntfilFiltropagId > 0">
+									<strong>
+										{{ 'filter.usrmsg_info.L7517_lastUpdated' | translate:[translate] | async}} :
+									</strong>
+									{{masterFilterTemplate.tntfilFiltropagModTimestamp | date: 'dd/MM/yyyy'}}
+								</span>
+								<span class="ml-2" *ngIf="masterFilterTemplate.tntfilFiltropagId > 0">
+									<strong>Id : </strong> {{masterFilterTemplate.tntfilFiltropagId}}
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+
+						<div class="row" style="width:100%;margin: 0px;">
+							<div class="col-md-2 pull-left pl-1">
+								<button type="button" class="btn btn-danger btn-sm" style="background-color: #C00000;"
+									*ngIf="masterFilterTemplate.tntfilFiltropagId > 0 && isSameAuthor" (click)="onDeleteClicked()">
+									<i class="fa fa-trash-o"> </i>
+									{{ 'common.usrmsg_info.L7003_delete' | translate:[translate] | async}}
+								</button>
+							</div>
+							<div class="col-md-10 pull-right">
+								<div class="btn-group pull-right pr-1">
+									<button type="submit" class="btn btn btn-outline-secondary btn-sm"
+										style="margin-right: 8px;" *ngIf="masterFilterTemplate.tntfilFiltropagId > 0"
+										(click)="onFilterManagementFormSubmit('duplicate')">
+										<i class="fa fa-copy"></i>
+										{{ 'common.usrmsg_info.L7008_duplicate' | translate:[translate] | async}}
+									</button>
+									<button type="submit" class="btn btn btn-outline-secondary btn-sm"
+										style="margin-right: 8px;"
+										(click)="onFilterManagementFormSubmit('saveAndExit')">
+										<i class="fa fa-save"></i>
+										{{ 'common.usrmsg_info.L7009_saveAndExit' | translate:[translate] | async}}
+									</button>
+									<button type="submit" class="btn btn-success btn-sm"
+										(click)="onFilterManagementFormSubmit('saveAndApply')">
+										<i class="fa fa-life-ring"></i>
+										{{ 'common.usrmsg_info.L7010_saveAndApply' | translate:[translate] | async}}
+									</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<app-confirmation-dialog 
+	[showErrorDialog]="showCloseErrorDialog" 
+	[errorMessage]="errorMessage"
+	(confirmationSelectEvent)="onErrorDialogConfirm($event)">
+</app-confirmation-dialog>
+
+<app-confirmation-dialog
+	[showDialog] = "showButtonResetConfirmation"
+	[confirmationMessage] = "buttonResetMessage"
+	(confirmationSelectEvent) = "onButtonResetConfirm($event)">
+</app-confirmation-dialog>
+
+<app-confirmation-dialog
+	[showDialog] = "showDeleteFilterConfirmation"
+	[confirmationMessage] = "buttonDeleteFiltertMessage"
+	(confirmationSelectEvent) = "onDeleteFilterConfirm($event)">
+</app-confirmation-dialog>

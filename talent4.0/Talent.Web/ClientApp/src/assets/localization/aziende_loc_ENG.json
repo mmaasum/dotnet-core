@@ -1,0 +1,24 @@
+{
+    "aziende" : {
+        "usrmsg_err" : {
+			"L1401_accessDenied" : "Cannot access {{par_01}} page, your user is not authorized"
+		},
+		"usrmsg_warn" : {
+			"L4401_provideCity" : "Provide city",
+			"L4402_provideluogoLavoro" : "Provide customer workplace!",
+			"L4403_existSiglaMSg" : "Company initials already exists!"
+		},
+		"usrmsg_info" : {
+			"L7401_companyName" : "Name",
+			"L7402_description" : "Description",
+			"L7403_city" : "City",
+			"L7404_compantType" : "Company type",
+			"L7405_defaultEmail" : "Default email address",
+			"L7406_defaultPhone" : "Default phone number",
+			"L7407_zipCode" : "ZIP code"
+		},
+		"sysmsg_err" : {
+			"L11401_errmsg" : "This is a common system error message"
+		}
+    }
+}

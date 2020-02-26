@@ -1,0 +1,84 @@
+{
+    "filter" : {
+        "usrmsg_err" : {
+            "L1501_noFilterMsg" : "Nessun filtro selezionato",            
+            "L1502_noEditPermissionMsg" : "Il filtro è pubblico e non sei autorizzato a modificarlo",          
+            "L1503_noDeletePermissionMsg" : "Il filtro è pubblico e non sei autorizzato ad eliminarlo",
+            "L1504_filterAssignedWithButton" : "Il filtro non può essere eliminato.<br />Il filtro è predefinito o assegnato con un pulsante." ,
+			"L1505_emptyValueFilter" : "Fornisci un valore per il filtro {{filterNo}}",       
+			"L1506_largeStringFilter" : "Il valore deve essere compreso tra {{maxCharacter}} caratteri per il filtro {{filterNo}}",       
+			"L1507_emptyDateFilter" : "Seleziona una data per il filtro {{filterNo}}",       
+			"L1508_emptyDateRangeFilter" : "Seleziona l'intervallo di date per il filtro {{filterNo}}",       
+			"L1509_noNumberFilter" : "Il valore deve essere un numero per il filtro {{filterNo}}",       
+			"L1510_noUserFilter" : "Seleziona un utente per il filtro {{filterNo}}"          
+        },
+        "usrmsg_warn" : {
+            "L4501_deleteConfirmation" : "Confermi l'eliminazione del filtro?",
+            "L4502_noFiltersToReorder" : "Al momento non hai filtri privati da riordinare",
+            "L4503_buttonRemoveWarning" : "Confermi la rimozione dell'associazione filtro/bottone?",
+            "L4504_maxButtonMsg" : "Hai già assegnato tutti i 4 bottoni per questa pagina",
+            "L4505_noFilterSorting" : "Seleziona almeno un filtro o un criterio di ordinamento",
+            "L4506_removeButtonLabel" : "Seleziona un pulsante per assegnare o rimuovere l'etichetta",
+			"L4507_noAuthorWarn" : "Non sei l'autore di questo filtro"
+        },
+        "usrmsg_info" : {
+            "L7501_menuTitle" : "Gestione del filtro",
+            "L7502_filter" : "Filtra per",
+            "L7503_sorting" : "Ordinamento",
+            "L7504_filterAndSorting" : "Filtro e ordinamento",
+            "L7505_fieldList" : "Elenco dei campi",
+            "L7506_sort1Label" : "Ordina i dati per",
+            "L7507_sort2Label" : "E poi per",
+            "L7508_name" : "Nome filtro",
+            "L7509_description" : "Descrizione",
+            "L7510_nameInList" : "Nome per l'elenco",
+            "L7511_buttonDropdownLabel" : "Bottone di selezione rapida",
+            "L7512_buttonDropdown" : "Elenco dei bottoni",
+            "L7513_buttonLabel" : "Etichetta bottone",
+            "L7514_setAsDefault" : "Imposta come predefinito",
+            "L7515_author" : "Author",
+            "L7516_created" : "Creazione",
+            "L7517_lastUpdated" : "Ultimo aggiornamento",
+            "L7518_userFilterDropdown" : "Filtri utente",
+            "L7519_newFilter" : "Nuovo filtro",
+            "L7520_filterUpdate" : "Aggiornamento del filtro {{name}} ",
+            "L7521_clearFormFilterConfirmation" : "Rimuovi tutti gli altri filtri attivi prima di applicare",
+            "L7522_testFilter" : "Prova il filtro",
+            "L7523_filterdetails" : "Dettagli del filtro",
+			"L7524_buttonNotAssigned" : "Non assegnato",
+			"L7525_public" : "Pubblico",
+			"L7526_private" : "Privato",
+
+			
+			"L7527_empty" : "Vuoto",
+			"L7528_notempty" : "Non vuoto",
+			"L7529_equal" : "Uguale a",
+			"L7530_notequal" : "Diverso da",
+			"L7531_me" : "Mio utente",
+			"L7532_contains" : "Contiene",
+			"L7533_notcontains" : "Non contiene",
+			"L7534_begins" : "Inizia con",
+			"L7535_notbegins" : "Non inizia con",
+			"L7536_finish" : "Termina con",
+			"L7537_notfinishes" : "Non termina con",
+			"L7538_before" : "Prima",
+			"L7539_after" : "Dopo",
+			"L7540_sameorbefore" : "Fino al giorno",
+			"L7541_sameorafter" : "A partire dal giorno",
+			"L7542_range" : "Intervallo",
+			"L7543_lower" : "Minore",
+			"L7544_greater" : "Maggiore",
+			"L7545_lowerorequal" : "Minore o uguale",
+			"L7546_greaterorequal" : "Maggiore o uguale"
+        },
+        "sysmsg_err" : {
+            "L11501_errormsg" : "L11501_errormsg.ITA"
+        },
+        "sysmsg_warn" : {
+            "L14501_warningmsg" : "L14501_warningmsg.ITA"
+        },
+        "sysmsg_info" : {
+            "L17501_infomsg" : "L17501_infomsg.ITA"
+        }
+    }    
+}

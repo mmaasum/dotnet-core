@@ -1,0 +1,25 @@
+{
+    "candidateStatus": {
+        "INVIATO_CV":[
+            {    
+                "status": "candidato.ritirato.da.selezione",    
+                "statusValue": "100"    
+            },    
+            {    
+                "status": "scartato.da.cliente.precoll",    
+                "statusValue": "6"  
+            }
+        ],
+
+        "in.selez":[
+            {    
+                "status": "scartato",    
+                "statusValue": "1"    
+            },    
+            {    
+                "status": "pacchetto.in.selez",    
+                "statusValue": "3"  
+            }
+        ]
+    }
+}

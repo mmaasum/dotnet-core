@@ -1,0 +1,55 @@
+{
+    "termini" : {
+        "usrmsg_err" : {
+			"L01151_errmsg" : "Error message"
+		},
+		"usrmsg_warn" : {
+			"L04151_keywordExist" : "L04151_keywordExist.ESP '{{term}}' ",
+			"L04152_sameSynonym" : "L04152_sameSynonym.ESP {{syn1}} {{syn2}}",
+			"L04153_provideKeyword" : "L04153_provideKeyword.ESP",
+			"L04154_noKeywordFound" : "L04154_noKeywordFound.ESP"
+		},
+		"usrmsg_info" : {
+			"L07151_newKeyword" : "L07151_newKeyword.ESP",
+			"L07152_state" : "L07152_state.ESP",
+			"L07153_language" : "L07153_language.ESP",
+			"L07154_category" : "L07154_category.ESP",
+			"L07155_keywordsToReview" : "L07155_keywordsToReview.ESP",
+			"L07156_lastChecked" : "L07156_lastChecked.ESP",
+			"L07157_startAnalysis" : "L07157_startAnalysis.ESP",
+			"L07158_allStats" : "L07158_allStats.ESP",
+			"L07159_searchInAll" : "L07159_searchInAll.ESP",
+			"L07160_keyword": "L07160_keyword.ESP",
+			"L07161_description": "L07161_description.ESP",
+			"L07162_openSite": "L07162_openSite.ESP",
+			"L07163_otherInfo": "L07163_otherInfo.ESP",
+			"L07164_linkToDef": "L07164_linkToDef.ESP",
+			"L07165_setSite": "L07165_setSite.ESP",
+			"L07166_note": "L07166_note.ESP",
+			"L07167_synonym": "L07167_synonym.ESP",
+			"L07168_openUsefulSite": "L07168_openUsefulSite.ESP",
+			"L07169_insUser": "L07169_insUser.ESP",
+			"L07170_date": "L07170_date.ESP",
+			"L07171_openSiteOnNext": "L07171_openSiteOnNext.ESP",
+			"L07172_saveAndExit": "L07172_saveAndExit.ESP",
+			"L07173_duplicate": "L07173_duplicate.ESP",
+			"L07174_exit": "L07174_exit.ESP",
+			"L07175_setRejectGo": "L07175_setRejectGo.ESP",
+			"L07176_setReviewGo": "L07176_setReviewGo.ESP",
+			"L07177_alreadyExist": "L07177_alreadyExist.ESP",
+			"L07178_matchedSynonym": "L07178_matchedSynonym.ESP",
+			"L07179_existTitle": "L07179_existTitle.ESP",
+			"L07180_totalOccurance": "L07180_totalOccurance.ESP",
+			"L07181_oneOccurance": "L07181_oneOccurance.ESP",
+			"L07182_noOfWords": "L07182_noOfWords.ESP",
+			"L07183_totalWords": "L07183_totalWords.ESP",
+			"L07184_last6Analysis": "L07184_last6Analysis.ESP",
+			"L07185_allStatModalTitle": "L07185_allStatModalTitle.ESP",
+			"L07186_allStatModalHeader": "L07186_allStatModalHeader.ESP",
+			"L07187_addEditModalHeader": "L07187_addEditModalHeader.ESP"
+		},
+		"sysmsg_err" : {
+			"L11151_errmsg" : "Sys msg"
+		}
+    }
+}

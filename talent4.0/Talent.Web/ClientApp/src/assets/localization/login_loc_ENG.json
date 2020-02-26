@@ -1,0 +1,30 @@
+{
+    "login" : {
+        "usrmsg_err" : {
+            "L1001_userInactive" : "Your account is currently inactive. Please contact the Help Desk to activate",
+            "L1002_userLocked" : "Your credentials have been locked. Please contact the Help Desk to unlock the credentials",
+            "L1003_emptyusername" : "Please provide Username",
+            "L1004_emptypassword" : "Please provide password",
+            "L1006_emptyclientid" : "Missing Customer ID. Access denied",
+            "L1007_invalidclientid" : "Customer ID is invalid. Access denied",
+            "L1008_wrongcredentials" : "Your credentials are not valid",
+            "L1009_loginFailed" : "Login failed"
+        },
+        "usrmsg_warn" : {
+            "L4001_warningmsg" : "This is a warning message"
+        },
+        "usrmsg_info" : {
+            "L7001_needHelp" : "Need help?",
+            "L7002_clickHere" : "Click here",
+            "L7003_enterButton" : "Enter",
+            "L7004_usernameLabel" : "Username",
+            "L7005_passwordLabel" : "Password",
+            "L7006_usernameTooltip" : "Insert the Username",
+            "L7007_passwordTooltip" : "Enter the password. <br /> The password must have from 8 to 10 characters. <br /> The characters allowed are letters, numbers, and the symbols dot (.), Underline (_) and the minus sign (-) <br /> The password must contain at least one letter, one symbol among those admitted, a capital letter and a small letter",
+            "L7523_filterdetails" : "Filter details"
+        },
+        "sysmsg_err" : {
+            "L11001_databaseDisconnected" : "An error occurred while connecting to Database"
+        }
+    }    
+}

@@ -1,0 +1,50 @@
+{
+    "grid" : {
+        "usrmsg_err" : {
+            "L1551_errSaving" : "Error al guardar la configuración de la cuadrícula",
+            "L1552_errResetting" : "Error al restablecer la configuración de la cuadrícula"
+        },
+        "usrmsg_warn" : {
+            "L4551_reachedTop" : "Alcanzado en la parte superior de la lista",
+            "L4552_reachedBottom" : "Alcanzado al final de la lista",
+			"L4553_minGreaterMax" : "El tamaño mínimo es mayor que el tamaño máximo para la columna {{col}}"
+        },
+        "usrmsg_info" : {
+			"L7551_title" : "Configuraciones de cuadrícula",
+            "L7552_font" : "Fuente",
+            "L7553_fontSize" : "Tamaño de fuente",
+            "L7554_showRowNo" : "Mostrar número de fila",
+            "L7555_evenRowColor" : "Color de fila uniforme",
+            "L7556_oddRowColor" : "Color de fila impar",
+            "L7557_fieldsHidden" : "Campos realmente ocultos",
+            "L7558_bsPlaceholder" : "Arrastre aquí",
+            "L7559_fieldsVisible" : "Campos de cuadrícula en este orden",
+            "L7560_add" : "Añadir",
+            "L7561_remove" : "retirar",
+            "L7562_moveUp" : "Ascender",
+            "L7563_moveDown" : "Mover hacia abajo",
+            "L7564_fieldProp" : "Propiedades de campo",
+            "L7565_name" : "Nombre",
+            "L7566_description" : "Descripción",
+            "L7567_orderInGrid" : "Ordenar en cuadrícula",
+            "L7568_align" : "Alinear",
+            "L7569_minSize" : "Tamaño mínimo",
+            "L7570_maxSize" : "tamaño máximo",
+            "L7571_autoSize" : "Tamaño automático en contenido de campo",
+            "L7572_discardFieldChange" : "Descartar cambios de campo",
+            "L7573_discardGridChange" : "Descartar cambios de cuadrícula",
+            "L7574_resetSystem" : "Restablecer valores del sistema",
+            "L7575_saveAndApply" : "Guardar usuario predeterminado y aplicar",
+            "L7576_apply" : "Aplicar configuraciones"
+		},
+        "sysmsg_err" : {
+            "L11551_errormsg" : "L11551_errormsg.ESP"
+        },
+        "sysmsg_warn" : {
+            "L14551_warningmsg" : "L14501_warningmsg.ESP"
+        },
+        "sysmsg_info" : {
+            "L17551_infomsg" : "L17551_infomsg.ESP"
+        }
+    }    
+}

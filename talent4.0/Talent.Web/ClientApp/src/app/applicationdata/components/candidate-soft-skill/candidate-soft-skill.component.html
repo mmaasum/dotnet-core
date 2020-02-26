@@ -1,0 +1,72 @@
+<!-- Job offer modal begin -->
+<div class="modal fade" bsModal #hardSkillModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content modal_talent">
+      <!-- Modal header begin -->
+      <div class="modal-header ricerca-sfondo">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">{{caption}}</h4>
+        <button type="button" class="close pull-right" (click)="onModalClose()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header end -->        
+      <!-- Modal body begin -->
+      <div class="modal-body">
+        <!-- Possessed hard skill table begin -->
+        <div id="hardSkillsList" *ngIf="possessedSoftSkills.length > 0">
+          <table class="table table-responsive table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>{{playFieldLabel}} 1</th>
+                <th>{{playFieldLabel}} 2</th>
+                <th>{{playFieldLabel}} 3</th>
+                <th>{{playFieldLabel}} 4</th>
+                <th>{{profileLabel}}</th>
+                <th>{{playLabel}}</th>
+                <th>{{descriptionLabel}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let skill of possessedSoftSkills">
+                  <td> {{skill.ssktestresPlayField1}} </td>
+                  <td> {{skill.ssktestresPlayField2}} </td>
+                  <td> {{skill.ssktestresPlayField3}} </td>
+                  <td> {{skill.ssktestresPlayField4}} </td>
+                  <td> {{skill.sskprofProfilo}} </td>
+                  <td> {{skill.sskprofIdPlay}} </td>
+                  <td> {{skill.sskprofDescrizione}} </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Possessed hard skill table begin -->
+        <!-- Hard skill selection begin -->
+        <div id="hardSkillsList" *ngIf="possessedSoftSkills.length == 0">
+          <h3>{{notFoundMessage}}</h3>
+          <!-- Yes / No button row -->
+          <div class="row">
+            <div class="col-md-6 text-center">
+              <button type="button" class="btn btn-success" (click)="onYesClicked()">{{yesBtnText}}</button>
+            </div>
+            <div class="col-md-6">
+              <button type="button" class="btn btn-danger" (click)="onModalClose()">{{noBtnText}}</button>
+            </div>
+          </div>          
+        </div>
+        <!-- Hard skill selection end -->
+      </div>
+      <!-- Modal body end -->
+      <!-- Modal footer start -->
+      <div class="modal-footer modal_footer_talent bg-dark">
+        <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="onModalClose()">
+          <i class="fa fa-times"></i> {{closeBtnText}}
+        </button>
+      </div>
+      <!-- Modal footer end -->        
+    </div>
+    <!-- End modal content -->
+  </div>
+  <!-- End modal dialogue -->
+</div>
+<!-- End modal -->
+  
